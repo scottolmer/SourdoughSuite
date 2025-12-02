@@ -1,0 +1,396 @@
+import { Link } from "wouter";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { 
+  MessageSquare, 
+  ArrowRight, 
+  Scale, 
+  Clock, 
+  Layers, 
+  Droplet, 
+  FlaskConical 
+} from "lucide-react";
+
+export default function Home() {
+  return (
+    <>
+      {/* Hero Section */}
+      <section className="py-16 md:py-24 px-4 md:px-6 bg-white border-b border-gray-100">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            <div className="text-center lg:text-left">
+              <h1 className="tracking-tight text-[#2B2B2B] mb-6 text-4xl md:text-5xl font-serif leading-tight">
+                Your Authority in<br />Specialty Sourdough
+              </h1>
+              <p className="text-[#6E6E6E] mb-8 text-lg max-w-xl mx-auto lg:mx-0 leading-relaxed">
+                Discover a new world of flavor with our unique starter cultures, expert guidance, and powerful baking tools.
+              </p>
+              <div className="flex justify-center lg:justify-start">
+                <Button className="px-6 py-4 bg-[#1F1F1F] hover:bg-[#3A3A3A] text-white rounded-sm flex items-center transition-colors text-sm">
+                  <MessageSquare size={18} className="mr-2" />
+                  Ask the Bread Assistant
+                </Button>
+              </div>
+            </div>
+            <div className="hidden lg:flex bg-[#F5F5F5] aspect-square rounded-sm items-center justify-center overflow-hidden border border-gray-100">
+              <div className="w-full h-full bg-[#F5F5F5] flex items-center justify-center text-[#6E6E6E] relative">
+                <div className="absolute inset-0 flex items-center justify-center text-lg font-light tracking-wide">
+                  Artisan sourdough bread image
+                </div>
+                <div className="absolute bottom-0 left-0 p-3 text-xs font-mono tracking-tight text-[#6E6E6E]">
+                  IMG.01
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      {/* Featured Starters */}
+      <section className="py-16 md:py-20 px-4 md:px-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-col md:flex-row justify-between items-baseline mb-10">
+            <h2 className="text-[#2B2B2B] text-3xl md:text-4xl font-serif tracking-tight mb-4 md:mb-0">
+              Specialty Sourdough Starters
+            </h2>
+            <Link href="/shop" className="text-[#6E6E6E] font-medium flex items-center text-sm hover:text-[#D97706] transition-colors">
+              View catalogue <ArrowRight size={14} className="ml-1" />
+            </Link>
+          </div>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+            {/* Koji Starter */}
+            <Link href="/starter/koji-starter">
+              <div className="group cursor-pointer">
+                <Card className="overflow-hidden rounded-sm border-gray-100 card shadow-none hover:shadow-md transition-shadow">
+                  <div className="h-60 bg-[#F5F5F5] flex items-center justify-center relative overflow-hidden">
+                    <img 
+                      src="https://images.unsplash.com/photo-1573333515743-56d57731dd1f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+                      alt="Koji Starter" 
+                      className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                    <div className="absolute bottom-2 left-2 text-xs font-mono tracking-tight text-white bg-black bg-opacity-50 px-1">
+                      KOJI-01
+                    </div>
+                  </div>
+                  <CardContent className="pt-6 px-4">
+                    <div className="flex justify-between items-start mb-3">
+                      <h3 className="text-lg font-serif font-medium text-[#2B2B2B]">Koji Starter</h3>
+                      <span className="bg-[#F5F5F5] text-[#2B2B2B] text-xs px-2 py-1 rounded-none font-mono">BESTSELLER</span>
+                    </div>
+                    <p className="text-sm text-[#6E6E6E] mb-4 leading-relaxed">
+                      Japanese-inspired culture with subtle umami notes and exceptional enzymatic activity.
+                    </p>
+                    <div className="flex justify-between items-center pt-2 border-t border-gray-100">
+                      <span className="metric-display text-[#2B2B2B] font-medium">$18.99</span>
+                      <span className="text-sm text-amber-600 font-medium group-hover:text-amber-700 transition-colors">
+                        View Details →
+                      </span>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            </Link>
+            
+            {/* San Francisco Starter */}
+            <Link href="/starter/san-francisco-starter">
+              <a className="group">
+                <Card className="overflow-hidden rounded-sm border-gray-100 card shadow-none hover:shadow-md transition-shadow">
+                  <div className="h-60 bg-[#F5F5F5] flex items-center justify-center relative overflow-hidden">
+                    <img 
+                      src="https://images.unsplash.com/photo-1586444248902-2f64eddc13df?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+                      alt="San Francisco Starter" 
+                      className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                    <div className="absolute bottom-2 left-2 text-xs font-mono tracking-tight text-white bg-black bg-opacity-50 px-1">
+                      SF-01
+                    </div>
+                  </div>
+                  <CardContent className="pt-6 px-4">
+                    <div className="flex justify-between items-start mb-3">
+                      <h3 className="text-lg font-serif font-medium text-[#2B2B2B]">San Francisco Style Starter</h3>
+                      <span className="bg-[#F5F5F5] text-[#2B2B2B] text-xs px-2 py-1 rounded-none font-mono">CLASSIC</span>
+                    </div>
+                    <p className="text-sm text-[#6E6E6E] mb-4 leading-relaxed">
+                      Traditional tangy flavor profile with the perfect balance of acidity and complexity.
+                    </p>
+                    <div className="flex justify-between items-center pt-2 border-t border-gray-100">
+                      <span className="metric-display text-[#2B2B2B] font-medium">$15.99</span>
+                      <span className="text-sm text-amber-600 font-medium group-hover:text-amber-700 transition-colors">
+                        View Details →
+                      </span>
+                    </div>
+                  </CardContent>
+                </Card>
+              </a>
+            </Link>
+            
+            {/* Kombucha Starter */}
+            <Link href="/starter/kombucha-starter">
+              <a className="group">
+                <Card className="overflow-hidden rounded-sm border-gray-100 card shadow-none hover:shadow-md transition-shadow">
+                  <div className="h-60 bg-[#F5F5F5] flex items-center justify-center relative overflow-hidden">
+                    <img 
+                      src="https://images.unsplash.com/photo-1557499305-0af888c3d8ec?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+                      alt="Kombucha Starter" 
+                      className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                    <div className="absolute bottom-2 left-2 text-xs font-mono tracking-tight text-white bg-black bg-opacity-50 px-1">
+                      KOM-01
+                    </div>
+                  </div>
+                  <CardContent className="pt-6 px-4">
+                    <div className="flex justify-between items-start mb-3">
+                      <h3 className="text-lg font-serif font-medium text-[#2B2B2B]">Kombucha Starter</h3>
+                      <span className="bg-[#F5F5F5] text-[#2B2B2B] text-xs px-2 py-1 rounded-none font-mono">NEW</span>
+                    </div>
+                    <p className="text-sm text-[#6E6E6E] mb-4 leading-relaxed">
+                      Unique tea-infused culture that creates bread with bright, complex acidity and subtle fruity notes.
+                    </p>
+                    <div className="flex justify-between items-center pt-2 border-t border-gray-100">
+                      <span className="metric-display text-[#2B2B2B] font-medium">$16.99</span>
+                      <span className="text-sm text-amber-600 font-medium group-hover:text-amber-700 transition-colors">
+                        View Details →
+                      </span>
+                    </div>
+                  </CardContent>
+                </Card>
+              </a>
+            </Link>
+            
+            {/* House Blend Starter */}
+            <Link href="/starter/house-blend-starter">
+              <a className="group">
+                <Card className="overflow-hidden rounded-sm border-gray-100 card shadow-none hover:shadow-md transition-shadow">
+                  <div className="h-60 bg-[#F5F5F5] flex items-center justify-center relative overflow-hidden">
+                    <img 
+                      src="https://images.unsplash.com/photo-1517686469429-8bdb88b9f907?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+                      alt="House Blend Starter" 
+                      className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                    <div className="absolute bottom-2 left-2 text-xs font-mono tracking-tight text-white bg-black bg-opacity-50 px-1">
+                      HB-01
+                    </div>
+                  </div>
+                  <CardContent className="pt-6 px-4">
+                    <div className="flex justify-between items-start mb-3">
+                      <h3 className="text-lg font-serif font-medium text-[#2B2B2B]">House Blend Starter</h3>
+                      <span className="bg-[#F5F5F5] text-[#2B2B2B] text-xs px-2 py-1 rounded-none font-mono">VERSATILE</span>
+                    </div>
+                    <p className="text-sm text-[#6E6E6E] mb-4 leading-relaxed">
+                      Our signature blend combining elements from our specialty starters for versatility and reliability.
+                    </p>
+                    <div className="flex justify-between items-center pt-2 border-t border-gray-100">
+                      <span className="metric-display text-[#2B2B2B] font-medium">$14.99</span>
+                      <span className="text-sm text-amber-600 font-medium group-hover:text-amber-700 transition-colors">
+                        View Details →
+                      </span>
+                    </div>
+                  </CardContent>
+                </Card>
+              </a>
+            </Link>
+          </div>
+        </div>
+      </section>
+      
+      {/* Interactive Tools Section */}
+      <section className="py-16 md:py-20 px-4 md:px-6 border-t border-gray-100">
+        <div className="max-w-7xl mx-auto">
+          <div className="mb-12">
+            <div className="flex items-center mb-2">
+              <span className="text-xs font-mono text-[#6E6E6E] mr-2">TOOLSET.01</span>
+              <div className="h-px bg-gray-300 flex-grow"></div>
+            </div>
+            <h2 className="text-[#2B2B2B] text-3xl md:text-4xl font-serif tracking-tight mb-4">
+              Interactive Sourdough Tools
+            </h2>
+            <p className="text-[#6E6E6E] max-w-2xl">
+              Precision tools designed to help you analyze, optimize, and perfect your sourdough baking process.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+            {/* Texture & Structure Designer */}
+            <Card className="rounded-sm border-gray-100 shadow-none overflow-hidden">
+              <div className="h-40 bg-[#F5F5F5] flex items-center justify-center relative">
+                <Layers size={32} className="text-[#D97706] opacity-30" />
+                <div className="absolute bottom-2 left-2 text-xs font-mono tracking-tight text-[#6E6E6E]">
+                  TOOL-01
+                </div>
+              </div>
+              <CardContent className="p-6">
+                <h3 className="text-xl font-serif font-medium text-[#2B2B2B] mb-2">Texture Designer</h3>
+                <p className="text-sm text-[#6E6E6E] mb-6 leading-relaxed">
+                  Design your ideal crumb structure and crust characteristics for the perfect bread texture.
+                </p>
+                <Link href="/tools?tab=texture-designer">
+                  <Button variant="outline" className="w-full border-[#2B2B2B] text-[#2B2B2B] hover:bg-[#F5F5F5] rounded-sm">
+                    Design Texture Profile
+                  </Button>
+                </Link>
+              </CardContent>
+            </Card>
+            
+            {/* Recipe Validator */}
+            <Card className="rounded-sm border-gray-100 shadow-none overflow-hidden">
+              <div className="h-40 bg-[#F5F5F5] flex items-center justify-center relative">
+                <Scale size={32} className="text-[#D97706] opacity-30" />
+                <div className="absolute bottom-2 left-2 text-xs font-mono tracking-tight text-[#6E6E6E]">
+                  TOOL-02
+                </div>
+              </div>
+              <CardContent className="p-6">
+                <h3 className="text-xl font-serif font-medium text-[#2B2B2B] mb-2">Recipe Validator</h3>
+                <p className="text-sm text-[#6E6E6E] mb-6 leading-relaxed">
+                  Check your sourdough recipes for technical accuracy and get personalized suggestions for improvement.
+                </p>
+                <Link href="/tools?tab=recipe-validator">
+                  <Button variant="outline" className="w-full border-[#2B2B2B] text-[#2B2B2B] hover:bg-[#F5F5F5] rounded-sm">
+                    Validate a Recipe
+                  </Button>
+                </Link>
+              </CardContent>
+            </Card>
+            
+            {/* Flavor Designer */}
+            <Card className="rounded-sm border-gray-100 shadow-none overflow-hidden">
+              <div className="h-40 bg-[#F5F5F5] flex items-center justify-center relative">
+                <Droplet size={32} className="text-[#D97706] opacity-30" />
+                <div className="absolute bottom-2 left-2 text-xs font-mono tracking-tight text-[#6E6E6E]">
+                  TOOL-03
+                </div>
+              </div>
+              <CardContent className="p-6">
+                <h3 className="text-xl font-serif font-medium text-[#2B2B2B] mb-2">Flavor Designer</h3>
+                <p className="text-sm text-[#6E6E6E] mb-6 leading-relaxed">
+                  Create your perfect flavor profile with interactive flavor mapping and customization tools.
+                </p>
+                <Link href="/tools?tab=flavor-designer">
+                  <Button variant="outline" className="w-full border-[#2B2B2B] text-[#2B2B2B] hover:bg-[#F5F5F5] rounded-sm">
+                    Design Flavor Profile
+                  </Button>
+                </Link>
+              </CardContent>
+            </Card>
+            
+            {/* Starter Quiz */}
+            <Card className="rounded-sm border-gray-100 shadow-none overflow-hidden">
+              <div className="h-40 bg-[#F5F5F5] flex items-center justify-center relative">
+                <FlaskConical size={32} className="text-[#D97706] opacity-30" />
+                <div className="absolute bottom-2 left-2 text-xs font-mono tracking-tight text-[#6E6E6E]">
+                  TOOL-04
+                </div>
+              </div>
+              <CardContent className="p-6">
+                <h3 className="text-xl font-serif font-medium text-[#2B2B2B] mb-2">Starter Quiz</h3>
+                <p className="text-sm text-[#6E6E6E] mb-6 leading-relaxed">
+                  Find your perfect sourdough starter match by taking our interactive quiz about your preferences.
+                </p>
+                <Link href="/tools?tab=starter-quiz">
+                  <Button variant="outline" className="w-full border-[#2B2B2B] text-[#2B2B2B] hover:bg-[#F5F5F5] rounded-sm">
+                    Find Your Starter
+                  </Button>
+                </Link>
+              </CardContent>
+            </Card>
+            
+            {/* Baking Timeline */}
+            <Card className="rounded-sm border-gray-100 shadow-none overflow-hidden">
+              <div className="h-40 bg-[#F5F5F5] flex items-center justify-center relative">
+                <Clock size={32} className="text-[#D97706] opacity-30" />
+                <div className="absolute bottom-2 left-2 text-xs font-mono tracking-tight text-[#6E6E6E]">
+                  TOOL-05
+                </div>
+              </div>
+              <CardContent className="p-6">
+                <h3 className="text-xl font-serif font-medium text-[#2B2B2B] mb-2">Baking Timeline</h3>
+                <p className="text-sm text-[#6E6E6E] mb-6 leading-relaxed">
+                  Create a personalized baking schedule that works backward from when you want your bread to be ready.
+                </p>
+                <Link href="/tools?tab=timeline-calculator">
+                  <Button variant="outline" className="w-full border-[#2B2B2B] text-[#2B2B2B] hover:bg-[#F5F5F5] rounded-sm">
+                    Plan Your Bake
+                  </Button>
+                </Link>
+              </CardContent>
+            </Card>
+            
+            {/* View All Tools */}
+            <Card className="rounded-sm bg-[#F5F5F5] border-dashed border-gray-200 shadow-none overflow-hidden">
+              <div className="h-full p-6 flex flex-col justify-center">
+                <div className="mb-6 flex justify-center">
+                  <div className="h-12 w-12 rounded-sm border border-[#2B2B2B] flex items-center justify-center">
+                    <ArrowRight size={24} className="text-[#2B2B2B]" />
+                  </div>
+                </div>
+                <h3 className="text-xl font-serif font-medium text-[#2B2B2B] mb-2 text-center">Explore All Tools</h3>
+                <p className="text-sm text-[#6E6E6E] mb-6 leading-relaxed text-center">
+                  Discover our complete collection of advanced baking tools designed for bread enthusiasts.
+                </p>
+                <Link href="/tools">
+                  <Button variant="secondary" className="w-full bg-white text-[#2B2B2B] hover:bg-[#F5F5F5] border border-[#2B2B2B] rounded-sm">
+                    View All Tools
+                  </Button>
+                </Link>
+              </div>
+            </Card>
+          </div>
+        </div>
+      </section>
+      
+      {/* Newsletter */}
+      <section className="py-16 md:py-20 px-4 md:px-6 bg-[#F5F5F5] border-t border-gray-100">
+        <div className="max-w-3xl mx-auto">
+          <div className="flex items-center mb-2">
+            <span className="text-xs font-mono text-[#6E6E6E] mr-2">MEMBERSHIP.01</span>
+            <div className="h-px bg-gray-300 flex-grow"></div>
+          </div>
+          
+          <div className="grid md:grid-cols-2 gap-10 items-center">
+            <div>
+              <h2 className="text-[#2B2B2B] text-3xl md:text-4xl font-serif tracking-tight mb-4">
+                Scientific Baking Updates
+              </h2>
+              <p className="text-[#6E6E6E] mb-6 leading-relaxed">
+                Join our community of precision bakers. Receive curated techniques, experimental findings, and seasonal recipe formulations.
+              </p>
+            </div>
+            
+            <div className="bg-white p-8 border border-gray-100">
+              <div className="mb-6">
+                <label className="block text-xs uppercase tracking-wide text-[#6E6E6E] font-mono mb-2">Email Address</label>
+                <Input
+                  type="email"
+                  placeholder="name@example.com"
+                  className="w-full border-[#2B2B2B] text-[#2B2B2B] focus-visible:ring-gray-300 rounded-none"
+                />
+              </div>
+              <div className="flex items-center mb-6">
+                <div className="flex items-center h-5">
+                  <input
+                    id="newsletter-consent"
+                    type="checkbox"
+                    className="w-4 h-4 text-[#2B2B2B] border-[#2B2B2B] rounded-none focus:ring-gray-300"
+                  />
+                </div>
+                <div className="ml-2">
+                  <label htmlFor="newsletter-consent" className="text-xs text-[#6E6E6E]">
+                    I agree to receive email communications about Bakehouse Breads
+                  </label>
+                </div>
+              </div>
+              <Button className="w-full bg-[#1F1F1F] hover:bg-[#3A3A3A] text-white rounded-none transition-colors">
+                Subscribe to Updates
+              </Button>
+              <p className="text-xs text-[#6E6E6E] mt-4 text-center">
+                We respect your privacy. Unsubscribe at any time.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}

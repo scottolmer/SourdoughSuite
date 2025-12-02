@@ -1,0 +1,296 @@
+# Mobile-First Multi-Agent Bread Assistant: n8n Workflow Design
+
+## Overview
+
+This document outlines the n8n workflow design for a mobile-first bread assistant application using multiple AI agents. The workflow is structured to handle different bread-making processes while ensuring seamless communication between specialized AI agents.
+
+## Core Workflow Components
+
+### 1. Main Flow Architecture
+
+```
+[HTTP Trigger] → [Authentication] → [Request Router] → [Agent Dispatcher] → [Response Formatter] → [HTTP Response]
+```
+
+### 2. Agent Integration Workflows
+
+#### Bakehouse Master Agent Workflow
+```
+[Agent Dispatcher] → [Context Loader] → [Master Agent Prompt] → [Claude API] → [Context Updater] → [Response Queue]
+```
+
+#### Recipe Creator Agent Workflow
+```
+[Agent Dispatcher] → [Context Loader] → [User Preferences] → [Recipe Creator Prompt] → [Claude API] → [Recipe Validator] → [Response Queue]
+```
+
+#### Science Advisor Agent Workflow
+```
+[Agent Dispatcher] → [Context Loader] → [Science Advisor Prompt] → [Claude API] → [Response Queue]
+```
+
+#### Timing & Planning Agent Workflow
+```
+[Agent Dispatcher] → [Context Loader] → [User Calendar] → [Recipe Details] → [Timing Planner Prompt] → [Claude API] → [Notification Scheduler] → [Response Queue]
+```
+
+#### Visual Assessment Agent Workflow
+```
+[Agent Dispatcher] → [Context Loader] → [Image Processor] → [Visual Assessment Prompt] → [Claude API] → [Response Queue]
+```
+
+## Detailed Workflow Specifications
+
+### 1. Request Router Workflow
+
+**Trigger:** HTTP Webhook  
+**Purpose:** Entry point for all user interactions
+
+```
+HTTP Webhook (POST /api/assistant) → 
+  Switch (Request Type) →
+    - "new_recipe" → Recipe Creation Workflow
+    - "assess_dough" → Visual Assessment Workflow
+    - "create_schedule" → Timeline Planning Workflow
+    - "starter_help" → Starter Care Workflow
+    - "general_question" → Master Agent Direct Workflow
+```
+
+### 2. Recipe Creation Workflow
+
+```
+Trigger (Request Type: "new_recipe") →
+  User Preferences Node → 
+  Database Query (Previous User Recipes) →
+  Recipe Creator Agent →
+  Science Advisor Validator →
+  Master Agent (Format & Enhance) →
+  Database Operation (Save Recipe) →
+  HTTP Response (Recipe Data)
+```
+
+**Key Node Details:**
+
+- **User Preferences Node:**
+  - Input: User preferences from request
+  - Operation: Format preferences into structured data
+  - Output: Preferences object
+
+- **Recipe Creator Agent:**
+  - Input: Preferences object, Previous recipe history
+  - Operation: 
+    - Format prompt template with preferences
+    - API call to Claude
+    - Parse structured recipe data
+  - Output: Draft recipe object
+
+- **Science Advisor Validator:**
+  - Input: Draft recipe object
+  - Operation:
+    - Check recipe for scientific validity
+    - Adjust ratios if needed
+    - Add scientific explanations
+  - Output: Validated recipe object
+
+### 3. Visual Assessment Workflow
+
+```
+Trigger (Request Type: "assess_dough") →
+  Image Upload Node →
+  Image Processing (Resize/Optimize) →
+  Visual Assessment Agent →
+  Science Advisor Agent (Interpret) →
+  Master Agent (Format Recommendations) →
+  HTTP Response (Assessment & Recommendations)
+```
+
+**Key Node Details:**
+
+- **Image Processing Node:**
+  - Input: User uploaded image
+  - Operation: 
+    - Image resize for API compatibility
+    - Format conversion if needed
+    - Basic enhancement for clarity
+  - Output: Processed image
+
+- **Visual Assessment Agent:**
+  - Input: Processed image, Recipe context
+  - Operation:
+    - Format prompt with image and context
+    - Claude API call with image analysis prompt
+    - Parse visual observations
+  - Output: Visual assessment object
+
+### 4. Timeline Planning Workflow
+
+```
+Trigger (Request Type: "create_schedule") →
+  Recipe Data Node →
+  User Calendar Integration →
+  Environment Data (Temperature) →
+  Timing & Planning Agent →
+  Notification Scheduler →
+  Master Agent (Format Timeline) →
+  HTTP Response (Timeline Data)
+```
+
+**Key Node Details:**
+
+- **User Calendar Integration:**
+  - Input: User calendar API access
+  - Operation:
+    - Query available time blocks
+    - Find compatible baking windows
+  - Output: Available time blocks
+
+- **Timing & Planning Agent:**
+  - Input: Recipe data, Available time blocks, Environment data
+  - Operation:
+    - Calculate ideal fermentation times
+    - Map steps to available time blocks
+    - Generate notification schedule
+  - Output: Timeline object with steps and notifications
+
+- **Notification Scheduler:**
+  - Input: Timeline with notifications
+  - Operation:
+    - Schedule push notifications
+    - Generate calendar entries
+    - Create reminder objects
+  - Output: Scheduled notifications
+
+### 5. Starter Care Workflow
+
+```
+Trigger (Request Type: "starter_help") →
+  Starter History Node →
+  Image Upload (Optional) →
+  Environment Data →
+  Science Advisor Agent →
+  Master Agent (Format Care Instructions) →
+  Reminder Scheduler →
+  HTTP Response (Care Instructions)
+```
+
+**Key Node Details:**
+
+- **Starter History Node:**
+  - Input: User's starter history logs
+  - Operation:
+    - Parse feeding schedule
+    - Calculate starter age and health metrics
+  - Output: Starter history object
+
+- **Science Advisor Agent:**
+  - Input: Starter history, Environment data, Optional image
+  - Operation:
+    - Diagnose starter health
+    - Generate care instructions
+    - Suggest recipes based on starter condition
+  - Output: Care instructions object
+
+### 6. Database Integration
+
+```
+MongoDB Connection →
+  Collections:
+    - Users (preferences, history)
+    - Recipes (templates, user creations)
+    - Sessions (conversation context)
+    - Media (images, reference materials)
+```
+
+### 7. AI Agent Communication Workflow
+
+```
+Agent Request →
+  Context Store (Fetch) →
+  Claude API Call →
+  Response Parser →
+  Context Store (Update) →
+  Response Queue
+```
+
+**Key Node Details:**
+
+- **Context Store:**
+  - Input: User ID, Session ID
+  - Operation:
+    - Fetch/update conversation context
+    - Maintain agent memory
+  - Output: Context object
+
+- **Response Parser:**
+  - Input: Claude API response
+  - Operation:
+    - Extract structured data
+    - Format for target component
+    - Add metadata for tracking
+  - Output: Structured response
+
+## Implementation Notes
+
+### Authentication Flow
+
+```
+Auth Request →
+  JWT Validator →
+  User Lookup →
+  Session Creator →
+  Return Auth Token
+```
+
+### Error Handling
+
+```
+Try/Catch Nodes →
+  Error Classifier →
+  Recovery Actions:
+    - Retry Logic
+    - Fallback Responses
+    - User Notifications
+```
+
+### Offline Support
+
+```
+Request State Checker →
+  If Online:
+    - Normal Processing
+  If Offline:
+    - Queue Request
+    - Serve Cached Data
+    - Sync When Online
+```
+
+## Example: Recipe Creation Sequence
+
+1. User submits preferences via mobile app
+2. HTTP Webhook receives request
+3. Request Router identifies "new_recipe" type
+4. User Preferences node formats the request data
+5. Recipe Creator Agent generates base recipe
+6. Science Advisor Agent validates the recipe
+7. Master Agent enhances and formats the response
+8. Response is saved to database and returned to user
+9. Mobile app displays the recipe with offline access
+
+## Mobile-Specific Optimizations
+
+1. **Response Size Management:**
+   - Pagination node for large responses
+   - Image optimization for bandwidth conservation
+   - Prioritized content delivery
+
+2. **Offline Queue:**
+   - Request caching when offline
+   - Background synchronization
+   - Conflict resolution strategy
+
+3. **Performance Monitoring:**
+   - Response time tracking
+   - Workflow optimization based on mobile metrics
+   - Resource usage optimization
+
+This n8n workflow design provides a comprehensive foundation for implementing the multi-agent bread assistant architecture, optimized for mobile-first experiences while leveraging the specialized AI agents' capabilities.

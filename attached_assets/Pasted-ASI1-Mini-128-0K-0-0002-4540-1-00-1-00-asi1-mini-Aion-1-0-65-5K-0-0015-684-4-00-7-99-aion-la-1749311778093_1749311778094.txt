@@ -1,0 +1,951 @@
+ASI1 Mini
+128.0K	$0.0002	4540	$1.00	$1.00	
+asi1-mini
+Aion 1.0
+65.5K	$0.0015	684	$4.00	$7.99	
+aion-labs/aion-1.0
+Aion 1.0 mini (DeepSeek)
+131.1K	$0.0003	3716	$0.80	$1.39	
+aion-labs/aion-1.0-mini
+Amazon Nova Lite 1.0
+300.0K	$0.0001	19979	$0.06	$0.24	
+amazon/nova-lite-v1
+Amazon Nova Micro 1.0
+128.0K	$0.0000	29753	$0.04	$0.14	
+amazon/nova-micro-v1
+Amazon Nova Pro 1.0
+300.0K	$0.0005	1835	$0.80	$3.20	
+amazon/nova-pro-v1
+Amoral Gemma3 27B v2
+N/A	$0.0001	13652	$0.30	$0.30	
+soob3123/amoral-gemma3-27B-v2
+Anubis 70B v1
+16.4K	$0.0001	8789	$0.49	$0.49	
+TheDrummer/Anubis-70B-v1
+Anubis Pro 105b v1
+64.0K	$0.0002	4788	$0.80	$1.00	
+anubis-pro-105b-v1
+Athene V2 Chat
+16.4K	$0.0001	8789	$0.49	$0.49	
+Nexusflow/Athene-V2-Chat
+Azure gpt-4-turbo
+128.0K	$0.0052	193	$10.00	$30.00	
+azure-gpt-4-turbo
+Azure gpt-4o
+128.0K	$0.0017	594	$2.50	$10.00	
+azure-gpt-4o
+Azure gpt-4o-mini
+128.0K	$0.0001	9106	$0.15	$0.59	
+azure-gpt-4o-mini
+Azure o1
+200.0K	$0.0100	99	$14.99	$59.99	
+azure-o1
+Azure o3-mini
+200.0K	$0.0007	1341	$1.09	$4.40	
+azure-o3-mini
+ChatGPT 4o
+128.0K	$0.0026	386	$5.00	$14.99	
+chatgpt-4o-latest
+ChatGPT 4o Reasoner
+128.0K	$0.0026	386	$5.00	$14.99	
+chatgpt-4o-latest-reasoner
+Claude 3 Opus
+200.0K	$0.0123	81	$14.99	$75.00	
+claude-3-opus-20240229
+Claude 3.5 Haiku
+200.0K	$0.0007	1497	$0.80	$4.00	
+claude-3-5-haiku-20241022
+Claude 3.5 Sonnet
+200.0K	$0.0025	404	$2.99	$14.99	
+claude-3-5-sonnet-20241022
+Claude 3.5 Sonnet Old
+200.0K	$0.0025	404	$2.99	$14.99	
+claude-3-5-sonnet-20240620
+Claude 3.7 Sonnet
+200.0K	$0.0025	404	$2.99	$14.99	
+claude-3-7-sonnet-20250219
+Claude 3.7 Sonnet Reasoner
+128.0K	$0.0025	403	$3.00	$15.00	
+claude-3-7-sonnet-reasoner
+Claude 3.7 Sonnet Thinking
+200.0K	$0.0025	404	$2.99	$14.99	
+claude-3-7-sonnet-thinking
+Claude 3.7 Sonnet Thinking (128K)
+200.0K	$0.0025	404	$2.99	$14.99	
+claude-3-7-sonnet-thinking:128000
+Claude 3.7 Sonnet Thinking (1K)
+200.0K	$0.0025	404	$2.99	$14.99	
+claude-3-7-sonnet-thinking:1024
+Claude 3.7 Sonnet Thinking (32K)
+200.0K	$0.0025	404	$2.99	$14.99	
+claude-3-7-sonnet-thinking:32768
+Claude 3.7 Sonnet Thinking (8K)
+200.0K	$0.0025	404	$2.99	$14.99	
+claude-3-7-sonnet-thinking:8192
+Claude 4 Opus
+200.0K	$0.0123	81	$14.99	$75.00	
+claude-opus-4-20250514
+Claude 4 Opus Thinking
+200.0K	$0.0123	81	$14.99	$75.00	
+claude-opus-4-thinking
+Claude 4 Opus Thinking (128K)
+200.0K	$0.0123	81	$14.99	$75.00	
+claude-opus-4-thinking:128000
+Claude 4 Opus Thinking (1K)
+200.0K	$0.0123	81	$14.99	$75.00	
+claude-opus-4-thinking:1024
+Claude 4 Opus Thinking (32K)
+200.0K	$0.0123	81	$14.99	$75.00	
+claude-opus-4-thinking:32768
+Claude 4 Opus Thinking (8K)
+200.0K	$0.0123	81	$14.99	$75.00	
+claude-opus-4-thinking:8192
+Claude 4 Sonnet
+200.0K	$0.0025	404	$2.99	$14.99	
+claude-sonnet-4-20250514
+Claude 4 Sonnet Thinking
+200.0K	$0.0025	404	$2.99	$14.99	
+claude-sonnet-4-thinking
+Claude 4 Sonnet Thinking (128K)
+200.0K	$0.0025	404	$2.99	$14.99	
+claude-sonnet-4-thinking:128000
+Claude 4 Sonnet Thinking (1K)
+200.0K	$0.0025	404	$2.99	$14.99	
+claude-sonnet-4-thinking:1024
+Claude 4 Sonnet Thinking (32K)
+200.0K	$0.0025	404	$2.99	$14.99	
+claude-sonnet-4-thinking:32768
+Claude 4 Sonnet Thinking (8K)
+200.0K	$0.0025	404	$2.99	$14.99	
+claude-sonnet-4-thinking:8192
+Cogito v1 Preview Qwen 32B
+128.0K	$0.0004	2575	$1.80	$1.80	
+deepcogito/cogito-v1-preview-qwen-32B
+Cohere: Command R
+128.0K	$0.0003	3908	$0.48	$1.43	
+cohere/command-r
+Cohere: Command R+
+128.0K	$0.0024	425	$2.86	$14.25	
+cohere/command-r-plus-08-2024
+Damascus R1.
+16.4K	$0.0001	8789	$0.49	$0.49	
+Steelskull/L3.3-Damascus-R1
+Dazzling Star Aurora 32b
+16.4K	$0.0001	8789	$0.49	$0.49	
+Qwen2.5-32B-Dazzling-Star-Aurora-32b-v0.0
+DeepClaude
+128.0K	$0.0025	403	$3.00	$15.00	
+deepclaude
+DeepCoder 14B Preview
+128.0K	$0.0000	23954	$0.15	$0.15	
+agentica-org/DeepCoder-14B-Preview
+DeepHermes-3 Mistral 24B (Preview)
+128.0K	$0.0001	7339	$0.60	$0.60	
+NousResearch/DeepHermes-3-Mistral-24B-Preview
+DeepSeek Chat 0324
+128.0K	$0.0001	16720	$0.14	$0.27	
+deepseek-v3-0324
+DeepSeek Prover V2 671B
+128.0K	$0.0001	11699	$0.09	$0.46	
+deepseek-ai/DeepSeek-Prover-V2-671B
+DeepSeek R1
+128.0K	$0.0003	2980	$0.46	$1.95	
+deepseek-r1-nano
+DeepSeek R1 70B TEE
+131.1K	$0.0002	5319	$0.30	$1.05	
+TEE/deepseek-r1-70b
+DeepSeek R1 Fast
+128.0K	$0.0014	733	$5.00	$6.99	
+deepseek-r1-sambanova
+DeepSeek R1 Llama 70b
+32.8K	$0.0000	24002	$0.15	$0.15	
+deepseek-r1-llama-70b
+DeepSeek R1 Zero Preview
+128.0K	$0.0005	2124	$2.19	$2.19	
+deepseek-ai/DeepSeek-R1-Zero
+DeepSeek Reasoner
+64.0K	$0.0003	2874	$0.49	$2.02	
+deepseek-reasoner
+DeepSeek V3/Chat Cheaper
+128.0K	$0.0001	18711	$0.12	$0.24	
+deepseek-chat-cheaper
+DeepSeek V3/Deepseek Chat
+128.0K	$0.0001	16720	$0.14	$0.27	
+deepseek-chat
+Deepseek R1 0528
+128.0K	$0.0003	2980	$0.46	$1.95	
+deepseek-ai/DeepSeek-R1-0528
+Deepseek R1 0528 Qwen3 8B
+128.0K	$0.0000	21484	$0.10	$0.20	
+deepseek-ai/DeepSeek-R1-0528-Qwen3-8B
+Deepseek R1 Cheaper
+128.0K	$0.0003	3394	$0.42	$1.70	
+deepseek-reasoner-cheaper
+Deepseek R1 Llama 70b Abliterated
+16.4K	$0.0001	7573	$0.58	$0.58	
+huihui-ai/DeepSeek-R1-Distill-Llama-70B-abliterated
+Deepseek R1 Qwen Abliterated
+16.4K	$0.0001	7573	$0.58	$0.58	
+huihui-ai/DeepSeek-R1-Distill-Qwen-32B-abliterated
+Deepseek R1 T Chimera
+128.0K	$0.0003	2980	$0.46	$1.95	
+tngtech/DeepSeek-R1T-Chimera
+Dolphin 2.9.2 Mixtral 8x22B
+16.0K	$0.0002	5013	$0.90	$0.90	
+cognitivecomputations/dolphin-mixtral-8x22b
+Dolphin 72b
+8.2K	$0.0001	13421	$0.31	$0.31	
+dolphin-2.9.2-qwen2-72b
+Doubao 1.5 Pro 256k
+256.0K	$0.0003	3611	$0.80	$1.45	
+doubao-1.5-pro-256k
+Doubao 1.5 Pro 32k
+32.0K	$0.0001	14463	$0.13	$0.33	
+doubao-1.5-pro-32k
+Doubao 1.5 Thinking Pro
+128.0K	$0.0004	2429	$0.60	$2.40	
+doubao-1-5-thinking-pro-250415
+Doubao 1.5 Thinking Pro Vision
+128.0K	$0.0004	2429	$0.60	$2.40	
+doubao-1-5-thinking-pro-vision-250415
+Doubao 1.5 Thinking Vision Pro
+128.0K	$0.0003	3840	$0.55	$1.43	
+doubao-1-5-thinking-vision-pro-250428
+Doubao 1.5 Vision Pro 32k
+32.0K	$0.0002	4047	$0.46	$1.38	
+doubao-1.5-vision-pro-32k
+EVA Llama 3.33 70B
+16.4K	$0.0004	2317	$2.01	$2.01	
+EVA-UNIT-01/EVA-LLaMA-3.33-70B-v0.0
+EVA Qwen2.5 72B
+16.0K	$0.0012	864	$4.00	$6.00	
+eva-unit-01/eva-qwen-2.5-72b
+EVA-LLaMA-3.33-70B-v0.1
+16.4K	$0.0004	2317	$2.01	$2.01	
+EVA-UNIT-01/EVA-LLaMA-3.33-70B-v0.1
+EVA-Qwen2.5-32B-v0.2
+16.4K	$0.0002	5616	$0.80	$0.80	
+EVA-UNIT-01/EVA-Qwen2.5-32B-v0.2
+EVA-Qwen2.5-72B-v0.2
+16.4K	$0.0002	5616	$0.80	$0.80	
+EVA-UNIT-01/EVA-Qwen2.5-72B-v0.2
+Ernie 4.5 8k Preview
+8.0K	$0.0004	2243	$0.66	$2.60	
+ernie-4.5-8k-preview
+Ernie 4.5 Turbo 128k
+128.0K	$0.0001	9811	$0.13	$0.55	
+ernie-4.5-turbo-128k
+Ernie 4.5 Turbo VL 32k
+32.0K	$0.0003	3887	$0.50	$1.43	
+ernie-4.5-turbo-vl-32k
+Ernie X1 32k
+32.0K	$0.0002	4328	$0.33	$1.32	
+ernie-x1-32k-preview
+Ernie X1 32k
+32.0K	$0.0002	4328	$0.33	$1.32	
+ernie-x1-32k
+Ernie X1 Turbo 32k
+32.0K	$0.0001	8289	$0.16	$0.66	
+ernie-x1-turbo-32k
+Evayale 70b
+16.4K	$0.0001	8789	$0.49	$0.49	
+Steelskull/L3.3-MS-Evayale-70B
+GLM 4 32B 0414
+128.0K	$0.0001	19140	$0.20	$0.20	
+THUDM/GLM-4-32B-0414
+GLM 4 9B 0414
+32.0K	$0.0001	19140	$0.20	$0.20	
+THUDM/GLM-4-9B-0414
+GLM 4 Air 0111
+128.0K	$0.0000	25303	$0.14	$0.14	
+glm-4-air-0111
+GLM 4 Plus 0111
+128.0K	$0.0021	474	$10.00	$10.00	
+glm-4-plus-0111
+GLM Z1 32B 0414
+128.0K	$0.0001	19140	$0.20	$0.20	
+THUDM/GLM-Z1-32B-0414
+GLM Z1 9B 0414
+32.0K	$0.0001	19140	$0.20	$0.20	
+THUDM/GLM-Z1-9B-0414
+GLM Z1 AirX
+32.0K	$0.0000	40086	$0.07	$0.07	
+glm-z1-air
+GLM Z1 AirX
+32.0K	$0.0002	6359	$0.70	$0.70	
+glm-z1-airx
+GLM Z1 Rumination 32B 0414
+32.0K	$0.0001	19140	$0.20	$0.20	
+THUDM/GLM-Z1-Rumination-32B-0414
+GLM Zero Preview
+8.0K	$0.0004	2572	$1.80	$1.80	
+glm-zero-preview
+GLM-4
+128.0K	$0.0032	316	$14.99	$14.99	
+glm-4
+GLM-4 Air
+128.0K	$0.0001	19094	$0.20	$0.20	
+glm-4-air
+GLM-4 AirX
+8.0K	$0.0004	2317	$2.01	$2.01	
+glm-4-airx
+GLM-4 Flash
+128.0K	$0.0000	80957	$0.01	$0.01	
+glm-4-flash
+GLM-4 Long
+1.0M	$0.0001	19094	$0.20	$0.20	
+glm-4-long
+GLM-4 Plus
+128.0K	$0.0016	631	$7.50	$7.50	
+glm-4-plus
+GPT 3.5 Turbo
+16.4K	$0.0003	3742	$0.49	$1.50	
+gpt-3.5-turbo
+GPT 4 Turbo Preview
+128.0K	$0.0052	193	$10.00	$30.00	
+gpt-4-turbo-preview
+GPT 4.1
+1.0M	$0.0013	741	$2.00	$8.00	
+openai/gpt-4.1
+GPT 4.1 Mini
+1.0M	$0.0003	3599	$0.40	$1.60	
+openai/gpt-4.1-mini
+GPT 4.1 Nano
+1.0M	$0.0001	12962	$0.10	$0.40	
+openai/gpt-4.1-nano
+GPT 4.1 Reasoner
+128.0K	$0.0013	741	$2.00	$8.00	
+gpt-4.1-reasoner
+GPT 4.5
+128.0K	$0.0272	36	$75.00	$150.00	
+gpt-4.5-preview
+GPT 4.5 Preview Reasoner
+128.0K	$0.0272	36	$75.00	$150.01	
+gpt-4.5-preview-2025-02-27-reasoner
+GPT 4o
+128.0K	$0.0017	594	$2.50	$10.00	
+gpt-4o
+GPT 4o 08 06
+128.0K	$0.0017	594	$2.50	$10.00	
+gpt-4o-2024-08-06
+GPT 4o 11 20
+128.0K	$0.0017	594	$2.50	$10.00	
+gpt-4o-2024-11-20
+GPT 4o Mini Search
+128.0K	$0.0001	9106	$0.15	$0.59	
+gpt-4o-mini-search-preview
+GPT 4o Reasoner
+128.0K	$0.0017	594	$2.50	$10.00	
+gpt-4o-reasoner
+GPT 4o Search
+128.0K	$0.0017	594	$2.50	$10.00	
+gpt-4o-search-preview
+GPT 4o mini
+128.0K	$0.0001	9106	$0.15	$0.59	
+gpt-4o-mini
+Gemini 1.5 Flash
+2.0M	$0.0001	16305	$0.07	$0.31	
+google/gemini-flash-1.5
+Gemini 2.0 Flash
+1.0M	$0.0001	12757	$0.10	$0.41	
+gemini-2.0-flash-001
+Gemini 2.0 Flash Exp
+1.0M	$0.0001	15928	$0.10	$0.31	
+gemini-2.0-flash-exp
+Gemini 2.0 Flash Exp Search
+1.0M	$0.0001	8814	$0.20	$0.60	
+gemini-2.0-flash-exp-search
+Gemini 2.0 Flash Lite
+1.0M	$0.0001	16305	$0.07	$0.31	
+gemini-2.0-flash-lite
+Gemini 2.0 Flash Thinking 0121
+1.0M	$0.0002	5520	$0.31	$1.00	
+gemini-2.0-flash-thinking-exp-01-21
+Gemini 2.0 Flash Thinking 1219
+32.8K	$0.0001	12757	$0.10	$0.41	
+gemini-2.0-flash-thinking-exp-1219
+Gemini 2.0 Pro 0205
+2.1M	$0.0013	745	$1.99	$7.96	
+gemini-2.0-pro-exp-02-05
+Gemini 2.0 Pro 1206
+2.1M	$0.0008	1181	$1.26	$5.00	
+gemini-exp-1206
+Gemini 2.0 Pro Reasoner
+128.0K	$0.0008	1178	$1.29	$5.00	
+gemini-2.0-pro-reasoner
+Gemini 2.5 Flash 0520
+1.0M	$0.0001	9041	$0.15	$0.60	
+gemini-2.5-flash-preview-05-20
+Gemini 2.5 Flash 0520 Thinking
+1.0M	$0.0006	1804	$0.15	$3.50	
+gemini-2.5-flash-preview-05-20:thinking
+Gemini 2.5 Flash Preview
+1.0M	$0.0001	9041	$0.15	$0.60	
+gemini-2.5-flash-preview-04-17
+Gemini 2.5 Flash Preview Thinking
+1.0M	$0.0006	1804	$0.15	$3.50	
+gemini-2.5-flash-preview-04-17:thinking
+Gemini 2.5 Pro Experimental 0325
+1.0M	$0.0017	594	$2.50	$10.00	
+gemini-2.5-pro-exp-03-25
+Gemini 2.5 Pro Preview 0325
+1.0M	$0.0017	594	$2.50	$10.00	
+gemini-2.5-pro-preview-03-25
+Gemini 2.5 Pro Preview 0506
+1.0M	$0.0017	594	$2.50	$10.00	
+gemini-2.5-pro-preview-05-06
+Gemini 2.5 Pro Preview 0605
+1.0M	$0.0017	594	$2.50	$10.00	
+gemini-2.5-pro-preview-06-05
+Gemini LearnLM Experimental
+32.8K	$0.0018	550	$3.50	$10.51	
+learnlm-1.5-pro-experimental
+Gemini Text + Image
+32.8K	$0.0001	6942	$0.20	$0.80	
+gemini-2.0-flash-exp-image-generation
+Gemma 3 12B IT
+128.0K	$0.0001	14844	$0.27	$0.27	
+unsloth/gemma-3-12b-it
+Gemma 3 1B IT
+128.0K	$0.0000	31939	$0.10	$0.10	
+unsloth/gemma-3-1b-it
+Gemma 3 27B IT
+128.0K	$0.0001	13684	$0.30	$0.30	
+unsloth/gemma-3-27b-it
+Gemma 3 4B IT
+128.0K	$0.0001	19094	$0.20	$0.20	
+unsloth/gemma-3-4b-it
+Grayline Qwen3 8B
+16.4K	$0.0001	13652	$0.30	$0.30	
+soob3123/GrayLine-Qwen3-8B
+Grok 3 Beta
+131.1K	$0.0025	403	$3.00	$15.00	
+grok-3-beta
+Grok 3 Fast Beta
+131.1K	$0.0041	242	$5.00	$25.00	
+grok-3-fast-beta
+Grok 3 Mini Beta
+131.1K	$0.0001	9629	$0.30	$0.50	
+grok-3-mini-beta
+Grok 3 Mini Fast Beta
+131.1K	$0.0007	1523	$0.60	$4.00	
+grok-3-mini-fast-beta
+Hermes 3 70B TEE
+131.1K	$0.0002	5961	$0.75	$0.75	
+TEE/hermes-3-llama-3.1-70b
+Hermes 3 Large
+128.0K	$0.0002	5616	$0.80	$0.80	
+nousresearch/hermes-3-llama-3.1-405b
+Hunyuan T1
+256.0K	$0.0001	8270	$0.17	$0.66	
+hunyuan-t1-latest
+Hunyuan Turbo S
+24.0K	$0.0001	12799	$0.19	$0.37	
+hunyuan-turbos-20250226
+Inflection 3 Pi
+8.0K	$0.0017	594	$2.50	$10.00	
+inflection/inflection-3-pi
+Inflection 3 Productivity
+8.0K	$0.0017	594	$2.50	$10.00	
+inflection/inflection-3-productivity
+Jamba Large 1.6
+256.0K	$0.0013	742	$1.99	$7.99	
+jamba-large-1.6
+Jamba Mini 1.6
+256.0K	$0.0001	11903	$0.20	$0.41	
+jamba-mini-1.6
+Kimi Latest
+128.0K	$0.0011	943	$5.00	$5.00	
+kimi-latest
+Kimi Thinking Preview
+128.0K	$0.0066	151	$31.46	$31.46	
+kimi-thinking-preview
+Kimi VL Thinking
+128.0K	$0.0001	7339	$0.60	$0.60	
+moonshotai/Kimi-VL-A3B-Thinking
+LatitudeGames WayFarer 12B
+24.6K	$0.0001	19094	$0.20	$0.20	
+Mistral-Nemo-12B-Wayfarer
+Llama 3 70B abliterated
+8.2K	$0.0001	7573	$0.58	$0.58	
+failspy/Meta-Llama-3-70B-Instruct-abliterated-v3.5
+Llama 3.05 Storybreaker Ministral 70b
+16.4K	$0.0001	8789	$0.49	$0.49	
+Envoid/Llama-3.05-NT-Storybreaker-Ministral-70B
+Llama 3.1 70B ArliAI RPMax v1.3
+32.8K	$0.0001	13421	$0.31	$0.31	
+Llama-3.3+3.1-70B-ArliAI-RPMax-v1.3
+Llama 3.1 70B Celeste v0.1
+16.4K	$0.0001	8789	$0.49	$0.49	
+nothingiisreal/L3.1-70B-Celeste-V0.1-BF16
+Llama 3.1 70B Dracarys 2
+16.4K	$0.0001	8789	$0.49	$0.49	
+abacusai/Dracarys-72B-Instruct
+Llama 3.1 70B Euryale
+20.5K	$0.0001	12149	$0.31	$0.36	
+Sao10K/L3.1-70B-Euryale-v2.2
+Llama 3.1 70B Hanami
+16.4K	$0.0001	8789	$0.49	$0.49	
+Sao10K/L3.1-70B-Hanami-x1
+Llama 3.1 8B (decentralized)
+128.0K	$0.0000	62594	$0.02	$0.03	
+Meta-Llama-3-1-8B-Instruct-FP8
+Llama 3.1 8b (uncensored)
+32.8K	$0.0001	19094	$0.20	$0.20	
+aion-labs/aion-rp-llama-3.1-8b
+Llama 3.1 8b Instruct
+131.1K	$0.0000	46147	$0.05	$0.05	
+meta-llama/llama-3.1-8b-instruct
+Llama 3.1 Large
+128.0K	$0.0001	19094	$0.20	$0.20	
+Meta-Llama-3-1-405B-Instruct-FP8
+Llama 3.2 3b Instruct
+131.1K	$0.0000	51195	$0.03	$0.05	
+meta-llama/llama-3.2-3b-instruct
+Llama 3.2 Medium
+131.1K	$0.0002	5013	$0.90	$0.90	
+meta-llama/llama-3.2-90b-vision-instruct
+Llama 3.3 70B Anubis v1
+24.6K	$0.0001	8789	$0.49	$0.49	
+Llama-3.3-70B-Anubis-v1
+Llama 3.3 70B ArliAI RPMax v2
+24.6K	$0.0001	13421	$0.31	$0.31	
+Llama-3.3-70B-ArliAI-RPMax-v2
+Llama 3.3 70B Bigger Body
+24.6K	$0.0001	13421	$0.31	$0.31	
+Llama-3.3-70B-Bigger-Body
+Llama 3.3 70B Cirrus x1
+24.6K	$0.0001	13421	$0.31	$0.31	
+Llama-3.3-70B-Cirrus-x1
+Llama 3.3 70B Cu Mai
+16.4K	$0.0001	8789	$0.49	$0.49	
+Steelskull/L3.3-Cu-Mai-R1-70b
+Llama 3.3 70B Cu Mai R1
+24.6K	$0.0001	13421	$0.31	$0.31	
+Llama-3.3-70B-Cu-Mai-R1
+Llama 3.3 70B Damascus R1
+24.6K	$0.0001	13421	$0.31	$0.31	
+Llama-3.3-70B-Damascus-R1
+Llama 3.3 70B Electra R1
+24.6K	$0.0001	13421	$0.31	$0.31	
+Llama-3.3-70B-Electra-R1
+Llama 3.3 70B Electranova v1.0
+24.6K	$0.0001	13421	$0.31	$0.31	
+Llama-3.3-70B-Electranova-v1.0
+Llama 3.3 70B Euryale
+20.5K	$0.0001	8789	$0.49	$0.49	
+Sao10K/L3.3-70B-Euryale-v2.3
+Llama 3.3 70B Fallen R1 v1
+24.6K	$0.0001	13421	$0.31	$0.31	
+Llama-3.3-70B-Fallen-R1-v1
+Llama 3.3 70B Forgotten Safeword 3.6
+24.6K	$0.0001	13421	$0.31	$0.31	
+Llama-3.3-70B-Forgotten-Safeword-3.6
+Llama 3.3 70B Instruct abliterated
+16.4K	$0.0001	7573	$0.58	$0.58	
+huihui-ai/Llama-3.3-70B-Instruct-abliterated
+Llama 3.3 70B Legion V2.1
+24.6K	$0.0001	13421	$0.31	$0.31	
+Llama-3.3-70B-Legion-V2.1
+Llama 3.3 70B MS Nevoria
+24.6K	$0.0001	13421	$0.31	$0.31	
+Llama-3.3-70B-MS-Nevoria
+Llama 3.3 70B Magnum v4 SE
+24.6K	$0.0001	13421	$0.31	$0.31	
+Llama-3.3-70B-Magnum-v4-SE
+Llama 3.3 70B Mokume Gane R1
+24.6K	$0.0001	13421	$0.31	$0.31	
+Llama-3.3-70B-Mokume-Gane-R1
+Llama 3.3 70B RPMax v1.4
+24.6K	$0.0001	13421	$0.31	$0.31	
+Llama-3.3-70B-ArliAI-RPMax-v1.4
+Llama 3.3 70B TEE
+131.1K	$0.0001	9993	$0.18	$0.52	
+TEE/llama-3.3-70b-instruct
+Llama 3.3 70B Vulpecula R1
+24.6K	$0.0001	13421	$0.31	$0.31	
+Llama-3.3-70B-Vulpecula-R1
+Llama 3.3 70B Wayfarer
+16.4K	$0.0002	6359	$0.70	$0.70	
+LatitudeGames/Wayfarer-Large-70B-Llama-3.3
+Llama 3.3 70b Instruct
+131.1K	$0.0001	18451	$0.10	$0.25	
+meta-llama/llama-3.3-70b-instruct
+Llama 3.3 70b Mirai Fanfare
+16.4K	$0.0001	8789	$0.49	$0.49	
+Llama-3.3-70B-MiraiFanfare
+Llama 3.3+ 70B WhiteRabbitNeo-2
+32.8K	$0.0001	13421	$0.31	$0.31	
+Llama-3.3+(3.1v3.3)-70B-WhiteRabbitNeo-2
+Llama 3.3+(3.1v3.3) 70B Hanami x1
+24.6K	$0.0001	13421	$0.31	$0.31	
+Llama-3.3+(3.1v3.3)-70B-Hanami-x1
+Llama 3.3+(3v3.3) 70B TenyxChat DaybreakStorywriter
+24.6K	$0.0001	13421	$0.31	$0.31	
+Llama-3.3+(3v3.3)-70B-TenyxChat-DaybreakStorywriter
+Llama 3.3+3.1 70B Euryale v2.2
+24.6K	$0.0001	13421	$0.31	$0.31	
+Llama-3.3+3.1-70B-Euryale-v2.2
+Llama 3.3+3.1 70B Hanami x1
+24.6K	$0.0001	13421	$0.31	$0.31	
+Llama-3.3+3.1-70B-Hanami-x1
+Llama 4 Maverick
+1.0M	$0.0001	6997	$0.18	$0.80	
+meta-llama/llama-4-maverick
+Llama 4 Scout
+328.0K	$0.0001	11699	$0.09	$0.46	
+meta-llama/llama-4-scout
+Llama-xLAM-2 70B fc-r
+128.0K	$0.0005	1868	$2.50	$2.50	
+Salesforce/Llama-xLAM-2-70b-fc-r
+Lumimaid 70b
+16.4K	$0.0004	2317	$2.01	$2.01	
+NeverSleep/Llama-3-Lumimaid-70B-v0.1
+Lumimaid v0.2
+16.4K	$0.0003	3369	$1.00	$1.50	
+NeverSleep/Lumimaid-v0.2-70B
+MN-LooseCannon-12B-v1
+16.4K	$0.0001	8789	$0.49	$0.49	
+GalrionSoftworks/MN-LooseCannon-12B-v1
+MS Evalebis 70b
+16.4K	$0.0001	8789	$0.49	$0.49	
+Steelskull/L3.3-MS-Evalebis-70b
+Mag Mell R1
+16.4K	$0.0001	8789	$0.49	$0.49	
+inflatebot/MN-12B-Mag-Mell-R1
+Magnum V2 72B
+16.4K	$0.0006	1717	$2.01	$2.99	
+anthracite-org/magnum-v2-72b
+Magnum v4 72B
+16.4K	$0.0006	1717	$2.01	$2.99	
+anthracite-org/magnum-v4-72b
+Mercury Coder Small
+32.8K	$0.0002	5633	$0.25	$1.00	
+mercury-coder-small
+Microsoft Deepseek R1
+128.0K	$0.0000	21764	$0.17	$0.17	
+microsoft/MAI-DS-R1-FP8
+Microsoft Phi 4 Reasoning
+32.0K	$0.0000	32004	$0.10	$0.10	
+microsoft/Phi-4-reasoning
+Microsoft Phi 4 Reasoning Plus
+32.0K	$0.0000	32004	$0.10	$0.10	
+microsoft/Phi-4-reasoning-plus
+MiniMax 01
+1.0M	$0.0002	5267	$0.14	$1.12	
+minimax/minimax-01
+Mistral 7B Instruct
+32.8K	$0.0000	46147	$0.05	$0.05	
+mistralai/mistral-7b-instruct
+Mistral Devstral Small 2505
+N/A	$0.0000	43771	$0.06	$0.06	
+mistralai/Devstral-Small-2505
+Mistral Large 2411
+128.0K	$0.0010	959	$2.01	$6.00	
+mistralai/mistral-large
+Mistral Medium 3
+131.1K	$0.0003	2949	$0.40	$2.00	
+mistralai/mistral-medium-3
+Mistral Nemo
+16.4K	$0.0000	29044	$0.10	$0.12	
+mistralai/Mistral-Nemo-Instruct-2407
+Mistral Nemo 12B Instruct 2407
+16.4K	$0.0000	29044	$0.10	$0.12	
+Mistral-Nemo-12B-Instruct-2407
+Mistral Nemo 12B Magnum v4
+16.4K	$0.0000	25738	$0.10	$0.15	
+Mistral-Nemo-12B-Magnum-v4
+Mistral Nemo 12B NemoMix Unleashed
+16.4K	$0.0001	19094	$0.20	$0.20	
+Mistral-Nemo-12B-NemoMix-Unleashed
+Mistral Nemo 12B Nemomix v4.0
+16.4K	$0.0000	25738	$0.10	$0.15	
+Mistral-Nemo-12B-Nemomix-v4.0
+Mistral Nemo 12B RPMax v1.1
+16.4K	$0.0000	25738	$0.10	$0.15	
+Mistral-Nemo-12B-ArliAI-RPMax-v1.1
+Mistral Nemo 12B RPMax v1.3
+16.4K	$0.0000	25738	$0.10	$0.15	
+Mistral-Nemo-12B-ArliAI-RPMax-v1.3
+Mistral Nemo 12B SauerkrautLM
+16.4K	$0.0000	25738	$0.10	$0.15	
+Mistral-Nemo-12B-SauerkrautLM
+Mistral Nemo 12B Starcannon Unleashed v1.0
+16.4K	$0.0000	25738	$0.10	$0.15	
+Mistral-Nemo-12B-Starcannon-Unleashed-v1.0
+Mistral Nemo 12B UnslopNemo v4.1
+16.4K	$0.0001	19094	$0.20	$0.20	
+Mistral-Nemo-12B-UnslopNemo-v4.1
+Mistral Nemo Inferor 12B
+16.4K	$0.0001	9979	$0.25	$0.49	
+Infermatic/MN-12B-Inferor-v0.0
+Mistral Nemo Starcannon 12b v1
+16.4K	$0.0001	8789	$0.49	$0.49	
+VongolaChouko/Starcannon-Unleashed-12B-v1.0
+Mistral Saba
+32.0K	$0.0001	8879	$0.20	$0.59	
+mistralai/mistral-saba
+Mistral Small 31 24b Instruct
+128.0K	$0.0001	16169	$0.10	$0.30	
+mistral-small-31-24b-instruct
+Mistral Tiny
+32.0K	$0.0001	15674	$0.25	$0.25	
+mistralai/mistral-tiny
+MythoMax 13B
+4.0K	$0.0000	31939	$0.10	$0.10	
+Gryphe/MythoMax-L2-13b
+Nemo Arli 12b RPMa V1.2
+32.8K	$0.0000	25738	$0.10	$0.15	
+Mistral-Nemo-12B-ArliAI-RPMax-v1.2
+NemoMix 12B Unleashed
+32.8K	$0.0001	8789	$0.49	$0.49	
+MarinaraSpaghetti/NemoMix-Unleashed-12B
+Nemotron 3.1 70B abliterated
+16.4K	$0.0001	7573	$0.58	$0.58	
+huihui-ai/Llama-3.1-Nemotron-70B-Instruct-HF-abliterated
+Nemotron Tenyxchat Storybreaker 70b
+16.4K	$0.0001	8789	$0.49	$0.49	
+Envoid/Llama-3.05-Nemotron-Tenyxchat-Storybreaker-70B
+Neural Daredevil 8B abliterated
+8.2K	$0.0001	11648	$0.36	$0.36	
+mlabonne/NeuralDaredevil-8B-abliterated
+Nvidia Nemotron 70b
+16.4K	$0.0001	10750	$0.36	$0.41	
+nvidia/Llama-3.1-Nemotron-70B-Instruct-HF
+Nvidia Nemotron Super 49B
+128.0K	$0.0003	3074	$1.50	$1.50	
+nvidia/Llama-3.3-Nemotron-Super-49B-v1
+Nvidia Nemotron Ultra 253B
+128.0K	$0.0002	6433	$0.40	$0.80	
+nvidia/Llama-3.1-Nemotron-Ultra-253B-v1
+OlympicCoder 32B
+32.8K	$0.0001	7339	$0.60	$0.60	
+open-r1/OlympicCoder-32B
+OlympicCoder 7B
+32.8K	$0.0001	19094	$0.20	$0.20	
+open-r1/OlympicCoder-7b
+OpenAI o1
+200.0K	$0.0100	99	$14.99	$59.99	
+o1
+OpenAI o1 Pro
+200.0K	$0.1004	9	$150.00	$600.00	
+openai/o1-pro
+OpenAI o1 preview
+128.0K	$0.0100	99	$14.99	$59.99	
+o1-preview
+OpenAI o1-mini
+128.0K	$0.0020	495	$2.99	$12.00	
+o1-mini
+OpenAI o3
+200.0K	$0.0067	149	$10.00	$40.00	
+o3
+OpenAI o3-mini
+200.0K	$0.0007	1341	$1.09	$4.40	
+o3-mini
+OpenAI o3-mini high
+200.0K	$0.0007	1341	$1.09	$4.40	
+o3-mini-high
+OpenAI o3-mini low
+200.0K	$0.0007	1341	$1.09	$4.40	
+o3-mini-low
+OpenAI o4-mini
+200.0K	$0.0007	1340	$1.10	$4.40	
+o4-mini
+OpenAI o4-mini high
+200.0K	$0.0007	1340	$1.10	$4.40	
+o4-mini-high
+Perplexity Deep Research
+60.0K	$0.0023	437	$3.40	$13.60	
+sonar-deep-research
+Perplexity Pro
+200.0K	$0.0025	404	$2.99	$14.99	
+sonar-pro
+Perplexity R1 1776
+128.0K	$0.0013	742	$1.99	$7.99	
+r1-1776
+Perplexity Reasoning
+127.0K	$0.0008	1201	$1.00	$5.00	
+sonar-reasoning
+Perplexity Reasoning Pro
+127.0K	$0.0013	741	$2.01	$8.00	
+sonar-reasoning-pro
+Perplexity Simple
+127.0K	$0.0002	4527	$1.00	$1.00	
+sonar
+Phi 4 Mini
+128.0K	$0.0001	8066	$0.17	$0.68	
+phi-4-mini-instruct
+Phi 4 Multimodal
+128.0K	$0.0000	32189	$0.07	$0.11	
+phi-4-multimodal-instruct
+QwQ 32B ArliAI RpR v4
+32.8K	$0.0001	19094	$0.20	$0.20	
+QwQ-32B-ArliAI-RpR-v4
+QwQ 32B Snowdrop v0
+32.8K	$0.0001	19094	$0.20	$0.20	
+QwQ-32B-Snowdrop-v0
+QwQ 32B Snowdrop v0 nothink
+32.8K	$0.0001	19094	$0.20	$0.20	
+QwQ-32B-Snowdrop-v0-nothink
+QwQ 32b Arli V1
+32.8K	$0.0001	19140	$0.20	$0.20	
+QwQ-32B-ArliAI-RpR-v1
+QwQ 32b Arli V2
+32.8K	$0.0001	19140	$0.20	$0.20	
+QwQ-32B-ArliAI-RpR-v2
+QwQ 32b Arli V3
+32.8K	$0.0001	19140	$0.20	$0.20	
+QwQ-32B-ArliAI-RpR-v3
+Qwen 2.5 32B AGI
+24.6K	$0.0001	19094	$0.20	$0.20	
+Qwen2.5-32B-AGI
+Qwen 2.5 32B Snowdrop v0
+24.6K	$0.0001	19094	$0.20	$0.20	
+Qwen2.5-32B-Snowdrop-v0
+Qwen 2.5 32b EVA
+24.6K	$0.0001	8789	$0.49	$0.49	
+Qwen2.5-32B-EVA-v0.2
+Qwen 2.5 72B Chuluun v0.08
+24.6K	$0.0001	10750	$0.36	$0.41	
+Qwen2.5-72B-Chuluun-v0.08
+Qwen 2.5 72B Evathene v1.2
+24.6K	$0.0001	10750	$0.36	$0.41	
+Qwen2.5-72B-Evathene-v1.2
+Qwen 2.5 72B Instruct
+24.6K	$0.0001	10750	$0.36	$0.41	
+Qwen2.5-72B-Instruct
+Qwen 2.5 72B Instruct Abliterated
+24.6K	$0.0001	10750	$0.36	$0.41	
+Qwen2.5-72B-Instruct-Abliterated
+Qwen 2.5 72B Magnum v4
+24.6K	$0.0001	10750	$0.36	$0.41	
+Qwen2.5-72B-Magnum-v4
+Qwen 2.5 Coder 32b
+32.0K	$0.0001	19094	$0.20	$0.20	
+Qwen/Qwen2.5-Coder-32B-Instruct
+Qwen 2.5 Max
+32.0K	$0.0011	926	$1.60	$6.39	
+qwen-max
+Qwen 3 14b
+41.0K	$0.0001	19407	$0.08	$0.24	
+qwen/qwen3-14b
+Qwen 3 235b A22B
+41.0K	$0.0001	10620	$0.13	$0.50	
+qwen/qwen3-235b-a22b
+Qwen 3 30b A3B
+41.0K	$0.0001	16169	$0.10	$0.30	
+qwen/qwen3-30b-a3b
+Qwen 3 32b
+41.0K	$0.0001	16169	$0.10	$0.30	
+qwen/qwen3-32b
+Qwen 3 8B
+41.0K	$0.0001	9178	$0.47	$0.47	
+Qwen/Qwen3-8B
+Qwen Long 10M
+10.0M	$0.0001	12757	$0.10	$0.41	
+qwen-long
+Qwen Plus
+128.0K	$0.0002	4615	$0.40	$1.20	
+qwen-plus
+Qwen QwQ 32B Preview
+32.8K	$0.0001	19094	$0.20	$0.20	
+Qwen/QwQ-32B-Preview
+Qwen Turbo
+1.0M	$0.0000	22838	$0.05	$0.20	
+qwen-turbo
+Qwen2.5 72B
+131.1K	$0.0001	10750	$0.36	$0.41	
+qwen/qwen-2.5-72b-instruct
+Qwen2.5 7B TEE
+131.1K	$0.0001	7339	$0.60	$0.60	
+TEE/qwen-2.5-7b-instruct
+Qwen25 VL 72b
+32.0K	$0.0002	6360	$0.70	$0.70	
+qwen25-vl-72b-instruct
+Qwen3 32B
+16.4K	$0.0001	19094	$0.20	$0.20	
+Qwen3-32B
+Qwen: QvQ Max
+128.0K	$0.0009	1109	$1.40	$5.30	
+qvq-max
+Qwen: QwQ 32B
+128.0K	$0.0001	13985	$0.26	$0.30	
+qwq-32b
+Qwerky 72B
+32.0K	$0.0001	8677	$0.50	$0.50	
+featherless-ai/Qwerky-72B
+ReMM SLERP 13B
+6.1K	$0.0002	4158	$0.80	$1.21	
+undi95/remm-slerp-l2-13b
+Rocinante 12b
+16.4K	$0.0001	8029	$0.41	$0.59	
+TheDrummer/Rocinante-12B-v1.1
+Sao10K Stheno 8b
+16.4K	$0.0001	19094	$0.20	$0.20	
+Sao10K/L3-8B-Stheno-v3.2
+Sarvan Medium
+128.0K	$0.0001	7181	$0.25	$0.75	
+sarvan-medium
+Shisa V2 Llama 3.3 70B
+128.0K	$0.0001	8677	$0.50	$0.50	
+shisa-ai/shisa-v2-llama3.3-70b
+SorcererLM 8x22B
+16.0K	$0.0010	1045	$4.51	$4.51	
+raifle/sorcererlm-8x22b
+Steelskull Electra R1 70b
+16.4K	$0.0002	6360	$0.70	$0.70	
+Steelskull/L3.3-Electra-R1-70b
+Steelskull Nevoria 70b
+16.4K	$0.0001	8789	$0.49	$0.49	
+Steelskull/L3.3-MS-Nevoria-70b
+Steelskull Nevoria R1 70b
+16.4K	$0.0001	8789	$0.49	$0.49	
+Steelskull/L3.3-Nevoria-R1-70b
+Step R1 V Mini
+128.0K	$0.0018	544	$2.50	$11.00	
+step-r1-v-mini
+Step-2 16k Exp
+16.0K	$0.0035	288	$7.00	$19.99	
+step-2-16k-exp
+Step-2 Mini
+8.0K	$0.0001	11890	$0.20	$0.41	
+step-2-mini
+The Drummer Cydonia 24B
+16.4K	$0.0000	29044	$0.10	$0.12	
+TheDrummer/Cydonia-24B-v2
+The Omega Abomination V1
+16.4K	$0.0002	5115	$0.70	$0.95	
+ReadyArt/The-Omega-Abomination-L-70B-v1.0
+The Omega Abomination V5
+16.4K	$0.0002	5115	$0.70	$0.95	
+ReadyArt/The-Omega-Abomination-L-70B-v5.0
+TheDrummer Skyfall 36B V2
+64.0K	$0.0001	8789	$0.49	$0.49	
+thedrummer/skyfall-36b-v2
+TheDrummer: Valkyrie 49B V1
+1.1M	$0.0002	5993	$0.60	$0.80	
+parasail-valkyrie-49b-v1
+UnslopNemo 12b v4
+32.8K	$0.0001	8789	$0.49	$0.49	
+TheDrummer/UnslopNemo-12B-v4.1
+Veiled Calla 12B
+N/A	$0.0001	13652	$0.30	$0.30	
+soob3123/Veiled-Calla-12B
+WizardLM-2 8x22B
+65.5K	$0.0001	8789	$0.49	$0.49	
+microsoft/wizardlm-2-8x22b
+Yi Large
+32.0K	$0.0007	1467	$3.20	$3.20	
+yi-large
+Yi Lightning
+12.0K	$0.0001	19094	$0.20	$0.20	
+yi-lightning
+Yi Medium 200k
+200.0K	$0.0005	1869	$2.50	$2.50	
+yi-medium-200k
+Yi Medium 200k
+16.0K	$0.0000	80957	$0.01	$0.01	
+yi-34b-chat-200k
+Yi Spark
+16.0K	$0.0000	80957	$0.01	$0.01	
+yi-34b-chat-0205

@@ -1,0 +1,198 @@
+Perfect—this gives me exactly what I need. Below is a prioritized, plug-and-play keyword plan tailored to Sourdough Suite’s architecture, tech stack, and positioning.
+
+⸻
+
+TL;DR (Action Order)
+	1.	Own every “[calculator]” SERP in the niche. Ship optimized, snippet-ready pages for: hydration, baker’s %, dough temp, timeline, recipe validator, scaling, starter feeding ratio.
+	2.	Build a “Starter School” FAQ fortress (50+ Q&A pages) to vacuum up long-tail intent and feed internal links back to tools.
+	3.	Monetize with intent-heavy commercial pages: “buy sourdough starter online”, “best sourdough starter kit for beginners”, “San Francisco sourdough starter culture”.
+	4.	Differentiate with pro/commercial terms: “professional baking calculator”, “bread production scheduling calculator”, “commercial bakery dough temperature”.
+	5.	**Answer “how to calculate…” and “why is my…” questions to win People Also Ask + featured snippets.
+	6.	Layer schema (FAQ, HowTo, Product) + jump links on every long-form guide.
+
+⸻
+
+Keyword Clusters & Primary Targets
+
+1. Calculator / Tool Cluster (Core Money & Link Magnets)
+
+Goal: Own all “calculator” keywords—low competition, high intent.
+
+Primary KW	Sec. Long-Tails (Examples)	Intent	Funnel Stage	Target URL / Notes	Difficulty*
+sourdough hydration calculator	how to calculate bread hydration %, dough water % calculator, hydration % formula	Informational	Mid	/tools/hydration-converter (add formula explainer)	Low
+baker’s percentage calculator	bread formula calculator, baker’s % tool, convert grams to baker’s %	Informational	Mid	/tools/bakers-calculator (include downloadable sheet)	Low
+dough temperature calculator	desired dough temp calculator, final dough temp formula, water temp for dough	Informational	Mid	/tools/dough-temperature-calculator (embed formula)	Low
+bread baking timeline calculator	sourdough fermentation schedule calculator, baking timeline planner	Informational	Mid	/tools/timeline-calculator (sell USP: sleep detection)	Low
+recipe validator / analyzer	bread recipe checker, sourdough recipe validator, hydration/salt % checker	Informational	Mid	/tools/recipe-validator (screenshots, sample analyses)	Low
+starter feeding ratio calculator	how much to feed sourdough starter, starter feeding schedule calculator	Informational	Mid	New tool page	Low
+recipe scaling calculator	scale bread recipe calculator, multiply dough formula calculator	Informational	Mid	Integrate into baker’s calc or standalone tool	Low
+unit converter (baking)	grams to cups flour bread, convert ounces to grams for dough	Informational	Top/Mid	Quick utility page; internal link hub	Low
+
+*Difficulty is relative (for your domain authority). “Low” = realistic to rank Top 3 within months.
+
+To do:
+	•	Add intro copy (≈250–400 words) above each tool (why/when to use, formula, example).
+	•	FAQ schema: 4–6 common questions each tool answers.
+	•	Featured snippet targeting: Put the formula in a short, bolded paragraph.
+
+⸻
+
+2. Starter Care & Troubleshooting (Starter School Hub)
+
+Goal: Build topical authority and capture question-based, evergreen traffic that feeds your tools and products.
+
+Primary KW	Sec. Long-Tails (Examples)	Intent	Funnel	Target URL / Notes	Diff
+how to feed sourdough starter	feeding schedule for sourdough starter, how much to discard, 1:1:1 feeding explained	Informational	Top	/starter-school/master-starter-care + child pages	Med
+how to store sourdough starter	store starter in fridge, long-term starter storage, freeze-dried sourdough starter	Informational	Top	Dedicated page; link to your freeze-dry research posts	Low
+sourdough starter troubleshooting	why is my starter not rising, mold on starter, hooch on sourdough starter	Informational	Top	A mega “problems & fixes” page + individual issue pages	Low
+sourdough discard recipes / uses	what to do with sourdough discard, discard crackers/pancakes	Informational	Top	Capture discard searchers; internal link to tools/products	Med
+gluten-free sourdough starter	GF starter recipe, how to feed gluten-free starter	Informational	Top	/starter-school/recipes/gluten-free	Low
+
+Tactics:
+	•	50+ FAQ entries = dozens of indexable pages (duplicate core Qs into one hub with canonicalization to avoid cannibalization).
+	•	Use “Problem → Why It Happens → Fix” structure for troubleshooting pages.
+	•	Add HowTo schema for processes (feeding, storing, reviving).
+	•	End each guide with a CTA: “Calculate your feeding ratio with our Starter Feeding Calculator”.
+
+⸻
+
+3. Commercial / Transactional (Starters & Kits)
+
+Goal: Drive revenue; optimize product/category pages and “best of” guides.
+
+Primary KW	Sec. Long-Tails / Modifiers	Intent	Funnel	Target URL / Notes	Diff
+buy sourdough starter online	sourdough starter for sale, sourdough starter culture buy	Transactional	Bottom	Product landing page	Med
+best sourdough starter kit for beginners	starter kit for sourdough bread, sourdough starter kit review 2025	Commercial	Mid	Comparison blog post + product CTAs	Low
+San Francisco sourdough starter culture	authentic SF starter, San Francisco style starter buy	Transactional	Bottom	Product variant page if you sell one	Med
+freeze-dried sourdough starter	dried sourdough starter for sale, how to rehydrate freeze dried starter	Mixed	Mid	Product + guide (you have research angle; leverage it)	Low
+sourdough starter in Canada	where to buy sourdough starter Canada, Canadian sourdough culture	Transactional	Bottom	Geo-targeted page; mention shipping times & cost	Low
+
+Tactics:
+	•	Product pages need Product schema, reviews (seed some), FAQs, shipping info.
+	•	Create “Best X for Y” blog posts to rank for “best” modifiers (low competition, high conversion).
+	•	Internal link from every educational starter page → product. Use descriptive anchors (“buy a ready-to-use starter culture”).
+
+⸻
+
+4. Professional / Commercial Bakery Angle (Differentiator)
+
+Goal: Terms competitors ignore because they’re consumer-focused.
+
+Primary KW	Sec. Long-Tails	Intent	Funnel	Target URL / Notes	Diff
+professional baking calculator	commercial bread formula calculator, production dough calculator	Informational	Mid	Landing for suite (“Professional Baking Tools”)	Low
+bread production schedule calculator	commercial bakery timeline, bulk fermentation planner	Informational	Mid	Extended timeline calc page w/ batch features	Low
+bakery cost calculator (bread)	bread cost per loaf calculator, bakery ingredient cost spreadsheet	Informational	Mid	Future tool; great link magnet for small bakeries	Low
+HACCP for sourdough / bakery	sourdough HACCP plan template, bakery food safety plan	Informational	Top	Research hub tie-in; authority play	Med
+commercial dough temperature control	dough temp control in large batches, industrial mixer friction heat	Informational	Mid	Niche article; pro niche, easy to rank	Low
+
+Tactics:
+	•	Create a “For Professionals” hub page that lists all pro tools.
+	•	Pitch these tools to culinary schools & bakery forums = backlinks.
+	•	Consider gated template downloads (email capture → CRM).
+
+⸻
+
+5. Research / Science Hub (Authority & Links)
+
+Goal: Win links, brand trust, and long-tail science queries.
+
+Primary KW	Sec. Long-Tails	Intent	Funnel	Target URL / Notes
+sourdough microbiome research	LAB in sourdough, yeast diversity in starters	Informational	Top	/research overview, individual summaries
+freeze drying sourdough starter study	viability of dried starter, storing starter long term	Informational	Top	You already have content—optimize for SERP
+hydration vs gluten development	how hydration affects crumb, high hydration sourdough	Informational	Top	Research-to-practice blog posts
+
+Tactics:
+	•	Publish plain-language summaries + “What this means for your bake” tables.
+	•	Use ScholarlyArticle schema for the summaries.
+	•	Outreach to food science bloggers / journalists for links.
+
+⸻
+
+SERP Feature Strategy
+	•	Featured Snippets & PAA:
+	•	Start your answers with a concise definition or formula (40–55 words).
+	•	Use question subheadings (“### How do I calculate dough hydration?”) and FAQ schema.
+	•	HowTo Schema:
+	•	Feeding starter, storing starter, reviving dried starter.
+	•	Product & Review Schema:
+	•	For starter cultures, kits, and any physical product pages.
+	•	Video Results (YouTube SEO):
+	•	2–3 min walkthroughs of each calculator. Titles like “How to Use a Baker’s Percentage Calculator (Step-by-Step)”.
+
+⸻
+
+Internal Linking & Architecture
+	•	Every Starter School article → link to relevant tools (“Calculate it now”).
+	•	Every tool page → link to deeper educational posts (“Learn when to adjust hydration”).
+	•	Breadcrumb schema already implemented—ensure consistent hierarchy: /tools → /tools/hydration-converter.
+
+⸻
+
+Content Brief Templates (Use for Writers / Yourself)
+
+Example Brief – “How to Feed a Sourdough Starter (Ratio, Schedule, Fixes)”
+	•	Primary KW: how to feed sourdough starter
+	•	Secondaries: starter feeding ratio calculator, how often to feed starter, 1:1:1 feeding explained
+	•	Search Intent: Informational (Top/Mid funnel)
+	•	Angle: Practical, ratio-based guidance for beginners + pro tips; embed calculator CTA
+	•	Outline:
+	1.	TL;DR feeding ratio table (snippet bait)
+	2.	Why feeding matters (science)
+	3.	Ratios explained (1:1:1, 1:2:2) + when to change them
+	4.	Temperature & schedule impacts (link to timeline calc)
+	5.	Troubleshooting (not rising, hooch, smell)
+	6.	FAQ (FAQ schema)
+	•	CTA: “Use our Starter Feeding Calculator to get exact amounts”
+	•	Schema: FAQ + HowTo
+	•	Assets: Photos/gifs of feeding, calculator screenshot
+
+Replicate this pattern for all key FAQs.
+
+⸻
+
+Measurement Plan
+
+Track in GSC & Analytics:
+	•	Impressions/CTR for each tool keyword (“hydration calculator”, etc.).
+	•	Growth in People Also Ask appearances.
+	•	Tool completion rate (proxy for engagement).
+	•	Entry pages: Are Starter School posts feeding tool sessions?
+
+⸻
+
+Link-Building Quick Wins
+	•	Share calculators on Reddit (r/Sourdough), The Fresh Loaf forum, Breadit Discord, culinary school Facebook groups.
+	•	Offer embed code/API for calculators → natural backlinks from blogs.
+	•	Guest posts on niche baking blogs (“science of hydration” piece linking back).
+	•	Pitch journalists when you publish unique research summaries.
+
+⸻
+
+Roadmap Snapshot
+
+0–3 Months
+	•	Ship/optimize all calculator pages (copy + FAQ + schema).
+	•	Publish 10 highest-priority Starter School FAQs.
+	•	Launch “Buy Sourdough Starter Online” product page.
+	•	Record quick tool demo videos.
+
+3–6 Months
+	•	Expand Starter School to 50+ FAQs.
+	•	Create 3 commercial comparison posts (“best starter kit…”, etc.).
+	•	Release Professional hub & cost calculator MVP.
+	•	Outreach for embeds/backlinks.
+
+6–12 Months
+	•	Publish original research recaps (freeze-dry, microbiome, etc.).
+	•	API/embeddable widgets for calculators.
+	•	Launch mini-certification or CE credits with a culinary school partner (authority + links).
+
+⸻
+
+Need a CSV / Sheet?
+
+If you want this keyword set in a spreadsheet (with SERP features, est. vol, KD, target URLs), say the word and I’ll generate it.
+
+⸻
+
+Want me to draft briefs for each tool/FAQ page next, or pull real volume/KD from Ahrefs/SEMrush and hand you a cleaned sheet?

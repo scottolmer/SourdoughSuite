@@ -1,0 +1,488 @@
+I'll create a comprehensive UX/UI specification for the Sourdough Starter Selection Quiz based on the information provided in your documents.
+
+# Sourdough Starter Selection Quiz UX/UI Design Specification
+
+## 1. Welcome Screen
+
+### Purpose
+Create an engaging entry point that explains the value of the quiz while building excitement about discovering the perfect starter match.
+
+### Layout Components
+- **Hero Section**
+  - Prominent headline: "Find Your Perfect Sourdough Starter"
+  - Supporting text: "Answer a few questions to discover which of our specialty starters is your ideal match"
+  - Background featuring subtle, high-quality bread imagery in monochrome
+  - Progress indicator showing "Step 0 of 4"
+
+- **Starter Collection Overview**
+  - Visual preview showing all five starter varieties in a horizontal row
+  - Each starter represented by a distinctive jar illustration
+  - Minimal quick-fact comparison (mild to tangy scale, basic/specialty indicator)
+  - "2,500+ bakers matched this month" social proof element
+
+- **Start Button**
+  - Large amber primary button: "Begin Quiz (2 min)"
+  - Optional secondary link: "Skip to Results" (for returning visitors)
+
+- **Quiz Value Props**
+  - 3-4 small benefit icons with text:
+    - "Personalized to your taste preferences"
+    - "Matched to your baking style"
+    - "Considers your experience level"
+    - "Accounts for your available time"
+
+### Interactive Elements
+- Subtle animation on starter jars on hover
+- Tooltip information on each starter when hovered
+- Optional sound effect on quiz start button (toggleable)
+- Smooth transition animation to first question
+
+## 2. Flavor Preferences Section
+
+### Purpose
+Assess the user's taste preferences and desired bread outcomes in an engaging, visual way.
+
+### Layout Components
+- **Section Header**
+  - "Step 1 of 4: Flavor Preferences"
+  - Subtitle: "Let's discover the flavors you're looking for in your bread"
+  - Progress bar showing 25% completion
+
+- **Sourness Preference Slider**
+  - Visual slider from "Mild & Subtle" to "Very Tangy"
+  - Clear labels at each end of the spectrum
+  - Visual indicator of current selection with dynamic bread illustration
+  - Optional explanation: "This affects which starter will give you bread with your preferred level of tanginess"
+
+- **Flavor Profile Selection**
+  - Card-based selection with clear visuals
+  - Options include:
+    - Traditional Sourdough (classic tang)
+    - Complex/Umami (deeper, savory notes)
+    - Subtly Sweet (natural sweetness)
+    - Bright/Fruity (lighter, lively flavors)
+  - Multi-select capability with visual highlighting
+
+- **Bread Style Preference**
+  - Visual tiles showing different bread styles:
+    - Rustic Country Loaf
+    - Sandwich Bread
+    - Enriched Doughs (brioche, etc.)
+    - Flatbreads & Pizza
+    - Specialty Breads
+  - Each tile has representative bread image in monochrome
+  - Multi-select with priority weighting
+
+- **Crust Preference**
+  - Simple three-button selection:
+    - Thin & Crispy
+    - Medium
+    - Thick & Chewy
+
+### Interactive Elements
+- Real-time adjustment of bread visualization based on sourness slider
+- Selected cards with clear visual state
+- Hover states with additional information
+- Smart default selection based on previous answers
+
+## 3. Baking Behavior Section
+
+### Purpose
+Understand the user's baking patterns and time availability to ensure starter maintenance compatibility.
+
+### Layout Components
+- **Section Header**
+  - "Step 2 of 4: Your Baking Routine"
+  - Subtitle: "Let's find a starter that fits your schedule"
+  - Progress bar showing 50% completion
+
+- **Baking Frequency Selector**
+  - Visual calendar-style interface
+  - Options:
+    - Daily (avid baker)
+    - Weekly (regular baker)
+    - Monthly (occasional baker)
+    - Sporadically (when time allows)
+  - Each option shows visual representation of frequency
+
+- **Time Availability Assessment**
+  - Slider from "Minimal Time" to "Dedicated Enthusiast"
+  - Supporting text: "How much time can you dedicate to starter maintenance?"
+  - Visual examples of each level's time commitment
+
+- **Weekend vs. Weekday Preference**
+  - Simple toggle or dual slider
+  - "When do you typically do most of your baking?"
+  - Visual representation of week with emphasis options
+
+- **Temperature Control Capability**
+  - Assessment of environment control:
+    - Precise (dedicated equipment)
+    - Good (consistent home environment)
+    - Limited (variable conditions)
+  - Each option with brief explanation
+
+### Interactive Elements
+- Dynamic maintenance schedule preview based on selections
+- Tooltip explanations for temperature control options
+- Automatic suggestions as selections are made
+- Visual feedback showing starter compatibility as answers progress
+
+## 4. Experience & Equipment Section
+
+### Purpose
+Gauge the user's baking expertise and available tools to ensure appropriate recommendations.
+
+### Layout Components
+- **Section Header**
+  - "Step 3 of 4: Experience & Setup"
+  - Subtitle: "Tell us about your sourdough journey"
+  - Progress bar showing 75% completion
+
+- **Skill Self-Assessment**
+  - Visual scale from Beginner to Expert
+  - Descriptive text for each level:
+    - Beginner: "New to sourdough baking"
+    - Intermediate: "Comfortable with basic sourdough techniques"
+    - Advanced: "Experienced with various bread styles"
+    - Expert: "Mastered complex techniques and troubleshooting"
+  - Simple selection mechanism with clear visual feedback
+
+- **Equipment Inventory Checklist**
+  - Clean, visual checklist of common equipment:
+    - Kitchen Scale
+    - Dutch Oven
+    - Proofing Baskets
+    - Bench Scraper
+    - Temperature Control Device
+    - Specialty Flours
+  - Quick-select "I have basic equipment" button
+  - Visual illustrations of each item
+
+- **Previous Sourdough Experience**
+  - Quick multiple-choice question:
+    - "Never maintained a starter before"
+    - "Had a starter but struggled to maintain it"
+    - "Successfully maintained starter(s) before"
+    - "Currently maintain active starter(s)"
+
+- **Bread Variety Exploration**
+  - Interest level assessment:
+    - "I prefer mastering one style"
+    - "I enjoy occasional variety"
+    - "I love experimenting with different breads"
+  - Visual bread variety spectrum
+
+### Interactive Elements
+- Equipment selection with visual highlighting
+- Experience level selection with appropriate micro-animations
+- Dynamic recommendations preview updating with each selection
+- Helpful tooltips explaining equipment items
+
+## 5. Special Considerations Section
+
+### Purpose
+Capture additional factors that may influence starter selection and success.
+
+### Layout Components
+- **Section Header**
+  - "Step 4 of 4: Final Details"
+  - Subtitle: "Let's fine-tune your perfect match"
+  - Progress bar showing 100% completion
+
+- **Dietary Preferences Section**
+  - Optional selection cards:
+    - Gluten Sensitivity Concerns
+    - Lower Glycemic Interest
+    - Artisanal/Traditional Focus
+    - Health/Digestibility Priority
+  - Multiple selection allowed with clear visual feedback
+
+- **Regional Climate Information**
+  - Simple climate selection:
+    - Humid & Warm
+    - Dry & Warm
+    - Humid & Cool
+    - Dry & Cool
+    - Variable/Seasonal
+  - Optional automatic detection based on location
+  - Visual climate icons
+
+- **Household Size Assessment**
+  - Simple selection for bread consumption rate:
+    - Single Baker
+    - Couple
+    - Small Family
+    - Large Family
+  - Visual representation of each option
+
+- **Non-Bread Applications Interest**
+  - Interest check in using starter for:
+    - Pancakes/Waffles
+    - Pizza Dough
+    - Pastries
+    - Crackers/Snacks
+  - Visual tiles with checkbox selection
+
+### Interactive Elements
+- Optional geolocation for climate suggestion
+- Dynamic advice snippets based on selections
+- One-click selection of multiple options
+- Clear "Complete Quiz" button that pulses when all fields are filled
+
+## 6. Results Presentation Screen
+
+### Purpose
+Deliver a personalized, engaging starter recommendation with clear rationale and next steps.
+
+### Layout Components
+- **Celebration Header**
+  - Animated reveal of "We've Found Your Match!"
+  - Subtle confetti or bread-themed celebration animation
+  - Match percentage indicator (e.g., "98% Match")
+
+- **Primary Recommendation**
+  - Large feature card for top-matched starter
+  - Beautiful product photography of the starter
+  - Starter name in large typography
+  - Brief description highlighting key characteristics
+  - 3-4 bullet points on why this starter matches their needs
+  - Dynamic list of bread possibilities with this starter
+  - Quick-start guide preview
+
+- **Match Rationale Visualization**
+  - Visual breakdown of matching factors:
+    - Flavor profile fit (percentage)
+    - Maintenance compatibility (percentage)
+    - Style suitability (percentage)
+    - Experience alignment (percentage)
+  - Clean, minimal data visualization using brand colors
+
+- **Secondary Recommendations**
+  - Smaller cards showing 1-2 alternative options
+  - Clear "why this might also work" explanations
+  - Visual comparison between primary and alternates
+  - Easy toggle to view any starter as primary recommendation
+
+- **Personalized Action Plan**
+  - Tailored starter kit suggestion based on equipment answers
+  - First recipe recommendation based on preferences
+  - Custom maintenance schedule preview based on availability
+  - Skill-appropriate getting started guide
+
+### Interactive Elements
+- Animated reveal of the match result
+- Interactive comparison between different starter options
+- Expandable sections for detailed information
+- Ability to email or save results
+
+## 7. Follow-Up Options Screen
+
+### Purpose
+Convert quiz engagement into action with clear next steps and information collection.
+
+### Layout Components
+- **Purchase Section**
+  - Clear, prominent "Add to Cart" button for recommended starter
+  - Option to "Create Custom Bundle" with complementary items
+  - Special offer for quiz completion (e.g., "10% off your starter")
+  - Shipping/availability information
+  - Starter care kit recommendation based on equipment answers
+
+- **Information Collection**
+  - Optional email capture with clear benefit statement
+  - Save preferences to account option (with quick account creation)
+  - Schedule reminder option with date picker
+  - Share results with friends via social or email
+
+- **Additional Resources**
+  - "What to Expect" accordion with starter care overview
+  - "Perfect First Recipe" recommendation
+  - "Starter Care Community" introduction
+  - "Maintenance Reminder" setup option
+
+- **Next Steps Navigation**
+  - Clear pathways to:
+    - Shop (highlighted)
+    - Read Care Guide
+    - Join Community
+    - Create Feeding Schedule
+
+### Interactive Elements
+- One-click add to cart functionality
+- Email capture with minimal fields
+- Social sharing with custom messaging
+- Calendar integration for maintenance reminders
+
+## 8. Mobile-Optimized Views
+
+### Purpose
+Ensure fully functional, enjoyable quiz experience on smaller screens.
+
+### Key Adaptations
+- **Welcome Screen**
+  - Vertically stacked starter previews
+  - Condensed value propositions
+  - Full-width start button for easy tapping
+
+- **Question Screens**
+  - Single question view per screen on smallest devices
+  - Larger touch targets for all interactive elements
+  - Swipe navigation between questions
+  - Fixed bottom navigation
+
+- **Selection Components**
+  - Larger selection cards with clear touch states
+  - Full-width sliders with larger handles
+  - Radio buttons and checkboxes sized for touch
+  - Reduced animations for performance
+
+- **Results Screen**
+  - Sequential presentation of information
+  - Collapsible sections for detailed information
+  - Fixed "Add to Cart" button always visible
+  - Simplified visualizations optimized for small screens
+
+### Mobile-Specific Features
+- Haptic feedback on selections
+- Progress saving if quiz interrupted
+- Share results via native sharing API
+- Option to receive results via text message
+
+## 9. Visual Design System
+
+### Color Palette
+- **Primary**: Amber (#D97706) for actions and highlights
+- **Secondary**: Deep charcoal (#1C1917) for text and accents
+- **Background**: Warm white (#FFFBF5) for main surfaces
+- **Supporting Colors**:
+  - Light gray (#F9FAFB) for inactive states
+  - Medium gray (#E5E7EB) for borders and dividers
+  - Dark amber (#B45309) for hover states
+
+### Typography
+- **Primary Font**: Serif typeface for headings and product names
+  - Weights: Regular (400), Medium (500), Semibold (600)
+  - Sizes: 32px (main headers), 24px (section headers), 20px (card titles)
+
+- **Secondary Font**: Sans-serif for body text and UI elements
+  - Weights: Regular (400), Medium (500)
+  - Sizes: 16px (body), 14px (secondary text), 12px (captions)
+
+### UI Components
+- **Cards**:
+  - Subtle shadow (0px 4px 6px rgba(0, 0, 0, 0.05))
+  - 8px border radius
+  - 16px internal padding
+  - Optional subtle grain texture
+
+- **Buttons**:
+  - Primary: Amber background, white text, 4px radius
+  - Secondary: White background, amber border, amber text
+  - Tertiary: No background, amber text, subtle underline on hover
+  - States: Default, Hover, Active, Disabled
+
+- **Selection Elements**:
+  - Radio buttons: Custom design with amber active state
+  - Checkboxes: Square with rounded corners, amber check
+  - Sliders: Custom handle with amber track for active portion
+  - Toggle switches: Amber background when active
+
+- **Iconography**:
+  - Consistent line weight (1.5px)
+  - Rounded corners and cap style
+  - Monochrome with amber accent for active states
+  - Simple, clear shapes with good touch targets
+
+## 10. Animation & Interaction
+
+### Purpose
+Add delight and guide attention without overwhelming or distracting users.
+
+### Key Animation Elements
+- **Transitions Between Sections**
+  - Smooth cross-fade between questions (400ms)
+  - Subtle slide effect for sequential content
+  - Progress bar animation synchronized with transitions
+
+- **Selection Feedback**
+  - Gentle scale increase on hover (105%)
+  - Subtle "pop" effect when selecting options
+  - Color transitions for state changes (200ms ease)
+
+- **Results Reveal**
+  - Staggered entrance of elements
+  - Subtle "drawing" animation for data visualizations
+  - Gentle pulse effect on primary CTA button
+
+- **Microinteractions**
+  - Button hover/press states
+  - Focus indicators for accessibility
+  - Success animations for completed sections
+  - Subtle loading indicators where needed
+
+### Implementation Guidelines
+- All animations optional (respects reduced motion preferences)
+- Performance optimized for mobile devices
+- No animation blocking user progress
+- Consistent timing and easing functions across the experience
+
+## 11. Accessibility Considerations
+
+### Purpose
+Ensure the quiz is usable and enjoyable for all users regardless of abilities.
+
+### Key Features
+- **Keyboard Navigation**
+  - Full functionality without mouse
+  - Logical tab order through all interactive elements
+  - Clear focus states for all interactive components
+  - Keyboard shortcuts for primary actions
+
+- **Screen Reader Support**
+  - Semantic HTML structure
+  - ARIA labels for all interactive elements
+  - Meaningful alt text for all images
+  - Announcements for dynamic content changes
+
+- **Visual Accessibility**
+  - Color not used as the only means of conveying information
+  - High contrast mode option
+  - Text resizing without breaking layouts
+  - Sufficient color contrast ratios (WCAG AA compliance)
+
+- **Cognitive Accessibility**
+  - Clear, simple language
+  - Consistent placement of navigation elements
+  - Progress indicators throughout
+  - Option to review all answers before submission
+
+## 12. Personal Touches & Branding Elements
+
+### Purpose
+Infuse the quiz with Bakehouse Breads' expertise and personality.
+
+### Implementation
+- **Expert Tips**
+  - Small "Baker's Note" callouts with specialist insights
+  - Helpful explanations about why certain questions matter
+  - Brief educational moments throughout the experience
+
+- **Personality Elements**
+  - Warm, conversational copy throughout
+  - Occasional gentle humor in prompts and feedback
+  - Celebratory language for completion milestones
+
+- **Brand Reinforcement**
+  - Consistent use of Bakehouse Breads terminology
+  - References to unique starter properties
+  - Subtle branded elements (logo watermarks, etc.)
+  - Connection to broader ecosystem of tools
+
+- **Premium Experience Markers**
+  - High-quality bread photography throughout
+  - Refined animations and transitions
+  - Thoughtful, anticipatory interface design
+  - Attention to detail in all interactions
+
+This comprehensive UX/UI specification provides a detailed roadmap for implementing the Sourdough Starter Selection Quiz, ensuring it delivers a delightful, engaging experience while effectively matching users with their ideal starter type.​​​​​​​​​​​​​​​​

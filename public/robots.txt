@@ -1,0 +1,20 @@
+User-agent: *
+Allow: /
+
+# Block admin pages
+Disallow: /admin/
+Disallow: /api/
+
+# Block sensitive pages
+Disallow: /checkout/
+Disallow: /cart/
+Disallow: /account/
+
+# Allow important pages
+Allow: /tools/
+Allow: /starter-school/
+Allow: /research/
+Allow: /blog/
+
+# Sitemap location
+Sitemap: https://bakehousebreads.com/sitemap.xml

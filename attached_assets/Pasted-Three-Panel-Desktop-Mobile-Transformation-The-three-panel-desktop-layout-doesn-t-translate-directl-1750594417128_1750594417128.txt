@@ -1,0 +1,187 @@
+Three-Panel Desktop → Mobile Transformation
+The three-panel desktop layout doesn't translate directly to mobile - instead, it transforms into a tabbed/modal system that preserves the functionality while optimizing for touch interaction.
+
+Mobile Transformation Strategy
+Desktop Layout Recap
+┌─────────────┬─────────────────┬─────────────┐
+│ LEFT PANEL  │   MIDDLE PANEL  │ RIGHT PANEL │
+│ Topic List  │   Search/Chat   │ AI Chat &   │
+│ (250px)     │   (Flexible)    │ Summaries   │
+│             │                 │ (300px)     │
+└─────────────┴─────────────────┴─────────────┘
+Mobile Transformation
+Instead of cramming panels into mobile width, intelligently collapse and expand based on user intent:
+
+Mobile Layout Options
+Option 1: Bottom Tab Navigation (Recommended)
+┌─────────────────────────────────┐
+│           Main Content          │
+│                                 │
+│   [Search Results/Chat/etc]     │
+│                                 │
+│                                 │
+│                                 │
+│                                 │
+│                                 │
+│                                 │
+├─────────────────────────────────┤
+│ [Topics] [Search] [Chat] [Tools]│
+└─────────────────────────────────┘
+Tab Functions:
+
+Topics: Left panel content (topic browsing)
+Search: Middle panel search functionality
+Chat: Right panel AI chat
+Tools: Mobile-specific calculators
+Option 2: Collapsible Slide-Out Panels
+┌─────────────────────────────────┐
+│ ☰ Search: "fermentation temp"   │
+├─────────────────────────────────┤
+│                                 │
+│        Search Results           │
+│                                 │
+│   [Article previews...]         │
+│                                 │
+│                                 │
+│ ┌─────────────────────────────┐ │
+│ │ 💬 Quick Chat              │ │
+│ │ "Ask about these results"   │ │
+│ └─────────────────────────────┘ │
+└─────────────────────────────────┘
+Slide-out behavior:
+
+☰ Menu: Slides out topic list (left panel)
+💬 Chat Bar: Expands to full chat interface (right panel)
+Main Area: Always visible (middle panel)
+Detailed Mobile Flow
+State 1: Topic Browsing (Left Panel Mobile)
+┌─────────────────────────────────┐
+│ ←  Topics                    🔍 │
+├─────────────────────────────────┤
+│ 🦠 Fermentation Science         │
+│    23 articles • 2 new          │
+│    [Expand ▼]                   │
+│                                 │
+│ 🌾 Flour & Ingredients          │
+│    31 articles • 1 new          │
+│    [Expand ▼]                   │
+│                                 │
+│ 🍞 Baking Process               │
+│    18 articles                  │
+│    [Expand ▼]                   │
+│                                 │
+│ + More topics...                │
+└─────────────────────────────────┘
+State 2: Search Mode (Middle Panel Mobile)
+┌─────────────────────────────────┐
+│ ☰  Search Results           💬  │
+├─────────────────────────────────┤
+│ "fermentation temperature"      │
+│                                 │
+│ ┌─────────────────────────────┐ │
+│ │ Optimal Starter Temps       │ │
+│ │ Food Science Journal • 2023 │ │
+│ │ Key: 78°F for lacto...      │ │
+│ └─────────────────────────────┘ │
+│                                 │
+│ ┌─────────────────────────────┐ │
+│ │ Wild Yeast Activity         │ │
+│ │ Applied Microbio • 2022     │ │
+│ │ Temperature affects...      │ │
+│ └─────────────────────────────┘ │
+│                                 │
+│ [Ask AI about these results]    │
+└─────────────────────────────────┘
+State 3: Chat Mode (Right Panel Mobile)
+┌─────────────────────────────────┐
+│ ←  Fermentation Expert      ☰   │
+├─────────────────────────────────┤
+│ You: What's the best temp for   │
+│      my starter?                │
+│                                 │
+│ 🤖: Based on the research, 78°F │
+│     is optimal for lacto-       │
+│     fermentation...             │
+│                                 │
+│     [Temperature Calculator]    │
+│                                 │
+│     Sources:                    │
+│     • "Optimal Starter Temps"   │
+│       Food Science, 2023        │
+│                                 │
+│ ┌─────────────────────────────┐ │
+│ │ Type your question...       │ │
+│ └─────────────────────────────┘ │
+└─────────────────────────────────┘
+Navigation Between Panels
+Gesture-Based Navigation
+Swipe Left: Topics → Search → Chat → Tools
+Swipe Right: Tools → Chat → Search → Topics
+Long Press: Context menu for quick jumps
+Smart Context Switching
+User Journey Example:
+1. Browse Topics (Panel 1) → Select "Fermentation"
+2. Auto-switch to Search (Panel 2) → Show topic articles
+3. Tap "Ask AI" → Switch to Chat (Panel 3) → Pre-loaded context
+4. Chat suggests tool → Switch to Tools → Calculator opens
+Breadcrumb Navigation
+┌─────────────────────────────────┐
+│ Topics > Fermentation > Chat    │
+├─────────────────────────────────┤
+│           Chat Content          │
+└─────────────────────────────────┘
+State Management Across Panels
+Persistent Context
+Search State: Maintained when switching to chat
+Topic Selection: Remembered across navigation
+Chat History: Persists during session
+Tool Inputs: Saved for quick reuse
+Smart Recommendations
+In Search Mode:
+┌─────────────────────────────────┐
+│ Search Results                  │
+│ ...                             │
+│ ┌─────────────────────────────┐ │
+│ │ 💬 Ask AI about results     │ │
+│ │ 🧮 Calculate hydration      │ │
+│ │ 📖 Browse related topics    │ │
+│ └─────────────────────────────┘ │
+└─────────────────────────────────┘
+Mobile-Specific Enhancements
+Quick Actions Bar
+┌─────────────────────────────────┐
+│           Main Content          │
+│                                 │
+├─────────────────────────────────┤
+│ [🔍 Quick Search] [💬 Ask AI]   │
+│ [🧮 Calculator] [📖 Browse]     │
+└─────────────────────────────────┘
+Floating Action Button
+Context-Aware: Changes based on current panel
+Search Panel: "Ask AI about results"
+Chat Panel: "Find related articles"
+Topics Panel: "Search this topic"
+Pull-to-Refresh Actions
+Topics Panel: Refresh article counts
+Search Panel: Re-run search with new articles
+Chat Panel: Clear conversation and start fresh
+Implementation Approach
+Recommended: Bottom Tab + Modal System
+// Pseudo-structure
+const MobileLayout = () => {
+  const [activeTab, setActiveTab] = useState('search');
+  const [modalOpen, setModalOpen] = useState(null);
+  
+  return (
+    <div className="mobile-layout">
+      <MainContent tab={activeTab} />
+      <BottomTabBar 
+        tabs={['topics', 'search', 'chat', 'tools']}
+        active={activeTab}
+        onChange={setActiveTab}
+      />
+      {modalOpen && <Modal content={modalOpen} />}
+    </div>
+  );
+};
+This approach maintains the three-panel functionality while creating a mobile-optimized experience that feels natural on touchscreens rather than cramped desktop panels.

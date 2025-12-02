@@ -1,0 +1,1169 @@
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import { Input } from "@/components/ui/input";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { cn } from "@/lib/utils";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
+import { 
+  AlertCircle, 
+  FileText, 
+  Link as LinkIcon, 
+  Upload, 
+  Clipboard, 
+  AlignLeft, 
+  Info, 
+  ArrowRight, 
+  Droplets,
+  AlertTriangle,
+  AlertOctagon,
+  ChevronDown,
+  Check,
+  CheckCircle,
+  ArrowUpRight,
+  ArrowDownRight,
+  ChevronRight,
+  Lightbulb
+}
+from "lucide-react";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+
+type InputMethod = "structured-form" | "free-text" | "import-url" | "upload-image";
+type StatusType = 'pass' | 'warning' | 'error';
+type SeverityType = 'high' | 'medium' | 'low';
+type MetricType = 'critical' | 'warning' | 'suggestion';
+
+interface ValidationIssue {
+  severity: SeverityType;
+  issue: string;
+  impact: string;
+  suggestion: string;
+  fixable: boolean;
+}
+
+interface ParameterGaugeProps {
+  label: string;
+  value: number | null;
+  status: StatusType;
+  ideal: number;
+  min: number;
+  max: number;
+  step?: number;
+  unit?: string;
+}
+
+interface MetricCardProps {
+  label: string;
+  value: number;
+  type: MetricType;
+  icon: React.ReactNode;
+}
+
+interface IssueCardProps {
+  issue: ValidationIssue;
+  onFix: (issue: ValidationIssue) => void;
+}
+
+// Sample recently validated recipes for UI display
+const recentRecipes = [
+  {
+    id: 1,
+    name: "San Francisco Sourdough",
+    date: "April 18, 2025",
+    hydration: 75
+  },
+  {
+    id: 2, 
+    name: "Rye Country Loaf",
+    date: "April 15, 2025",
+    hydration: 82
+  },
+  {
+    id: 3,
+    name: "Whole Wheat Sandwich Bread",
+    date: "April 10, 2025",
+    hydration: 68
+  }
+];
+
+// Sample validation results for the results screen demo
+const sampleValidationResults = {
+  summary: {
+    overallStatus: 'needs-attention',
+    critical: 1,
+    warnings: 2,
+    suggestions: 3
+  },
+  technicalAccuracy: {
+    hydrationLevel: {
+      value: 70,
+      status: 'pass' as StatusType,
+      idealValue: 72,
+      explanation: 'Hydration level is within the optimal range for this type of bread.'
+    },
+    saltPercentage: {
+      value: 1.8,
+      status: 'warning' as StatusType,
+      idealValue: 2.0,
+      explanation: 'Salt percentage is slightly low, which could affect flavor and fermentation control.'
+    },
+    starterPercentage: {
+      value: 15,
+      status: 'pass' as StatusType,
+      idealValue: 20,
+      explanation: 'Starter percentage is acceptable but slightly more would enhance flavor development.'
+    }
+  },
+  processValidity: {
+    fermentationTime: {
+      value: 240, // 4 hours in minutes
+      status: 'warning' as StatusType,
+      idealValue: 300, // 5 hours in minutes
+      explanation: 'Bulk fermentation time might be too short for optimal flavor development.'
+    },
+    fermentationTemperature: {
+      value: null,
+      status: 'error' as StatusType,
+      idealValue: 76, // °F
+      explanation: 'Fermentation temperature is not specified, which is critical for consistent results.'
+    }
+  },
+  issues: [
+    {
+      severity: 'high' as SeverityType,
+      issue: 'Missing fermentation temperature',
+      impact: 'Without a specified fermentation temperature, results will be inconsistent and unpredictable.',
+      suggestion: 'Specify ambient temperature of 75-78°F (24-26°C) for bulk fermentation, or adjust time accordingly for different temperatures.',
+      fixable: true
+    },
+    {
+      severity: 'medium' as SeverityType,
+      issue: 'Salt percentage is low',
+      impact: 'Low salt can lead to overactive fermentation and less flavor development.',
+      suggestion: 'Increase salt to 2% of total flour weight (approximately 10g for this recipe).',
+      fixable: true
+    },
+    {
+      severity: 'medium' as SeverityType,
+      issue: 'Short bulk fermentation time',
+      impact: 'Insufficient bulk fermentation may result in less flavor complexity and underdeveloped structure.',
+      suggestion: 'Consider extending bulk fermentation to 5-6 hours at room temperature, or use temperature control.',
+      fixable: true
+    },
+    {
+      severity: 'low' as SeverityType,
+      issue: 'No mention of dough strength development',
+      impact: 'Lack of specified strength building can lead to poor structure and shape retention.',
+      suggestion: 'Add a series of stretch and folds: 3-4 sets spaced 30 minutes apart during the first 2 hours of bulk fermentation.',
+      fixable: true
+    },
+    {
+      severity: 'low' as SeverityType,
+      issue: 'Starter maturity not specified',
+      impact: 'The maturity of your starter affects fermentation timing and flavor development.',
+      suggestion: 'Use starter at peak activity, typically 4-6 hours after feeding at 1:1:1 ratio.',
+      fixable: false
+    },
+    {
+      severity: 'low' as SeverityType,
+      issue: 'Missing dough handling temperatures',
+      impact: 'Water and flour temperature affect fermentation rate and final results.',
+      suggestion: 'Aim for final dough temperature of 78°F (26°C) by adjusting water temperature.',
+      fixable: false
+    }
+  ],
+  optimizedRecipe: {
+    name: 'Optimized Country Sourdough',
+    hydration: 72,
+    ingredients: [
+      { name: 'Bread flour', amount: 400, unit: 'g', percentage: 80 },
+      { name: 'Whole wheat flour', amount: 100, unit: 'g', percentage: 20 },
+      { name: 'Water', amount: 360, unit: 'g', percentage: 72 },
+      { name: 'Sourdough starter (100% hydration)', amount: 100, unit: 'g', percentage: 20 },
+      { name: 'Salt', amount: 10, unit: 'g', percentage: 2 }
+    ],
+    process: [
+      { 
+        step: 1, 
+        name: 'Autolyse', 
+        details: 'Mix flours and 340g water (hold back 20g). Rest for 30-60 minutes.' 
+      },
+      { 
+        step: 2, 
+        name: 'Add starter', 
+        details: 'Add starter and mix thoroughly. Rest 30 minutes.' 
+      },
+      { 
+        step: 3, 
+        name: 'Add salt', 
+        details: 'Mix salt with remaining 20g water and incorporate into dough. Rest 30 minutes.' 
+      },
+      { 
+        step: 4, 
+        name: 'Bulk fermentation', 
+        details: 'Maintain dough at 76°F (24°C) for 5-6 hours. Perform 4 sets of stretch and folds in first 2 hours.' 
+      },
+      { 
+        step: 5, 
+        name: 'Preshape', 
+        details: 'Gently preshape into a round. Bench rest 20-30 minutes.' 
+      },
+      { 
+        step: 6, 
+        name: 'Final shape', 
+        details: 'Shape into boule or batard and place in banneton.' 
+      },
+      { 
+        step: 7, 
+        name: 'Final proof', 
+        details: 'Refrigerate 12-16 hours at 38-40°F (3-4°C).' 
+      },
+      { 
+        step: 8, 
+        name: 'Bake', 
+        details: 'Preheat oven to 500°F (260°C) with Dutch oven. Score dough, bake covered 20 minutes at 475°F, then uncovered 20-25 minutes until dark golden brown.' 
+      }
+    ]
+  }
+};
+
+// Component for displaying parameter measurements
+function ParameterGauge({ label, value, status, ideal, min, max, step = 1, unit = '%' }: ParameterGaugeProps) {
+  // Status colors
+  const statusColors: Record<StatusType, string> = {
+    'pass': '#10B981', // green
+    'warning': '#F59E0B', // amber
+    'error': '#EF4444' // red
+  };
+  
+  const color = statusColors[status] || statusColors.warning;
+  
+  // Calculate percentage position on the gauge
+  const percentage = typeof value === 'number' ? 
+    Math.min(Math.max(((value - min) / (max - min)) * 100, 0), 100) : 0;
+  const idealPercentage = Math.min(Math.max(((ideal - min) / (max - min)) * 100, 0), 100);
+  
+  return (
+    <div className="parameter-gauge p-4 bg-white rounded-lg border">
+      <div className="flex items-center justify-between mb-2">
+        <span className="text-sm font-medium text-gray-700">{label}</span>
+        <span className="text-xl font-semibold" style={{ color }}>
+          {typeof value === 'number' ? value.toFixed(step < 1 ? 1 : 0) : value}{unit}
+        </span>
+      </div>
+      
+      <div className="gauge-track h-2 bg-gray-200 rounded-full relative mb-1">
+        {/* Ideal marker */}
+        <div 
+          className="ideal-marker absolute w-1 h-4 bg-gray-500 rounded-full -mt-1" 
+          style={{ left: `${idealPercentage}%` }}
+          title={`Ideal: ${ideal}${unit}`}
+        />
+        
+        {/* Value indicator */}
+        <div 
+          className="gauge-fill h-full rounded-full" 
+          style={{ 
+            width: `${percentage}%`, 
+            backgroundColor: color 
+          }} 
+        />
+      </div>
+      
+      <div className="gauge-labels flex justify-between text-xs text-gray-500">
+        <span>{min}{unit}</span>
+        <span>{max}{unit}</span>
+      </div>
+    </div>
+  );
+}
+
+// Issue card component for displaying validation issues
+function IssueCard({ issue, onFix }: IssueCardProps) {
+  const [expanded, setExpanded] = useState(false);
+  
+  return (
+    <div className="issue-card border rounded-lg overflow-hidden">
+      <div 
+        className="issue-header p-4 bg-gray-50 flex items-center justify-between cursor-pointer"
+        onClick={() => setExpanded(!expanded)}
+      >
+        <div className="flex items-center">
+          {issue.severity === 'high' ? 
+            <AlertOctagon size={18} className="text-red-500 mr-3" /> :
+            issue.severity === 'medium' ?
+            <AlertTriangle size={18} className="text-yellow-500 mr-3" /> :
+            <Info size={18} className="text-blue-500 mr-3" />
+          }
+          <h4 className="font-medium">{issue.issue}</h4>
+        </div>
+        <ChevronDown 
+          size={18} 
+          className={`transition-transform ${expanded ? 'rotate-180' : ''}`}
+        />
+      </div>
+      
+      {expanded && (
+        <div className="issue-content p-4">
+          <p className="text-gray-700 mb-4">{issue.impact}</p>
+          
+          <div className="recommendation bg-amber-50 p-3 rounded-lg mb-4">
+            <div className="flex items-start">
+              <Lightbulb size={16} className="text-amber-600 mt-1 mr-2 flex-shrink-0" />
+              <div>
+                <span className="font-medium text-amber-800">Recommendation:</span>
+                <p className="text-amber-700">{issue.suggestion}</p>
+              </div>
+            </div>
+          </div>
+          
+          {issue.fixable && (
+            <Button 
+              className="fix-button px-4 py-2 bg-amber-600 text-white rounded hover:bg-amber-700"
+              onClick={() => onFix && onFix(issue)}
+            >
+              Apply Fix
+            </Button>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// Metric card for displaying summary data
+function MetricCard({ label, value, type, icon }: MetricCardProps) {
+  const bgColors: Record<MetricType, string> = {
+    'critical': 'bg-red-50 border-red-100',
+    'warning': 'bg-yellow-50 border-yellow-100',
+    'suggestion': 'bg-blue-50 border-blue-100'
+  };
+  
+  const textColors: Record<MetricType, string> = {
+    'critical': 'text-red-700',
+    'warning': 'text-yellow-700',
+    'suggestion': 'text-blue-700'
+  };
+  
+  return (
+    <div className={`p-4 rounded-lg border ${bgColors[type] || 'bg-gray-50 border-gray-100'}`}>
+      <div className="flex items-center justify-between mb-1">
+        <span className="text-sm text-gray-600">{label}</span>
+        {icon && <span className={textColors[type]}>{icon}</span>}
+      </div>
+      <div className={`text-2xl font-semibold ${textColors[type]}`}>
+        {value}
+      </div>
+    </div>
+  );
+}
+
+export default function RecipeValidator() {
+  // Input method and screen state
+  const [selectedMethod, setSelectedMethod] = useState<InputMethod | null>(null);
+  const [activeScreen, setActiveScreen] = useState<'entry' | 'input' | 'analysis' | 'results'>('entry');
+  
+  // Recipe input states
+  const [recipeText, setRecipeText] = useState("");
+  const [ingredients, setIngredients] = useState({
+    breadFlour: "",
+    wholeWheat: "",
+    rye: "",
+    water: "",
+    salt: "",
+    starter: "",
+    starterType: "100% Hydration",
+    methodNotes: ""
+  });
+  const [recipeUrl, setRecipeUrl] = useState("");
+  
+  // Recipe context/metadata
+  const [context, setContext] = useState({
+    recipeName: "",
+    targetStyle: "Artisan loaf",
+    targetDoughWeight: "",
+    outcomes: {
+      lightAndAiry: false,
+      darkCrust: true,
+      openCrumb: false
+    },
+    starterType: "Wheat",
+    equipment: {
+      dutchOven: false,
+      banneton: false,
+      breadLame: false,
+      saveAsTemplate: false
+    }
+  });
+  
+  // Tips visibility state
+  const [tipsExpanded, setTipsExpanded] = useState(true);
+
+  const handleIngredientChange = (key: string, value: string) => {
+    setIngredients(prev => ({
+      ...prev,
+      [key]: value
+    }));
+  };
+
+  const handleContextChange = (section: string, key: string, value: any) => {
+    setContext(prev => {
+      const sectionObj = prev[section as keyof typeof prev] as Record<string, any>;
+      return {
+        ...prev,
+        [section]: {
+          ...sectionObj,
+          [key]: value
+        }
+      };
+    });
+  };
+
+  const handleStringContextChange = (key: string, value: string) => {
+    setContext(prev => ({
+      ...prev,
+      [key]: value
+    }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Process the recipe for validation
+    console.log("Validating recipe with method:", selectedMethod);
+    setActiveScreen('analysis');
+    
+    // Simulate analysis process with a timer then show results
+    setTimeout(() => {
+      setActiveScreen('results');
+    }, 2000);
+  };
+  
+  // Handle a fix being applied to a validation issue
+  const handleApplyFix = (issue: ValidationIssue) => {
+    console.log("Applying fix for:", issue.issue);
+    // In a real app, this would apply the fix to the recipe
+  };
+  
+  // Handle applying all optimizations
+  const handleApplyAllOptimizations = () => {
+    console.log("Applying all optimizations");
+    // In a real app, this would apply all the optimized values
+  };
+  
+  const handleMethodSelect = (method: InputMethod) => {
+    setSelectedMethod(method);
+    setActiveScreen('input');
+  };
+  
+  const handleLoadExample = () => {
+    setRecipeText(`500g bread flour
+350g water (70% hydration)
+100g active sourdough starter
+10g salt
+4 hour bulk fermentation at room temperature with folds at 30 min, 1 hour, and 2 hours
+Shaped and cold retarded overnight (12 hours)
+Baked at 475°F for 20 minutes covered, 25 minutes uncovered`);
+    setSelectedMethod('free-text');
+    setActiveScreen('input');
+  };
+
+  // Render the Entry Screen
+  if (activeScreen === 'entry') {
+    return (
+      <div className="bg-white overflow-hidden">
+        <div className="p-8 md:p-12">
+          <div className="mb-8">
+            <div className="flex items-center mb-2">
+              <span className="text-xs font-mono text-[#6E6E6E] mr-2">ANALYZER.03</span>
+              <div className="h-px bg-gray-300 flex-grow"></div>
+            </div>
+            <h2 className="text-[#2B2B2B] text-2xl md:text-3xl font-serif tracking-tight mb-4">
+              Recipe Validator
+            </h2>
+            <p className="text-[#6E6E6E] max-w-3xl leading-relaxed">
+              Analyze your sourdough recipes for technical accuracy, balance, and potential issues.
+              Receive precise diagnostics and scientifically-backed recommendations for improvement.
+            </p>
+          </div>
+          
+          <div className="max-w-5xl mx-auto">
+          
+          {/* Input Method Selection Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+            <Card 
+              className="cursor-pointer hover:border-[#D97706] transition-colors"
+              onClick={() => handleMethodSelect('structured-form')}
+            >
+              <CardHeader className="pb-2">
+                <div className="bg-[#F8F6F1] w-12 h-12 rounded-full flex items-center justify-center mb-2">
+                  <AlignLeft className="h-6 w-6 text-[#A0522D]" />
+                </div>
+                <CardTitle className="text-lg">Structured Form</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-gray-600">
+                  Input your recipe with our guided form for the most accurate analysis
+                </p>
+              </CardContent>
+              <CardFooter className="pt-0">
+                <div className="text-[#A0522D] text-sm font-medium flex items-center">
+                  Start <ArrowRight className="ml-1 h-4 w-4" />
+                </div>
+              </CardFooter>
+            </Card>
+            
+            <Card 
+              className="cursor-pointer hover:border-[#D97706] transition-colors"
+              onClick={() => handleMethodSelect('free-text')}
+            >
+              <CardHeader className="pb-2">
+                <div className="bg-[#F8F6F1] w-12 h-12 rounded-full flex items-center justify-center mb-2">
+                  <FileText className="h-6 w-6 text-[#A0522D]" />
+                </div>
+                <CardTitle className="text-lg">Free-Text Entry</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-gray-600">
+                  Paste your entire recipe and let our AI identify the components
+                </p>
+              </CardContent>
+              <CardFooter className="pt-0">
+                <div className="text-[#A0522D] text-sm font-medium flex items-center">
+                  Start <ArrowRight className="ml-1 h-4 w-4" />
+                </div>
+              </CardFooter>
+            </Card>
+            
+            <Card 
+              className="cursor-pointer hover:border-[#D97706] transition-colors"
+              onClick={() => handleMethodSelect('import-url')}
+            >
+              <CardHeader className="pb-2">
+                <div className="bg-[#F8F6F1] w-12 h-12 rounded-full flex items-center justify-center mb-2">
+                  <LinkIcon className="h-6 w-6 text-[#A0522D]" />
+                </div>
+                <CardTitle className="text-lg">URL Import</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-gray-600">
+                  Import a recipe directly from another website or blog
+                </p>
+              </CardContent>
+              <CardFooter className="pt-0">
+                <div className="text-[#A0522D] text-sm font-medium flex items-center">
+                  Start <ArrowRight className="ml-1 h-4 w-4" />
+                </div>
+              </CardFooter>
+            </Card>
+            
+            <Card 
+              className="cursor-pointer hover:border-[#D97706] transition-colors"
+              onClick={() => handleMethodSelect('upload-image')}
+            >
+              <CardHeader className="pb-2">
+                <div className="bg-[#F8F6F1] w-12 h-12 rounded-full flex items-center justify-center mb-2">
+                  <Upload className="h-6 w-6 text-[#A0522D]" />
+                </div>
+                <CardTitle className="text-lg">Image Upload</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-gray-600">
+                  Take a photo of your handwritten or printed recipe
+                </p>
+              </CardContent>
+              <CardFooter className="pt-0">
+                <div className="text-[#A0522D] text-sm font-medium flex items-center">
+                  Start <ArrowRight className="ml-1 h-4 w-4" />
+                </div>
+              </CardFooter>
+            </Card>
+          </div>
+          
+          {/* Recent Validations */}
+          {recentRecipes.length > 0 && (
+            <div className="mb-8">
+              <h2 className="font-serif text-xl font-medium mb-3 text-[#4A2A1A]">Recent Validations</h2>
+              <div className="flex space-x-4 overflow-x-auto pb-2">
+                {recentRecipes.map(recipe => (
+                  <Card key={recipe.id} className="min-w-[240px] cursor-pointer hover:border-[#D97706]">
+                    <CardHeader className="pb-2">
+                      <CardTitle className="text-base">{recipe.name}</CardTitle>
+                      <CardDescription>{recipe.date}</CardDescription>
+                    </CardHeader>
+                    <CardContent className="pb-4">
+                      <div className="flex items-center space-x-2">
+                        <Droplets className="h-4 w-4 text-blue-500" />
+                        <span className="text-sm">{recipe.hydration}% hydration</span>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+          )}
+          
+          {/* Getting Started Tips */}
+          <Collapsible
+            open={tipsExpanded}
+            onOpenChange={setTipsExpanded}
+            className="bg-[#F8F6F1] rounded-lg p-4 mb-6"
+          >
+            <div className="flex items-center justify-between">
+              <div className="flex items-center">
+                <Info className="h-5 w-5 text-[#A0522D] mr-2" />
+                <h3 className="font-medium text-[#4A2A1A]">Getting Started Tips</h3>
+              </div>
+              <CollapsibleTrigger asChild>
+                <Button variant="ghost" size="sm" className="h-9 w-9 p-0">
+                  <span className="sr-only">Toggle</span>
+                  {tipsExpanded ? (
+                    <span className="text-lg">−</span>
+                  ) : (
+                    <span className="text-lg">+</span>
+                  )}
+                </Button>
+              </CollapsibleTrigger>
+            </div>
+            
+            <CollapsibleContent className="mt-2">
+              <div className="space-y-3">
+                <p className="text-sm text-gray-700">
+                  The Recipe Validator analyzes sourdough recipes to identify potential issues, optimize hydration levels, and suggest improvements.
+                </p>
+                <ul className="list-disc list-inside text-sm text-gray-700 space-y-1">
+                  <li>For best results, include all ingredients with measurements</li>
+                  <li>Specify fermentation times, temperatures, and techniques</li>
+                  <li>The more details you provide, the more accurate the analysis</li>
+                </ul>
+                <div className="flex justify-center mt-3">
+                  <Button 
+                    variant="outline" 
+                    className="text-[#A0522D] border-[#A0522D] hover:bg-[#F8F3E9]"
+                    onClick={handleLoadExample}
+                  >
+                    Try with Example Recipe
+                  </Button>
+                </div>
+              </div>
+            </CollapsibleContent>
+          </Collapsible>
+        </div>
+      </div>
+    );
+  }
+  
+  // Render the Input Form for Free-Text Entry
+  if (activeScreen === 'input' && selectedMethod === 'free-text') {
+    return (
+      <div className="bg-white overflow-hidden">
+        <div className="p-8 md:p-12">
+          <Button 
+            variant="ghost" 
+            className="mb-4 text-gray-600 hover:text-[#A0522D]"
+            onClick={() => setActiveScreen('entry')}
+          >
+            ← Back to methods
+          </Button>
+          <div className="max-w-5xl mx-auto">
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Left side - Form inputs */}
+            <div className="md:col-span-2">
+              <h2 className="text-2xl font-serif font-bold text-[#4A2A1A] mb-4">Free-Text Recipe Entry</h2>
+              <p className="text-gray-600 mb-6">Paste your complete recipe below, including all ingredients, measurements, and steps.</p>
+              
+              <form onSubmit={handleSubmit}>
+                <Textarea
+                  className="w-full min-h-[300px] p-4 mb-6"
+                  placeholder="Paste your sourdough recipe here, including all ingredients and steps..."
+                  value={recipeText}
+                  onChange={(e) => setRecipeText(e.target.value)}
+                />
+                
+                <div className="flex items-center justify-between">
+                  <Button 
+                    type="submit" 
+                    className="px-6 py-2 text-white bg-[#D97706] hover:bg-[#B45309]"
+                    disabled={!recipeText.trim()}
+                  >
+                    Validate Recipe
+                  </Button>
+                  <span className="text-sm text-gray-500">Estimated analysis time: 10-18 seconds</span>
+                </div>
+              </form>
+            </div>
+            
+            {/* Right side - Context and tips */}
+            <div className="md:col-span-1">
+              <div className="bg-[#F8F6F1] rounded-lg p-5">
+                <h3 className="font-medium mb-3">Recipe Context</h3>
+                
+                <div className="mb-4">
+                  <Label className="block text-sm font-medium mb-1">Recipe name (optional)</Label>
+                  <Input 
+                    type="text" 
+                    value={context.recipeName}
+                    onChange={(e) => handleStringContextChange("recipeName", e.target.value)}
+                    placeholder="My Sourdough Recipe"
+                  />
+                </div>
+                
+                <div className="mb-4">
+                  <Label className="block text-sm font-medium mb-1">Target bread style</Label>
+                  <Select 
+                    value={context.targetStyle}
+                    onValueChange={(value) => handleStringContextChange("targetStyle", value)}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select bread style" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="Artisan loaf">Artisan loaf</SelectItem>
+                      <SelectItem value="Sandwich bread">Sandwich bread</SelectItem>
+                      <SelectItem value="Focaccia">Focaccia</SelectItem>
+                      <SelectItem value="Baguette">Baguette</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                
+                <div className="mb-4">
+                  <Label className="block text-sm font-medium mb-2">Desired outcomes</Label>
+                  <div className="space-y-2">
+                    <div className="flex items-center space-x-2">
+                      <Checkbox 
+                        id="light-airy" 
+                        checked={context.outcomes.lightAndAiry}
+                        onCheckedChange={(checked) => 
+                          handleContextChange("outcomes", "lightAndAiry", checked === true)
+                        }
+                      />
+                      <Label htmlFor="light-airy" className="text-sm">Light & airy</Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <Checkbox 
+                        id="dark-crust" 
+                        checked={context.outcomes.darkCrust}
+                        onCheckedChange={(checked) => 
+                          handleContextChange("outcomes", "darkCrust", checked === true)
+                        }
+                      />
+                      <Label htmlFor="dark-crust" className="text-sm">Dark crust</Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <Checkbox 
+                        id="open-crumb" 
+                        checked={context.outcomes.openCrumb}
+                        onCheckedChange={(checked) => 
+                          handleContextChange("outcomes", "openCrumb", checked === true)
+                        }
+                      />
+                      <Label htmlFor="open-crumb" className="text-sm">Open crumb</Label>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="mt-6">
+                  <h4 className="font-medium text-sm mb-2">Tips for Better Analysis</h4>
+                  <ul className="text-sm text-gray-600 space-y-1 list-disc pl-5">
+                    <li>Include all ingredients with exact weights</li>
+                    <li>Specify times, temperatures, and techniques</li>
+                    <li>Mention starter type and feeding schedule if known</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+  
+  // Placeholder for Structured Form
+  if (activeScreen === 'input' && selectedMethod === 'structured-form') {
+    return (
+      <div className="bg-white rounded-lg shadow-sm overflow-hidden p-6 md:p-8">
+        <Button 
+          variant="ghost" 
+          className="mb-4 text-gray-600 hover:text-[#A0522D]"
+          onClick={() => setActiveScreen('entry')}
+        >
+          ← Back to methods
+        </Button>
+        
+        <h2 className="text-2xl font-serif font-bold text-[#4A2A1A] mb-4">Structured Form Input</h2>
+        <p className="text-gray-600 mb-6">This input method is being developed. Please try another method.</p>
+      </div>
+    );
+  }
+  
+  // Placeholder for URL Import
+  if (activeScreen === 'input' && selectedMethod === 'import-url') {
+    return (
+      <div className="bg-white rounded-lg shadow-sm overflow-hidden p-6 md:p-8">
+        <Button 
+          variant="ghost" 
+          className="mb-4 text-gray-600 hover:text-[#A0522D]"
+          onClick={() => setActiveScreen('entry')}
+        >
+          ← Back to methods
+        </Button>
+        
+        <h2 className="text-2xl font-serif font-bold text-[#4A2A1A] mb-4">URL Import</h2>
+        <div className="max-w-md mb-6">
+          <Input 
+            type="url" 
+            className="w-full p-3" 
+            placeholder="Enter recipe URL"
+            value={recipeUrl}
+            onChange={(e) => setRecipeUrl(e.target.value)}
+          />
+          <p className="mt-2 text-sm text-gray-500">Works with most popular baking sites and blogs</p>
+          
+          <Button 
+            className="mt-4 px-6 py-2 text-white bg-[#D97706] hover:bg-[#B45309]"
+            disabled={!recipeUrl}
+            onClick={handleSubmit}
+          >
+            Import & Validate
+          </Button>
+        </div>
+      </div>
+    );
+  }
+  
+  // Placeholder for Image Upload
+  if (activeScreen === 'input' && selectedMethod === 'upload-image') {
+    return (
+      <div className="bg-white rounded-lg shadow-sm overflow-hidden p-6 md:p-8">
+        <Button 
+          variant="ghost" 
+          className="mb-4 text-gray-600 hover:text-[#A0522D]"
+          onClick={() => setActiveScreen('entry')}
+        >
+          ← Back to methods
+        </Button>
+        
+        <h2 className="text-2xl font-serif font-bold text-[#4A2A1A] mb-4">Image Upload</h2>
+        <div className="border-2 border-dashed border-gray-300 rounded-md p-10 text-center max-w-md mb-6">
+          <Upload className="mx-auto h-12 w-12 text-gray-400" />
+          <p className="mt-4 text-sm text-gray-500">
+            Drag and drop a photo of your handwritten recipe, or{" "}
+            <button type="button" className="text-[#D97706] hover:text-[#B45309] font-medium">
+              browse
+            </button>
+          </p>
+          <p className="mt-2 text-xs text-gray-400">
+            Supports JPG, PNG, and PDF files up to 10MB
+          </p>
+        </div>
+      </div>
+    );
+  }
+  
+  // Placeholder for Analysis Screen
+  if (activeScreen === 'analysis') {
+    return (
+      <div className="bg-white rounded-lg shadow-sm overflow-hidden p-6 md:p-8">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-2xl font-serif font-bold text-[#4A2A1A] mb-4">Analyzing Recipe</h2>
+          <p className="text-gray-600 mb-8">Our system is analyzing your recipe for technical accuracy, consistency, and potential improvements...</p>
+          
+          <div className="mx-auto w-full max-w-md mb-8">
+            <Progress value={65} className="h-2 bg-gray-200" />
+          </div>
+          
+          <div className="space-y-4 mb-10">
+            <div className="flex items-center text-gray-600">
+              <Check className="text-green-500 mr-2" size={18} />
+              <span>Ingredient detection complete</span>
+            </div>
+            <div className="flex items-center text-gray-600">
+              <Check className="text-green-500 mr-2" size={18} />
+              <span>Formula validation complete</span>
+            </div>
+            <div className="flex items-center text-gray-600">
+              <AlertCircle className="text-amber-600 mr-2" size={18} />
+              <span>Analyzing process techniques...</span>
+            </div>
+            <div className="flex items-center text-gray-600">
+              <div className="h-[18px] w-[18px] mr-2" />
+              <span className="text-gray-400">Generating recommendations...</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+  
+  // Render the Results Screen
+  if (activeScreen === 'results') {
+    return (
+      <div className="bg-white rounded-lg shadow-sm overflow-hidden p-6 md:p-8">
+        <div className="max-w-5xl mx-auto">
+          <Button 
+            variant="ghost" 
+            className="mb-4 text-gray-600 hover:text-[#A0522D]"
+            onClick={() => setActiveScreen('input')}
+          >
+            ← Back to editor
+          </Button>
+          
+          <h2 className="text-2xl font-serif font-bold text-[#4A2A1A] mb-6">Recipe Analysis Results</h2>
+          
+          {/* Results Overview Section */}
+          <div className="validation-summary p-6 rounded-lg shadow-sm border mb-8">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-xl font-semibold text-gray-900">Recipe Analysis</h3>
+              <div className={`status-badge px-3 py-1 rounded-full text-sm font-medium 
+                ${sampleValidationResults.summary.overallStatus === 'good' ? 'bg-green-100 text-green-800 border-green-200' : 
+                sampleValidationResults.summary.overallStatus === 'needs-attention' ? 'bg-yellow-100 text-yellow-800 border-yellow-200' :
+                'bg-red-100 text-red-800 border-red-200'}`}>
+                {sampleValidationResults.summary.overallStatus === 'good' ? 'Recipe Looks Good!' : 
+                 sampleValidationResults.summary.overallStatus === 'needs-attention' ? 'Recipe Needs Attention' :
+                 'Recipe Needs Correction'}
+              </div>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+              <MetricCard 
+                label="Technical Issues" 
+                value={sampleValidationResults.summary.critical} 
+                type="critical"
+                icon={<AlertOctagon size={18} />} 
+              />
+              <MetricCard 
+                label="Warnings" 
+                value={sampleValidationResults.summary.warnings} 
+                type="warning"
+                icon={<AlertTriangle size={18} />} 
+              />
+              <MetricCard 
+                label="Suggestions" 
+                value={sampleValidationResults.summary.suggestions} 
+                type="suggestion"
+                icon={<Info size={18} />} 
+              />
+            </div>
+            
+            <div className="key-parameters grid grid-cols-1 md:grid-cols-2 gap-4">
+              <ParameterGauge 
+                label="Hydration" 
+                value={sampleValidationResults.technicalAccuracy.hydrationLevel.value} 
+                status={sampleValidationResults.technicalAccuracy.hydrationLevel.status as StatusType} 
+                ideal={sampleValidationResults.technicalAccuracy.hydrationLevel.idealValue} 
+                min={65} 
+                max={90} 
+              />
+              <ParameterGauge 
+                label="Salt %" 
+                value={sampleValidationResults.technicalAccuracy.saltPercentage.value} 
+                status={sampleValidationResults.technicalAccuracy.saltPercentage.status as StatusType} 
+                ideal={sampleValidationResults.technicalAccuracy.saltPercentage.idealValue} 
+                min={1.5} 
+                max={2.5} 
+                step={0.1} 
+              />
+              <ParameterGauge 
+                label="Starter %" 
+                value={sampleValidationResults.technicalAccuracy.starterPercentage.value} 
+                status={sampleValidationResults.technicalAccuracy.starterPercentage.status as StatusType} 
+                ideal={sampleValidationResults.technicalAccuracy.starterPercentage.idealValue} 
+                min={5} 
+                max={35} 
+              />
+              <ParameterGauge 
+                label="Bulk Fermentation" 
+                value={sampleValidationResults.processValidity.fermentationTime.value / 60} // Convert to hours
+                status={sampleValidationResults.processValidity.fermentationTime.status as StatusType} 
+                ideal={sampleValidationResults.processValidity.fermentationTime.idealValue / 60} 
+                min={2} 
+                max={8}
+                unit="h" 
+              />
+            </div>
+          </div>
+          
+          {/* Issues & Recommendations Section */}
+          <div className="issues-container p-6 bg-white rounded-lg shadow-sm border mb-8">
+            <h3 className="text-xl font-semibold text-gray-900 mb-4">Issues & Recommendations</h3>
+            
+            {sampleValidationResults.issues.length === 0 ? (
+              <div className="empty-state p-6 bg-green-50 rounded-lg text-center">
+                <CheckCircle size={32} className="text-green-500 mx-auto mb-3" />
+                <p className="text-green-800 font-medium">No issues found!</p>
+                <p className="text-green-600">Your recipe looks technically sound.</p>
+              </div>
+            ) : (
+              <div className="space-y-6">
+                {/* High severity issues */}
+                {sampleValidationResults.issues.filter(issue => issue.severity === 'high').length > 0 && (
+                  <div>
+                    <h4 className="text-lg font-medium mb-3 flex items-center">
+                      <AlertOctagon size={18} className="text-red-500 mr-2" />
+                      <span>Critical Issues</span>
+                      <span className="ml-2 text-sm text-gray-500">
+                        ({sampleValidationResults.issues.filter(issue => issue.severity === 'high').length})
+                      </span>
+                    </h4>
+                    
+                    <div className="space-y-4">
+                      {sampleValidationResults.issues
+                        .filter(issue => issue.severity === 'high')
+                        .map((issue, index) => (
+                          <IssueCard 
+                            key={`high-${index}`} 
+                            issue={issue} 
+                            onFix={handleApplyFix} 
+                          />
+                        ))
+                      }
+                    </div>
+                  </div>
+                )}
+                
+                {/* Medium severity issues */}
+                {sampleValidationResults.issues.filter(issue => issue.severity === 'medium').length > 0 && (
+                  <div>
+                    <h4 className="text-lg font-medium mb-3 flex items-center">
+                      <AlertTriangle size={18} className="text-yellow-500 mr-2" />
+                      <span>Warnings</span>
+                      <span className="ml-2 text-sm text-gray-500">
+                        ({sampleValidationResults.issues.filter(issue => issue.severity === 'medium').length})
+                      </span>
+                    </h4>
+                    
+                    <div className="space-y-4">
+                      {sampleValidationResults.issues
+                        .filter(issue => issue.severity === 'medium')
+                        .map((issue, index) => (
+                          <IssueCard 
+                            key={`medium-${index}`} 
+                            issue={issue} 
+                            onFix={handleApplyFix} 
+                          />
+                        ))
+                      }
+                    </div>
+                  </div>
+                )}
+                
+                {/* Low severity issues */}
+                {sampleValidationResults.issues.filter(issue => issue.severity === 'low').length > 0 && (
+                  <div>
+                    <h4 className="text-lg font-medium mb-3 flex items-center">
+                      <Info size={18} className="text-blue-500 mr-2" />
+                      <span>Suggestions</span>
+                      <span className="ml-2 text-sm text-gray-500">
+                        ({sampleValidationResults.issues.filter(issue => issue.severity === 'low').length})
+                      </span>
+                    </h4>
+                    
+                    <div className="space-y-4">
+                      {sampleValidationResults.issues
+                        .filter(issue => issue.severity === 'low')
+                        .map((issue, index) => (
+                          <IssueCard 
+                            key={`low-${index}`} 
+                            issue={issue} 
+                            onFix={handleApplyFix} 
+                          />
+                        ))
+                      }
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+          
+          {/* Optimized Recipe Section */}
+          <div className="recipe-comparison p-6 bg-white rounded-lg shadow-sm border mb-6">
+            <h3 className="text-xl font-semibold text-gray-900 mb-4">Optimized Recipe</h3>
+            
+            <div className="bg-gray-50 p-4 rounded-lg mb-6">
+              <h4 className="font-medium mb-2">Optimization Summary</h4>
+              <ul className="space-y-2 text-sm">
+                <li className="flex items-center">
+                  <span className="text-green-600">
+                    <ArrowUpRight size={16} className="inline mr-1" />
+                    Hydration adjusted to {sampleValidationResults.optimizedRecipe.hydration}%
+                  </span>
+                </li>
+                <li className="flex items-center">
+                  <span className="text-green-600">
+                    <ArrowUpRight size={16} className="inline mr-1" />
+                    Salt increased to 2% for better flavor development  
+                  </span>
+                </li>
+                <li className="flex items-center">
+                  <span className="text-blue-600">
+                    <Lightbulb size={16} className="inline mr-1" />
+                    Added stretch and fold technique during bulk fermentation
+                  </span>
+                </li>
+              </ul>
+            </div>
+            
+            <div className="optimized-recipe">
+              <h4 className="font-medium mb-3">Ingredients</h4>
+              <ul className="list-disc list-inside mb-6 space-y-1">
+                {sampleValidationResults.optimizedRecipe.ingredients.map((ingredient, idx) => (
+                  <li key={idx} className="text-gray-700">
+                    {ingredient.amount}{ingredient.unit} {ingredient.name} 
+                    <span className="text-gray-500 text-sm ml-2">({ingredient.percentage}%)</span>
+                  </li>
+                ))}
+              </ul>
+              
+              <h4 className="font-medium mb-3">Method</h4>
+              <ol className="space-y-3 mb-6">
+                {sampleValidationResults.optimizedRecipe.process.map((step, idx) => (
+                  <li key={idx} className="pl-6 relative">
+                    <span className="absolute left-0 font-medium">{step.step}.</span>
+                    <span className="font-medium">{step.name}:</span> {step.details}
+                  </li>
+                ))}
+              </ol>
+            </div>
+            
+            <div className="flex justify-between mt-6">
+              <Button 
+                variant="outline" 
+                className="text-[#A0522D] border-[#A0522D] hover:bg-[#F8F3E9]"
+                onClick={() => setActiveScreen('entry')}
+              >
+                Start Over
+              </Button>
+              
+              <div className="space-x-4">
+                <Button 
+                  variant="outline"
+                  className="text-[#A0522D] border-[#A0522D] hover:bg-[#F8F3E9]"
+                  onClick={handleApplyAllOptimizations}
+                >
+                  Apply All Optimizations
+                </Button>
+                
+                <Button 
+                  className="text-white bg-[#D97706] hover:bg-[#B45309]"
+                >
+                  Save Recipe
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+  
+  // Fallback to entry screen
+  return (
+    <div className="bg-white rounded-lg shadow-sm overflow-hidden p-6">
+      <p className="text-center text-gray-600">Loading validator...</p>
+    </div>
+  );
+}

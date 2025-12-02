@@ -1,0 +1,202 @@
+Here’s a technical implementation plan for the Texture & Structure Designer module inside the Bakehouse Breads Flavor Profile Generator. This module allows users to customize crumb texture, crust type, openness, and elasticity, and dynamically adjusts the recipe structure accordingly. I’ll walk you through a modern front-end and back-end agnostic approach using React + TailwindCSS, with optional hooks for AI or validation engines.
+
+⸻
+
+Texture & Structure Designer – Technical Implementation
+
+Goal: Let users visually define texture and structure attributes and dynamically feed that into the recipe generator.
+
+⸻
+
+1. Component Architecture
+
+/pages/FlavorDesigner.jsx
+/components/TextureStructurePanel.jsx
+/components/TextureSlider.jsx
+/components/StructureGrid.jsx
+/utils/textureMapping.js
+/context/RecipeContext.jsx
+
+
+
+⸻
+
+2. User Inputs & Attributes
+
+Attribute	Input Type	Value Range
+Crumb Openness	Slider	Tight → Very Open
+Crumb Elasticity	Slider	Dense → Stretchy
+Crust Thickness	Slider	Thin → Thick
+Crust Hardness	Slider	Soft → Crackly
+Overall Chew	Slider	Tender → Chewy
+Rise Profile	Button group	Domed, Flat, Rustic
+Hydration Priority	Toggle	Crumb vs Crust
+
+
+
+⸻
+
+3. Texture & Structure Panel UI
+
+/components/TextureStructurePanel.jsx
+
+export default function TextureStructurePanel() {
+  const { textureSettings, setTextureSettings } = useRecipe();
+
+  const handleChange = (field, value) => {
+    setTextureSettings(prev => ({ ...prev, [field]: value }));
+  };
+
+  return (
+    <section className="bg-white p-6 rounded-md shadow grid grid-cols-1 md:grid-cols-2 gap-6">
+      <h2 className="col-span-full text-xl font-semibold text-stone-800">Texture & Structure</h2>
+
+      <TextureSlider label="Crumb Openness" value={textureSettings.crumbOpenness} onChange={val => handleChange('crumbOpenness', val)} />
+      <TextureSlider label="Crumb Elasticity" value={textureSettings.elasticity} onChange={val => handleChange('elasticity', val)} />
+      <TextureSlider label="Crust Thickness" value={textureSettings.crustThickness} onChange={val => handleChange('crustThickness', val)} />
+      <TextureSlider label="Crust Hardness" value={textureSettings.crustHardness} onChange={val => handleChange('crustHardness', val)} />
+      <TextureSlider label="Chew Level" value={textureSettings.chewiness} onChange={val => handleChange('chewiness', val)} />
+
+      <div className="col-span-full">
+        <label className="block font-medium mb-1">Rise Profile</label>
+        <div className="flex gap-2">
+          {['Domed', 'Flat', 'Rustic'].map(profile => (
+            <button
+              key={profile}
+              onClick={() => handleChange('riseProfile', profile)}
+              className={`px-4 py-2 border rounded ${textureSettings.riseProfile === profile ? 'bg-amber-600 text-white' : 'bg-white'}`}
+            >
+              {profile}
+            </button>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+
+
+⸻
+
+4. TextureSlider Component
+
+export default function TextureSlider({ label, value, onChange }) {
+  return (
+    <div>
+      <label className="block font-medium mb-2">{label}</label>
+      <input
+        type="range"
+        min="0"
+        max="100"
+        value={value}
+        onChange={e => onChange(parseInt(e.target.value))}
+        className="w-full"
+      />
+      <div className="text-sm text-stone-600 mt-1">{value}/100</div>
+    </div>
+  );
+}
+
+
+
+⸻
+
+5. Global State Context for Recipe Logic
+
+/context/RecipeContext.jsx
+
+const RecipeContext = createContext();
+
+export function RecipeProvider({ children }) {
+  const [textureSettings, setTextureSettings] = useState({
+    crumbOpenness: 60,
+    elasticity: 50,
+    crustThickness: 40,
+    crustHardness: 30,
+    chewiness: 50,
+    riseProfile: 'Rustic'
+  });
+
+  return (
+    <RecipeContext.Provider value={{ textureSettings, setTextureSettings }}>
+      {children}
+    </RecipeContext.Provider>
+  );
+}
+
+export const useRecipe = () => useContext(RecipeContext);
+
+
+
+⸻
+
+6. Mapping Texture to Recipe Adjustments
+
+/utils/textureMapping.js
+
+export function getHydrationLevel({ crumbOpenness, elasticity }) {
+  if (crumbOpenness > 70 && elasticity > 60) return 78;
+  if (crumbOpenness < 40) return 65;
+  return 72;
+}
+
+export function adjustCrustSettings({ crustThickness, crustHardness }) {
+  return {
+    bakeTemp: 475,
+    bakeTime: crustThickness > 50 ? 45 : 30,
+    steamRequired: crustHardness > 50,
+  };
+}
+
+
+
+⸻
+
+7. Optional: LLM Integration (if used)
+
+When ready to generate a recipe:
+
+async function generateRecipeFromTexture(settings) {
+  const prompt = `Create a sourdough recipe with the following characteristics:
+- Crumb: ${settings.crumbOpenness}/100 openness and ${settings.elasticity}/100 elasticity
+- Crust: ${settings.crustThickness}/100 thickness and ${settings.crustHardness}/100 hardness
+- Rise Profile: ${settings.riseProfile}
+- Chewiness: ${settings.chewiness}
+
+Output the recipe with clear baker’s percentages, steps, and fermentation timelines.`;
+
+  const response = await fetch("/api/generate", {
+    method: "POST",
+    body: JSON.stringify({ prompt }),
+  });
+
+  return await response.json();
+}
+
+
+
+⸻
+
+8. Responsive + Accessible Design Considerations
+	•	Sliders: Enable keyboard access (tab, arrow keys)
+	•	Rise Profile: Aria-pressed toggles or <input type="radio">
+	•	Mobile: Stack layout and add swipe-friendly controls
+	•	Color feedback: Crumb openness preview with visual indicator bar
+
+⸻
+
+Next Steps (Optional Enhancements)
+	•	Add live crumb preview animation (canvas or SVG)
+	•	Integrate with the Recipe Validator to warn of conflicting combinations
+	•	Add a “Suggest Optimal Crust” button using AI logic
+	•	Export texture presets as JSON configs
+
+⸻
+
+Would you like me to:
+	•	Create a Figma UI for this module?
+	•	Wire it up into your existing Recipe Generator workflow?
+	•	Add real-time hydration/salt suggestions?
+
+Let’s build the next piece when you’re ready.

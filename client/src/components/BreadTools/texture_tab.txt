@@ -1,0 +1,241 @@
+              </TabsContent>
+              
+              {/* Texture & Structure Tab */}
+              <TabsContent value="texture" className="mt-0">
+                <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
+                  {/* Left side - Texture controls */}
+                  <div className="md:col-span-3 space-y-8">
+                    <h3 className="text-lg font-medium text-amber-900">Crumb Structure</h3>
+                    
+                    {/* Crumb structure sliders */}
+                    <div className="space-y-6">
+                      {/* Openness */}
+                      <div>
+                        <div className="flex justify-between mb-2">
+                          <label className="text-sm font-medium">Openness</label>
+                          <span className="text-xs bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full">
+                            {denormalizeValue(flavorProfile.texturePreferences.crumb.openness)}%
+                          </span>
+                        </div>
+                        <div className="flex items-center space-x-3">
+                          <span className="text-xs text-gray-500">Close Crumb</span>
+                          <CustomSlider 
+                            min={0} 
+                            max={100} 
+                            value={denormalizeValue(flavorProfile.texturePreferences.crumb.openness)} 
+                            onChange={(e) => handleTextureChange('crumb', 'openness', Number(e.target.value))}
+                            className="flex-grow" 
+                          />
+                          <span className="text-xs text-gray-500">Open Crumb</span>
+                        </div>
+                      </div>
+                      
+                      {/* Irregularity */}
+                      <div>
+                        <div className="flex justify-between mb-2">
+                          <label className="text-sm font-medium">Irregularity</label>
+                          <span className="text-xs bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full">
+                            {denormalizeValue(flavorProfile.texturePreferences.crumb.irregularity)}%
+                          </span>
+                        </div>
+                        <div className="flex items-center space-x-3">
+                          <span className="text-xs text-gray-500">Regular</span>
+                          <CustomSlider 
+                            min={0} 
+                            max={100} 
+                            value={denormalizeValue(flavorProfile.texturePreferences.crumb.irregularity)} 
+                            onChange={(e) => handleTextureChange('crumb', 'irregularity', Number(e.target.value))}
+                            className="flex-grow" 
+                          />
+                          <span className="text-xs text-gray-500">Irregular</span>
+                        </div>
+                      </div>
+                      
+                      {/* Chewiness */}
+                      <div>
+                        <div className="flex justify-between mb-2">
+                          <label className="text-sm font-medium">Chewiness</label>
+                          <span className="text-xs bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full">
+                            {denormalizeValue(flavorProfile.texturePreferences.crumb.chewiness)}%
+                          </span>
+                        </div>
+                        <div className="flex items-center space-x-3">
+                          <span className="text-xs text-gray-500">Tender</span>
+                          <CustomSlider 
+                            min={0} 
+                            max={100} 
+                            value={denormalizeValue(flavorProfile.texturePreferences.crumb.chewiness)} 
+                            onChange={(e) => handleTextureChange('crumb', 'chewiness', Number(e.target.value))}
+                            className="flex-grow" 
+                          />
+                          <span className="text-xs text-gray-500">Chewy</span>
+                        </div>
+                      </div>
+                      
+                      {/* Moisture */}
+                      <div>
+                        <div className="flex justify-between mb-2">
+                          <label className="text-sm font-medium">Moisture</label>
+                          <span className="text-xs bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full">
+                            {denormalizeValue(flavorProfile.texturePreferences.crumb.moisture)}%
+                          </span>
+                        </div>
+                        <div className="flex items-center space-x-3">
+                          <span className="text-xs text-gray-500">Dry</span>
+                          <CustomSlider 
+                            min={0} 
+                            max={100} 
+                            value={denormalizeValue(flavorProfile.texturePreferences.crumb.moisture)} 
+                            onChange={(e) => handleTextureChange('crumb', 'moisture', Number(e.target.value))}
+                            className="flex-grow" 
+                          />
+                          <span className="text-xs text-gray-500">Moist</span>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="pt-4 border-t border-gray-200">
+                      <h3 className="text-lg font-medium text-amber-900 mb-4">Crust Characteristics</h3>
+                      
+                      {/* Crust characteristics */}
+                      <div className="space-y-6">
+                        {/* Thickness */}
+                        <div>
+                          <div className="flex justify-between mb-2">
+                            <label className="text-sm font-medium">Thickness</label>
+                            <span className="text-xs bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full">
+                              {denormalizeValue(flavorProfile.texturePreferences.crust.thickness)}%
+                            </span>
+                          </div>
+                          <div className="flex items-center space-x-3">
+                            <span className="text-xs text-gray-500">Thin</span>
+                            <CustomSlider 
+                              min={0} 
+                              max={100} 
+                              value={denormalizeValue(flavorProfile.texturePreferences.crust.thickness)} 
+                              onChange={(e) => handleTextureChange('crust', 'thickness', Number(e.target.value))}
+                              className="flex-grow" 
+                            />
+                            <span className="text-xs text-gray-500">Thick</span>
+                          </div>
+                        </div>
+                        
+                        {/* Texture selection */}
+                        <div>
+                          <label className="text-sm font-medium block mb-2">Crust Texture</label>
+                          <Select
+                            value={flavorProfile.texturePreferences.crust.texture}
+                            onValueChange={handleCrustTextureChange}
+                          >
+                            <SelectTrigger className="w-full">
+                              <SelectValue placeholder="Select texture" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="crisp">Crisp & Shattering</SelectItem>
+                              <SelectItem value="crackling">Crackling</SelectItem>
+                              <SelectItem value="chewy">Chewy</SelectItem>
+                              <SelectItem value="soft">Soft</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                        
+                        {/* Color */}
+                        <div>
+                          <div className="flex justify-between mb-2">
+                            <label className="text-sm font-medium">Crust Color</label>
+                            <span className="text-xs bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full">
+                              {denormalizeValue(flavorProfile.texturePreferences.crust.color)}%
+                            </span>
+                          </div>
+                          <div className="flex items-center space-x-3">
+                            <span className="text-xs text-gray-500">Light Golden</span>
+                            <CustomSlider 
+                              min={0} 
+                              max={100} 
+                              value={denormalizeValue(flavorProfile.texturePreferences.crust.color)} 
+                              onChange={(e) => handleTextureChange('crust', 'color', Number(e.target.value))}
+                              className="flex-grow" 
+                            />
+                            <span className="text-xs text-gray-500">Dark Mahogany</span>
+                          </div>
+                        </div>
+                        
+                        {/* Blistering */}
+                        <div>
+                          <div className="flex justify-between mb-2">
+                            <label className="text-sm font-medium">Surface Blistering</label>
+                            <span className="text-xs bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full">
+                              {denormalizeValue(flavorProfile.texturePreferences.crust.blistering)}%
+                            </span>
+                          </div>
+                          <div className="flex items-center space-x-3">
+                            <span className="text-xs text-gray-500">Minimal</span>
+                            <CustomSlider 
+                              min={0} 
+                              max={100} 
+                              value={denormalizeValue(flavorProfile.texturePreferences.crust.blistering)} 
+                              onChange={(e) => handleTextureChange('crust', 'blistering', Number(e.target.value))}
+                              className="flex-grow" 
+                            />
+                            <span className="text-xs text-gray-500">Extensive</span>
+                          </div>
+                        </div>
+                        
+                        {/* Ear Formation */}
+                        <div className="flex items-center space-x-2">
+                          <Checkbox 
+                            id="earFormation" 
+                            checked={flavorProfile.texturePreferences.crust.earFormation}
+                            onCheckedChange={(checked) => 
+                              handleEarFormationChange(checked === true)
+                            }
+                          />
+                          <Label htmlFor="earFormation" className="text-sm">Dramatic Ear Formation ("Bloom")</Label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Right side - Texture Information */}
+                  <div className="md:col-span-2">
+                    <div className="bg-amber-50 rounded-lg p-6 h-full flex flex-col">
+                      <h3 className="text-lg font-medium text-amber-900 mb-4 text-center">Texture Preview</h3>
+                      
+                      {/* Texture information visualization */}
+                      <div className="bg-white rounded-lg p-4 mb-4 shadow-sm">
+                        <h4 className="font-medium text-sm mb-2">Predicted Bread Style</h4>
+                        
+                        {flavorProfile.texturePreferences.crumb.openness > 0.6 && flavorProfile.texturePreferences.crust.texture === "crisp" && (
+                          <div className="flex items-center">
+                            <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center text-2xl mr-3">🍞</div>
+                            <div>
+                              <p className="font-medium">Rustic Artisan</p>
+                              <p className="text-xs text-gray-600">Open crumb with crisp crust</p>
+                            </div>
+                          </div>
+                        )}
+                        
+                        {flavorProfile.texturePreferences.crumb.moisture > 0.7 && flavorProfile.texturePreferences.crumb.openness < 0.4 && (
+                          <div className="flex items-center">
+                            <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center text-2xl mr-3">🥖</div>
+                            <div>
+                              <p className="font-medium">Sandwich-Style</p>
+                              <p className="text-xs text-gray-600">Soft, close crumb with tender texture</p>
+                            </div>
+                          </div>
+                        )}
+                        
+                        {flavorProfile.texturePreferences.crumb.chewiness > 0.7 && flavorProfile.texturePreferences.crust.texture === "chewy" && (
+                          <div className="flex items-center">
+                            <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center text-2xl mr-3">🥐</div>
+                            <div>
+                              <p className="font-medium">Rustic European</p>
+                              <p className="text-xs text-gray-600">Chewy texture with substantial crust</p>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                      
+                      {/* Technique suggestions */}
+                      <div className="bg-white rounded-lg p-4 mb-6 shadow-sm">
+                        <h4 className="font-medium text-sm mb-2">Suggested Techniques</h4>

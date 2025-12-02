@@ -1,0 +1,14 @@
+# Test Document
+
+This is a sample research document about sourdough bread making techniques.
+
+## Key Points
+- Fermentation process affects flavor development
+- Hydration levels impact crumb structure
+- Temperature control is crucial for consistent results
+
+## Methodology
+Traditional sourdough techniques combined with modern analysis methods provide insights into optimal bread production.
+
+## Conclusions
+Proper starter maintenance and environmental controls lead to reproducible high-quality bread.

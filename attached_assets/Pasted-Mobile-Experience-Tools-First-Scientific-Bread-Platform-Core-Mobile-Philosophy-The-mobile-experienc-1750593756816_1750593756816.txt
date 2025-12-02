@@ -1,0 +1,170 @@
+Mobile Experience: Tools-First Scientific Bread Platform
+Core Mobile Philosophy
+The mobile experience prioritizes immediate practical value over deep research, recognizing that mobile users often need quick answers and calculations while actively baking.
+
+Mobile Navigation & Layout
+Home Screen
+Top Navigation: Clean header with search bar and menu toggle
+Quick Tools Section: Prominent cards for the 4 core calculators
+Topic Cards Grid: Visual topic browsing with article counts and brief descriptions
+Search Integration: Persistent search bar with voice input capability
+Recent/Suggested: Personalized recommendations based on usage
+Responsive Grid Layout
+Portrait: Single column with stacked tool cards
+Landscape: Two-column layout for efficient browsing
+Touch-Optimized: Large tap targets, swipe gestures, pull-to-refresh
+Core Mobile Tools
+1. Hydration Calculator
+┌─────────────────────────┐
+│ 🧮 Hydration Calculator │
+├─────────────────────────┤
+│ Flour Weight: [500g] ▼  │
+│ Hydration %: [75%] ▼    │
+├─────────────────────────┤
+│ Water Needed: 375g      │
+│ [Save Recipe] [Share]   │
+└─────────────────────────┘
+Input: Flour weight, desired hydration percentage
+Output: Exact water amounts, total dough weight
+Features: Save calculations, unit conversion (grams/ounces), preset percentages
+2. Fermentation Timeline
+┌─────────────────────────┐
+│ ⏰ Fermentation Timeline │
+├─────────────────────────┤
+│ Bake Time: [8:00 AM] ▼  │
+│ Room Temp: [72°F] ▼     │
+│ Starter Activity: ●●●○○ │
+├─────────────────────────┤
+│ Start mixing: 6:30 PM   │
+│ Bulk ferment: 7:00 PM   │
+│ Shape dough: 11:00 PM   │
+│ Final proof: 6:00 AM    │
+│ [Set Reminders]         │
+└─────────────────────────┘
+Input: Target bake time, temperature, starter strength
+Output: Step-by-step timeline with notifications
+Features: Push notifications, adjustable timing, temperature compensation
+3. Ingredient Ratio Calculator
+┌─────────────────────────┐
+│ ⚖️ Baker's Percentages   │
+├─────────────────────────┤
+│ Batch Size: [2 loaves]  │
+│ Flour: 100% (800g)      │
+│ Water: 75% (600g)       │
+│ Salt: 2% (16g)          │
+│ Starter: 20% (160g)     │
+├─────────────────────────┤
+│ Total: 1,576g           │
+│ [Save Recipe] [Scale]   │
+└─────────────────────────┘
+Input: Baker's percentages, batch size
+Output: Exact ingredient weights
+Features: Recipe saving, scaling up/down, ingredient substitutions
+4. Troubleshooting Wizard
+┌─────────────────────────┐
+│ 🔧 Bread Troubleshooter │
+├─────────────────────────┤
+│ What's the issue?       │
+│ ○ Dense/heavy loaf      │
+│ ○ Didn't rise enough    │
+│ ○ Too sour/not sour     │
+│ ○ Gummy interior        │
+│ ○ Other... [text input] │
+├─────────────────────────┤
+│ [Diagnose Problem]      │
+└─────────────────────────┘
+Flow: Issue selection → diagnostic questions → solutions + research links
+Features: Photo upload for visual diagnosis, step-by-step solutions
+Research Integration on Mobile
+Topic Cards Interface
+┌─────────────────────────┐
+│ 🦠 Fermentation Science │
+│ 23 articles • Updated   │
+│ "Temperature effects,   │
+│  wild yeast, LAB..." ▸  │
+└─────────────────────────┘
+┌─────────────────────────┐
+│ 🌾 Flour & Ingredients  │
+│ 31 articles • Updated   │
+│ "Protein content,       │
+│  gluten development..." ▸│
+└─────────────────────────┘
+Mobile Search Experience
+Voice Search: "How does starter temperature affect fermentation?"
+Quick Results: Condensed article previews with key insights
+Tool Integration: Search results link to relevant calculators
+Chat Integration: Tap to ask follow-up questions
+Article Preview (Mobile-Optimized)
+┌─────────────────────────┐
+│ "Effect of Temperature" │
+│ Journal of Food Sci, 23 │
+├─────────────────────────┤
+│ Key Insights:           │
+│ • 78°F optimal for LAB  │
+│ • Higher temps = faster │
+│ • Flavor compounds...   │
+├─────────────────────────┤
+│ [💬 Ask AI] [🔗 Cite]   │
+└─────────────────────────┘
+Mobile-Specific AI Chat
+Context-Aware Responses
+Location-Aware: "Based on your climate..." considerations
+Tool Integration: "Let me calculate that for you..." with embedded calculators
+Time-Sensitive: Responses consider active baking timelines
+Chat Interface
+┌─────────────────────────┐
+│ 🤖 Fermentation Expert  │
+├─────────────────────────┤
+│ You: My starter isn't   │
+│      rising much        │
+├─────────────────────────┤
+│ AI: Several factors...  │
+│     Temperature (72°F)  │
+│     Feeding ratio...    │
+│                         │
+│ Try this timeline: ▼    │
+│ [Open Timeline Tool]    │
+│                         │
+│ Based on: "Wild Yeast   │
+│ Activity" - Food Sci, 21│
+└─────────────────────────┘
+Mobile User Journey Examples
+Scenario 1: Active Baker
+7 AM: User opens app while making coffee
+Timeline Tool: Checks fermentation schedule, sets reminder
+Notification: "Shape your dough now" at 6 PM
+Quick Chat: "Is my dough ready?" with photo
+AI Response: Analysis + next steps
+Scenario 2: Learning Baker
+Research Mode: Browses "Beginner Sourdough" topic card
+Article Preview: Reads condensed version of starter science
+Tool Discovery: "Try the hydration calculator" suggestion
+Recipe Creation: Uses ratios calculator for first loaf
+Timeline Setup: Plans weekend baking schedule
+Scenario 3: Problem Solving
+Issue: Dense loaf, frustrated baker
+Troubleshooter: Selects "dense/heavy" + answers questions
+Diagnosis: Under-fermented + too much flour
+Solutions: Specific adjustments + research citations
+Prevention: Saves timeline for future bakes
+Progressive Web App Features
+Offline Capability
+Saved Recipes: Access calculations without internet
+Recent Searches: Cached results for quick reference
+Tool Functionality: Core calculators work offline
+Device Integration
+Camera: Photo-based troubleshooting
+Notifications: Fermentation reminders
+Share Integration: Recipe sharing via text/email
+Contact Integration: Save baking buddies for recipe sharing
+Performance & Usability
+Speed Optimizations
+Instant Loading: Tools load in <1 second
+Cached Content: Frequent searches cached locally
+Progressive Loading: Essential features first, research content second
+Accessibility
+Large Buttons: Easy thumb navigation
+Voice Input: Hands-free while baking
+High Contrast: Readable in kitchen lighting
+Screen Reader: Full accessibility support
+This mobile experience transforms the scientific research platform into a practical baking companion, providing immediate value while maintaining access to the deep knowledge base when needed.

@@ -1,0 +1,900 @@
+# Baking Timeline Calculator: Detailed Technical Implementation
+
+Let me provide a comprehensive explanation of how the Baking Timeline Calculator tool works from a technical implementation perspective, with special focus on the timeline generation algorithms and implementation details.
+
+## Core Functionality Overview
+
+The Baking Timeline Calculator is an intelligent scheduling system that works backward from a desired completion time to create a detailed, personalized baking schedule that adapts to environmental conditions, starter characteristics, and user availability constraints.
+
+## Data Input & Processing System
+
+### Input Parameters Collection
+
+The system collects four essential parameter sets:
+
+1. **End Goal Parameters**
+   - Target completion date/time (when bread should be ready)
+   - Bread type/recipe information
+   - Serving occasion (dinner, event, etc.)
+   - Flexibility window (if exact timing is not critical)
+
+2. **Recipe Parameters**
+   - Process steps with typical durations
+   - Required temperatures for each step
+   - Active vs. passive time designation
+   - Critical checkpoints and decision points
+
+3. **Environmental Parameters**
+   - Ambient temperature
+   - Seasonal factors
+   - Humidity considerations
+   - Equipment capabilities (refrigeration, etc.)
+
+4. **User Constraint Parameters**
+   - Unavailable time blocks (sleep, work, etc.)
+   - Maximum hands-on time preferences
+   - Preferred active periods (morning/evening)
+   - Equipment availability windows
+
+### Data Structure Design
+
+The timeline system uses these core data structures:
+
+```javascript
+// Main timeline data structure
+const timelineDataStructure = {
+  meta: {
+    recipeName: String,
+    targetCompletionTime: Date, // ISO format
+    timelineCreationTime: Date,
+    starterType: String,
+    recipeId: String, // Reference to recipe if imported
+    flexibility: Number // Minutes of acceptable deviation
+  },
+  environmentalFactors: {
+    ambientTemperature: Number,
+    humidity: Number,
+    altitude: Number,
+    season: String
+  },
+  userConstraints: {
+    excludedTimeBlocks: [
+      {
+        start: Date, 
+        end: Date,
+        reason: String, // e.g., "Sleep", "Work"
+        isRecurring: Boolean,
+        priority: String // "fixed" or "flexible"
+      }
+    ],
+    preferredActiveHours: {
+      start: Number, // Hour in 24-hour format
+      end: Number
+    },
+    maxConsecutiveActiveTime: Number // minutes
+  },
+  steps: [
+    {
+      id: String, // Unique identifier
+      name: String, // e.g., "Bulk Fermentation"
+      plannedStartTime: Date,
+      duration: Number, // minutes
+      isActive: Boolean, // Requires user involvement
+      isFlexible: Boolean, // Timing can be adjusted
+      temperature: Number,
+      description: String,
+      dependencies: [String], // IDs of steps that must precede this one
+      criticalCheckpoints: [
+        {
+          name: String, // e.g., "Check dough development"
+          timeOffset: Number, // minutes from start
+          description: String
+        }
+      ]
+    }
+  ],
+  notifications: [
+    {
+      stepId: String,
+      triggerTime: Date,
+      title: String,
+      message: String,
+      priority: String, // "high", "medium", "low"
+      requiresConfirmation: Boolean
+    }
+  ]
+};
+```
+
+## Timeline Generation Engine Architecture
+
+The timeline generator operates as a sophisticated constraint-satisfaction system:
+
+### 1. Backward Planning Algorithm
+
+The core algorithm works backward from the target completion time:
+
+```javascript
+function generateTimeline(params) {
+  const { 
+    targetCompletionTime,
+    recipe,
+    environmentalFactors,
+    userConstraints 
+  } = params;
+  
+  // Start with empty timeline
+  const timeline = initializeTimeline(params);
+  
+  // Get ordered steps from recipe
+  const processSteps = extractProcessSteps(recipe);
+  
+  // Sort steps in reverse order (final step first)
+  const reversedSteps = [...processSteps].reverse();
+  
+  // Set end point (last step ends at target completion time)
+  let currentTime = new Date(targetCompletionTime);
+  
+  // Build timeline backward
+  for (const step of reversedSteps) {
+    // Calculate duration with environmental adjustments
+    const adjustedDuration = calculateAdjustedDuration(
+      step, 
+      environmentalFactors, 
+      timeline.meta.starterType
+    );
+    
+    // Calculate start time by subtracting duration from current time
+    const stepStartTime = new Date(currentTime.getTime() - (adjustedDuration * 60 * 1000));
+    
+    // Add step to timeline
+    timeline.steps.push({
+      id: generateUniqueId(),
+      name: step.name,
+      plannedStartTime: stepStartTime,
+      duration: adjustedDuration,
+      isActive: isActiveStep(step.name),
+      isFlexible: determineFlexibility(step.name),
+      temperature: step.temperature,
+      description: step.description,
+      dependencies: step.dependencies || []
+    });
+    
+    // Update current time for next iteration
+    currentTime = stepStartTime;
+  }
+  
+  // Sort steps chronologically
+  timeline.steps.sort((a, b) => a.plannedStartTime - b.plannedStartTime);
+  
+  return timeline;
+}
+```
+
+### 2. Duration Adjustment System
+
+Environmental factors significantly impact fermentation times:
+
+```javascript
+function calculateAdjustedDuration(step, environmentalFactors, starterType) {
+  const baseDuration = step.duration;
+  let adjustmentMultiplier = 1.0;
+  
+  // Skip adjustment for non-fermentation steps
+  if (!isFermentationStep(step.name)) {
+    return baseDuration;
+  }
+  
+  // Temperature adjustment (fermentation slows in cooler temperatures)
+  const idealTemp = getIdealTemperature(step.name, starterType);
+  const actualTemp = environmentalFactors.ambientTemperature;
+  
+  if (actualTemp < idealTemp) {
+    // Each degree below ideal slows fermentation by ~5%
+    const tempDifference = idealTemp - actualTemp;
+    adjustmentMultiplier += tempDifference * 0.05;
+  } else if (actualTemp > idealTemp) {
+    // Each degree above ideal speeds fermentation by ~7%
+    const tempDifference = actualTemp - idealTemp;
+    adjustmentMultiplier -= tempDifference * 0.07;
+    
+    // Fermentation can only go so fast
+    adjustmentMultiplier = Math.max(adjustmentMultiplier, 0.5);
+  }
+  
+  // Starter type adjustment
+  const starterMultiplier = getStarterTypeMultiplier(starterType);
+  adjustmentMultiplier *= starterMultiplier;
+  
+  // Seasonal humidity adjustment
+  if (environmentalFactors.humidity > 70) {
+    adjustmentMultiplier *= 0.95; // Slightly faster in humid conditions
+  } else if (environmentalFactors.humidity < 30) {
+    adjustmentMultiplier *= 1.1; // Slightly slower in dry conditions
+  }
+  
+  // Altitude adjustment
+  if (environmentalFactors.altitude > 1000) { // meters
+    const altitudeFactor = 1 + ((environmentalFactors.altitude - 1000) / 10000);
+    adjustmentMultiplier *= altitudeFactor;
+  }
+  
+  // Apply adjustment
+  return Math.round(baseDuration * adjustmentMultiplier);
+}
+```
+
+### 3. Constraint Resolution System
+
+The system must check for and resolve scheduling conflicts:
+
+```javascript
+function resolveConstraints(timeline) {
+  let hasConflicts = true;
+  let iterationCount = 0;
+  const maxIterations = 10; // Prevent infinite loops
+  
+  while (hasConflicts && iterationCount < maxIterations) {
+    // Find conflicts with excluded time blocks
+    const conflicts = findTimeBlockConflicts(timeline);
+    
+    if (conflicts.length === 0) {
+      hasConflicts = false;
+      continue;
+    }
+    
+    // Handle each conflict
+    for (const conflict of conflicts) {
+      resolveTimeBlockConflict(timeline, conflict);
+    }
+    
+    // Recalculate dependencies after adjustments
+    updateDependentStepTiming(timeline);
+    
+    iterationCount++;
+  }
+  
+  // Check if we still have unresolvable conflicts
+  const remainingConflicts = findTimeBlockConflicts(timeline);
+  
+  if (remainingConflicts.length > 0) {
+    return {
+      timeline,
+      unresolvedConflicts: remainingConflicts,
+      feasible: false
+    };
+  }
+  
+  return {
+    timeline,
+    unresolvedConflicts: [],
+    feasible: true
+  };
+}
+
+function findTimeBlockConflicts(timeline) {
+  const conflicts = [];
+  
+  for (const step of timeline.steps) {
+    if (!step.isActive) continue; // Only active steps can conflict
+    
+    const stepStart = new Date(step.plannedStartTime);
+    const stepEnd = new Date(stepStart.getTime() + (step.duration * 60 * 1000));
+    
+    for (const excludedBlock of timeline.userConstraints.excludedTimeBlocks) {
+      // Check for overlap
+      if (datesOverlap(stepStart, stepEnd, excludedBlock.start, excludedBlock.end)) {
+        conflicts.push({
+          step,
+          excludedBlock,
+          overlapStart: maxDate(stepStart, excludedBlock.start),
+          overlapEnd: minDate(stepEnd, excludedBlock.end),
+          overlapDuration: calculateOverlapMinutes(
+            stepStart, stepEnd, excludedBlock.start, excludedBlock.end
+          )
+        });
+      }
+    }
+  }
+  
+  return conflicts;
+}
+
+function resolveTimeBlockConflict(timeline, conflict) {
+  const { step, excludedBlock, overlapDuration } = conflict;
+  
+  // Strategies for conflict resolution:
+  
+  // 1. Try moving the step earlier
+  if (step.isFlexible && canMoveEarlier(timeline, step, overlapDuration)) {
+    moveStepEarlier(timeline, step, overlapDuration);
+    return true;
+  }
+  
+  // 2. Try moving the step later (after excluded block)
+  if (step.isFlexible && canMoveLater(timeline, step, excludedBlock)) {
+    moveStepAfterBlock(timeline, step, excludedBlock);
+    return true;
+  }
+  
+  // 3. Try splitting the step if possible
+  if (canSplitStep(step)) {
+    splitStepAroundBlock(timeline, step, excludedBlock);
+    return true;
+  }
+  
+  // 4. If step is refrigeration, try extending it
+  if (isRefrigerationStep(step.name)) {
+    extendRefrigerationStep(timeline, step, excludedBlock);
+    return true;
+  }
+  
+  // 5. Last resort: Flag as unresolvable conflict
+  return false;
+}
+```
+
+### 4. Notification Generation System
+
+The system automatically creates timely alerts:
+
+```javascript
+function generateNotifications(timeline) {
+  const notifications = [];
+  
+  for (const step of timeline.steps) {
+    // Preparation notification (before step starts)
+    if (step.isActive) {
+      const prepLeadTime = determinePreparationLeadTime(step);
+      const prepTime = new Date(step.plannedStartTime.getTime() - (prepLeadTime * 60 * 1000));
+      
+      notifications.push({
+        stepId: step.id,
+        triggerTime: prepTime,
+        title: `Prepare for ${step.name}`,
+        message: `${step.name} begins in ${prepLeadTime} minutes. ${getPreparationInstructions(step)}`,
+        priority: step.isActive ? "high" : "medium",
+        requiresConfirmation: step.isActive
+      });
+    }
+    
+    // Step start notification
+    notifications.push({
+      stepId: step.id,
+      triggerTime: step.plannedStartTime,
+      title: `Start ${step.name}`,
+      message: step.description,
+      priority: step.isActive ? "high" : "medium",
+      requiresConfirmation: step.isActive
+    });
+    
+    // Critical checkpoint notifications
+    if (step.criticalCheckpoints) {
+      for (const checkpoint of step.criticalCheckpoints) {
+        const checkpointTime = new Date(
+          step.plannedStartTime.getTime() + (checkpoint.timeOffset * 60 * 1000)
+        );
+        
+        notifications.push({
+          stepId: step.id,
+          checkpointId: checkpoint.id,
+          triggerTime: checkpointTime,
+          title: checkpoint.name,
+          message: checkpoint.description,
+          priority: "high",
+          requiresConfirmation: true
+        });
+      }
+    }
+    
+    // Step completion notification (for longer passive steps)
+    if (!step.isActive && step.duration > 60) {
+      const completionTime = new Date(
+        step.plannedStartTime.getTime() + (step.duration * 60 * 1000)
+      );
+      
+      notifications.push({
+        stepId: step.id,
+        triggerTime: new Date(completionTime.getTime() - (15 * 60 * 1000)), // 15 min before
+        title: `${step.name} Nearly Complete`,
+        message: `${step.name} will be complete in 15 minutes. Prepare for next step.`,
+        priority: "medium",
+        requiresConfirmation: false
+      });
+    }
+  }
+  
+  // Sort notifications by trigger time
+  return notifications.sort((a, b) => a.triggerTime - b.triggerTime);
+}
+```
+
+## Technical Implementation of Timeline Visualization
+
+The timeline visualization system renders a clear, interactive schedule:
+
+### 1. Timeline Rendering System
+
+```javascript
+function renderTimeline(timeline, containerElement) {
+  // Clear container
+  containerElement.innerHTML = '';
+  
+  // Create timeline container
+  const timelineEl = document.createElement('div');
+  timelineEl.className = 'timeline-container';
+  
+  // Set up time scale
+  const earliestTime = getEarliestStepTime(timeline);
+  const latestTime = new Date(timeline.meta.targetCompletionTime);
+  const totalDurationHours = (latestTime - earliestTime) / (1000 * 60 * 60);
+  
+  // Create time axis
+  const timeAxisEl = createTimeAxis(earliestTime, latestTime);
+  timelineEl.appendChild(timeAxisEl);
+  
+  // Current time indicator
+  const nowIndicator = createCurrentTimeIndicator(earliestTime, latestTime);
+  timelineEl.appendChild(nowIndicator);
+  
+  // Create step blocks
+  for (const step of timeline.steps) {
+    const stepElement = createStepElement(step, earliestTime, latestTime);
+    timelineEl.appendChild(stepElement);
+    
+    // Add checkpoints if present
+    if (step.criticalCheckpoints) {
+      for (const checkpoint of step.criticalCheckpoints) {
+        const checkpointElement = createCheckpointElement(
+          step, checkpoint, earliestTime, latestTime
+        );
+        timelineEl.appendChild(checkpointElement);
+      }
+    }
+  }
+  
+  // Add excluded time blocks with pattern overlay
+  for (const block of timeline.userConstraints.excludedTimeBlocks) {
+    const blockElement = createExcludedBlockElement(
+      block, earliestTime, latestTime
+    );
+    timelineEl.appendChild(blockElement);
+  }
+  
+  // Add to container
+  containerElement.appendChild(timelineEl);
+  
+  // Set up event listeners for interactive elements
+  setupTimelineInteractions(timelineEl, timeline);
+  
+  // Begin periodic updates of current time indicator
+  startTimeIndicatorUpdates(nowIndicator, earliestTime, latestTime);
+}
+```
+
+### 2. Step Visualization Components
+
+```javascript
+function createStepElement(step, earliestTime, latestTime) {
+  const totalTimespan = latestTime - earliestTime;
+  
+  // Calculate position and width
+  const startOffset = (step.plannedStartTime - earliestTime) / totalTimespan;
+  const duration = step.duration * 60 * 1000; // Convert to milliseconds
+  const widthPercentage = (duration / totalTimespan) * 100;
+  
+  // Create element
+  const stepEl = document.createElement('div');
+  stepEl.className = `timeline-step ${step.isActive ? 'active-step' : 'passive-step'}`;
+  stepEl.id = `step-${step.id}`;
+  stepEl.dataset.stepId = step.id;
+  
+  // Set position and size
+  stepEl.style.left = `${startOffset * 100}%`;
+  stepEl.style.width = `${widthPercentage}%`;
+  
+  // For very short steps, ensure minimum visibility
+  if (widthPercentage < 1) {
+    stepEl.style.width = '1%';
+    stepEl.classList.add('micro-step');
+  }
+  
+  // Add content
+  stepEl.innerHTML = `
+    <div class="step-header">
+      <span class="step-name">${step.name}</span>
+      <span class="step-time">${formatTime(step.plannedStartTime)}</span>
+    </div>
+    <div class="step-duration">${formatDuration(step.duration)}</div>
+  `;
+  
+  // Add expandable details section
+  const detailsEl = document.createElement('div');
+  detailsEl.className = 'step-details';
+  detailsEl.innerHTML = `
+    <p>${step.description}</p>
+    ${step.temperature ? `<p>Temperature: ${step.temperature}°F</p>` : ''}
+    ${step.isFlexible ? 
+      '<span class="flexible-indicator">Flexible timing</span>' : 
+      '<span class="fixed-indicator">Fixed timing</span>'
+    }
+  `;
+  stepEl.appendChild(detailsEl);
+  
+  // Add interaction classes
+  if (step.isFlexible) {
+    stepEl.classList.add('adjustable');
+  }
+  
+  return stepEl;
+}
+```
+
+### 3. Interactive Adjustment Functionality
+
+```javascript
+function setupTimelineInteractions(timelineEl, timeline) {
+  // Find all flexible (adjustable) steps
+  const adjustableSteps = timelineEl.querySelectorAll('.timeline-step.adjustable');
+  
+  // Set up dragging for adjustable steps
+  adjustableSteps.forEach(stepEl => {
+    const stepId = stepEl.dataset.stepId;
+    const step = timeline.steps.find(s => s.id === stepId);
+    
+    // Make draggable
+    new Draggable(stepEl, {
+      axis: 'x',
+      bounds: timelineEl,
+      onDragStart: () => {
+        stepEl.classList.add('dragging');
+      },
+      onDrag: () => {
+        // Update connected steps in real-time
+        updateConnectedSteps(timeline, step, stepEl);
+      },
+      onDragEnd: () => {
+        stepEl.classList.remove('dragging');
+        
+        // Get new position
+        const newLeft = parseFloat(stepEl.style.left) / 100;
+        
+        // Calculate new start time
+        const totalTimespan = timeline.meta.targetCompletionTime - getEarliestStepTime(timeline);
+        const timeOffset = totalTimespan * newLeft;
+        const newStartTime = new Date(getEarliestStepTime(timeline).getTime() + timeOffset);
+        
+        // Update timeline data
+        updateStepTiming(timeline, step, newStartTime);
+        
+        // Check for conflicts after move
+        const conflicts = findTimeBlockConflicts(timeline);
+        if (conflicts.length > 0) {
+          showConflictWarning(conflicts);
+        }
+        
+        // Re-render timeline to ensure consistency
+        renderTimeline(timeline, timelineEl.parentElement);
+      }
+    });
+    
+    // Step details toggle
+    stepEl.addEventListener('click', (e) => {
+      if (!stepEl.classList.contains('dragging')) {
+        stepEl.classList.toggle('expanded');
+      }
+    });
+  });
+  
+  // Setup step completion toggles
+  const stepHeaders = timelineEl.querySelectorAll('.step-header');
+  stepHeaders.forEach(header => {
+    const stepEl = header.closest('.timeline-step');
+    const stepId = stepEl.dataset.stepId;
+    
+    const completionToggle = document.createElement('button');
+    completionToggle.className = 'completion-toggle';
+    completionToggle.innerHTML = `<span class="icon-check"></span>`;
+    completionToggle.title = "Mark as complete";
+    
+    completionToggle.addEventListener('click', (e) => {
+      e.stopPropagation(); // Prevent expanding step details
+      stepEl.classList.toggle('completed');
+      
+      // Update timeline data
+      const step = timeline.steps.find(s => s.id === stepId);
+      step.completed = stepEl.classList.contains('completed');
+      
+      // Trigger any dependent updates
+      if (step.completed) {
+        checkTimelineProgress(timeline);
+      }
+    });
+    
+    header.appendChild(completionToggle);
+  });
+}
+```
+
+### 4. Notification Management System
+
+```javascript
+function setupNotificationSystem(timeline) {
+  // Sort notifications by trigger time
+  const sortedNotifications = [...timeline.notifications]
+    .sort((a, b) => a.triggerTime - b.triggerTime);
+  
+  // Find notifications coming up in the next 30 minutes
+  const now = new Date();
+  const upcomingNotifications = sortedNotifications.filter(notification => {
+    const notificationTime = new Date(notification.triggerTime);
+    const minutesUntilNotification = (notificationTime - now) / (1000 * 60);
+    return minutesUntilNotification >= 0 && minutesUntilNotification <= 30;
+  });
+  
+  // Schedule notifications
+  upcomingNotifications.forEach(notification => {
+    const notificationTime = new Date(notification.triggerTime);
+    const delay = notificationTime - now;
+    
+    if (delay > 0) {
+      setTimeout(() => {
+        displayNotification(notification);
+        
+        // For critical notifications, register for system notification
+        if (notification.priority === "high" && "Notification" in window) {
+          sendSystemNotification(notification);
+        }
+        
+        // For notifications requiring confirmation, track response
+        if (notification.requiresConfirmation) {
+          trackNotificationResponse(notification);
+        }
+      }, delay);
+    }
+  });
+  
+  // Schedule next update (check every minute)
+  setTimeout(() => setupNotificationSystem(timeline), 60 * 1000);
+}
+
+function displayNotification(notification) {
+  const notificationEl = document.createElement('div');
+  notificationEl.className = `timeline-notification priority-${notification.priority}`;
+  notificationEl.id = `notification-${generateUniqueId()}`;
+  
+  notificationEl.innerHTML = `
+    <div class="notification-header">
+      <h3>${notification.title}</h3>
+      <span class="notification-time">${formatTime(notification.triggerTime)}</span>
+    </div>
+    <div class="notification-message">${notification.message}</div>
+    ${notification.requiresConfirmation ? 
+      `<div class="notification-actions">
+        <button class="btn-confirm">Confirm</button>
+        <button class="btn-snooze">Snooze 5 min</button>
+      </div>` : 
+      `<div class="notification-actions">
+        <button class="btn-dismiss">Dismiss</button>
+      </div>`
+    }
+  `;
+  
+  // Add to notifications container
+  document.getElementById('notifications-container').appendChild(notificationEl);
+  
+  // Setup confirmation buttons if needed
+  if (notification.requiresConfirmation) {
+    const confirmBtn = notificationEl.querySelector('.btn-confirm');
+    const snoozeBtn = notificationEl.querySelector('.btn-snooze');
+    
+    confirmBtn.addEventListener('click', () => {
+      markNotificationConfirmed(notification);
+      notificationEl.classList.add('confirmed');
+      setTimeout(() => notificationEl.remove(), 3000);
+    });
+    
+    snoozeBtn.addEventListener('click', () => {
+      // Reschedule for 5 minutes later
+      const snoozedNotification = {...notification};
+      snoozedNotification.triggerTime = new Date(
+        new Date().getTime() + (5 * 60 * 1000)
+      );
+      
+      // Add to notifications queue
+      timeline.notifications.push(snoozedNotification);
+      
+      // Remove current notification
+      notificationEl.remove();
+    });
+  } else {
+    const dismissBtn = notificationEl.querySelector('.btn-dismiss');
+    dismissBtn.addEventListener('click', () => {
+      notificationEl.remove();
+    });
+    
+    // Auto-dismiss after 10 seconds
+    setTimeout(() => {
+      if (document.getElementById(notificationEl.id)) {
+        notificationEl.remove();
+      }
+    }, 10000);
+  }
+}
+```
+
+## Integration with Other Tools
+
+The Timeline Calculator integrates with other system components:
+
+### 1. Recipe Validator Integration
+
+```javascript
+function importFromRecipeValidator(validatedRecipe) {
+  // Extract process steps with durations
+  const processSteps = validatedRecipe.process.map(step => ({
+    name: step.name,
+    duration: step.duration,
+    isActive: isActiveStep(step.name),
+    isFlexible: step.name !== 'Bake', // Most steps can be moved except baking
+    temperature: step.temperature,
+    description: step.description,
+    criticalCheckpoints: extractCriticalPoints(step)
+  }));
+  
+  // Add starter preparation if needed
+  if (needsStarterPreparation(validatedRecipe)) {
+    processSteps.unshift({
+      name: "Prepare Starter",
+      duration: getStarterPreparationTime(validatedRecipe.meta.starterType),
+      isActive: true,
+      isFlexible: true,
+      description: "Feed starter to prepare for baking",
+      criticalCheckpoints: [{
+        name: "Check Starter Activity",
+        timeOffset: getStarterPeakTime(validatedRecipe.meta.starterType),
+        description: "Ensure starter is active with plenty of bubbles and has at least doubled in size"
+      }]
+    });
+  }
+  
+  // Create timeline template
+  return {
+    meta: {
+      recipeName: validatedRecipe.meta.name,
+      targetCompletionTime: null, // To be set by user
+      timelineCreationTime: new Date(),
+      starterType: validatedRecipe.meta.starterType,
+      recipeId: validatedRecipe.id
+    },
+    processSteps
+  };
+}
+```
+
+### 2. Starter Care Guide Integration
+
+```javascript
+function integrateWithStarterCare(timeline) {
+  const starterType = timeline.meta.starterType;
+  
+  // Find starter-related steps
+  const starterStep = timeline.steps.find(step => 
+    step.name.toLowerCase().includes('starter') || 
+    step.name.toLowerCase().includes('levain')
+  );
+  
+  if (!starterStep) return;
+  
+  // Calculate when starter needs to be ready
+  const starterReadyTime = new Date(starterStep.plannedStartTime);
+  
+  // Calculate when to start preparing starter
+  const preparationStartTime = getStarterPreparationStartTime(
+    starterType, 
+    starterReadyTime,
+    timeline.environmentalFactors
+  );
+  
+  // Generate feeding schedule
+  const feedingSchedule = generateFeedingSchedule(
+    starterType,
+    preparationStartTime,
+    starterReadyTime
+  );
+  
+  // Create starter maintenance notifications
+  for (const feeding of feedingSchedule) {
+    timeline.notifications.push({
+      stepId: starterStep.id,
+      triggerTime: feeding.time,
+      title: `${feeding.name}`,
+      message: feeding.instructions,
+      priority: "medium",
+      requiresConfirmation: true,
+      category: "starter-maintenance"
+    });
+  }
+  
+  return {
+    starterReadyTime,
+    preparationStartTime,
+    feedingSchedule
+  };
+}
+```
+
+### 3. Chatbot AI Integration
+
+```javascript
+function prepareChatbotContext(timeline) {
+  // Create a simplified representation for the chatbot
+  const chatbotContext = {
+    recipe: timeline.meta.recipeName,
+    targetTime: formatDatetime(timeline.meta.targetCompletionTime),
+    currentStep: findCurrentStep(timeline),
+    nextStep: findNextStep(timeline),
+    upcomingSteps: getUpcomingSteps(timeline, 3),
+    overallProgress: calculateTimelineProgress(timeline),
+    environmentalFactors: timeline.environmentalFactors,
+    criticalPointsRemaining: getRemainingCriticalPoints(timeline)
+  };
+  
+  return chatbotContext;
+}
+
+function processChatbotTimelineRequest(userMessage, timeline) {
+  // Extract intent from user message
+  const intent = determineTimelineIntent(userMessage);
+  
+  switch (intent) {
+    case 'current_status':
+      return generateCurrentStatusResponse(timeline);
+      
+    case 'modify_timeline':
+      // Extract modification parameters
+      const modParams = extractModificationParameters(userMessage);
+      return handleTimelineModificationRequest(timeline, modParams);
+      
+    case 'explain_step':
+      // Extract step of interest
+      const stepName = extractStepNameFromMessage(userMessage);
+      return generateStepExplanation(timeline, stepName);
+      
+    case 'problem_solving':
+      // Handle troubleshooting requests
+      return generateTroubleshootingResponse(timeline, userMessage);
+      
+    default:
+      return generateGenericTimelineResponse(timeline);
+  }
+}
+```
+
+## Key Implementation Challenges
+
+When implementing the Baking Timeline Calculator, developers should be aware of these challenges:
+
+1. **Time Zone Handling**: Ensure all datetime operations respect the user's local time zone to prevent scheduling errors.
+
+2. **Complex Constraint Resolution**: Some scheduling conflicts may not have perfect solutions. Implement a priority-based resolution system with user override options.
+
+3. **Environmental Adaptability**: Fermentation modeling is complex and environment-dependent. Build in feedback mechanisms to improve predictions over time.
+
+4. **Notification Reliability**: Ensure notifications are delivered even if the browser is closed or the device is in sleep mode. Consider using service workers.
+
+5. **Backward Planning Logic**: Working backwards from completion time requires careful dependency tracking. Test thoroughly with various recipe types.
+
+## Final Implementation Notes
+
+For a developer implementing this system, follow these key steps:
+
+1. **Start with core data structures**: Implement the timeline model first
+2. **Build the backward planning algorithm**: Create the core scheduling logic
+3. **Implement environmental adjustments**: Add fermentation time calculations
+4. **Create constraint resolution system**: Handle user availability restrictions
+5. **Develop the visualization components**: Build the interactive timeline UI
+6. **Implement notification system**: Create the alert generation and delivery
+7. **Add integration points**: Connect with other system components
+
+The Baking Timeline Calculator's power comes from its ability to intelligently model fermentation behavior under various conditions while respecting real-life constraints, creating realistic schedules that adapt to the baker's life rather than forcing rigid timelines.​​​​​​​​​​​​​​​​

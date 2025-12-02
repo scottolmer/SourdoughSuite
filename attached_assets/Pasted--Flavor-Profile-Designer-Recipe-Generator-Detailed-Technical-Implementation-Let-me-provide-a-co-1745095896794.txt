@@ -1,0 +1,850 @@
+# Flavor Profile Designer & Recipe Generator: Detailed Technical Implementation
+
+Let me provide a comprehensive explanation of how the Flavor Profile Designer & Recipe Generator tool works from a technical implementation perspective, with special focus on the recipe generation algorithms and implementation details.
+
+## Core Functionality Overview
+
+The Flavor Profile Designer & Recipe Generator is a sophisticated system that inverts the traditional recipe creation process, allowing users to specify desired flavor and texture outcomes first, then generating precisely calibrated bread recipes designed to achieve those specific sensory goals.
+
+## Data Input & Processing System
+
+### Input Parameters Collection
+
+The system collects four primary parameter sets:
+
+1. **Flavor Profile Parameters**
+   - Primary flavor dimensions (sourness, sweetness, umami, yeasty character)
+   - Specific flavor notes (nutty, malty, fruity, spicy, earthy, buttery)
+   - Aroma intensity and character
+   - Flavor development timeline preferences
+
+2. **Texture & Structure Parameters**
+   - Crumb architecture (open/closed, regular/irregular)
+   - Tenderness vs. chewiness balance
+   - Moisture content preferences
+   - Crust characteristics (thickness, texture, color, blistering)
+
+3. **Practical Constraint Parameters**
+   - Available equipment limitations
+   - Time availability constraints
+   - Skill level considerations
+   - Available ingredient limitations
+
+4. **Specialized Preferences**
+   - Starter type selection
+   - Dietary considerations
+   - Regional adaptations
+   - Seasonal adjustments
+
+### Data Structure Design
+
+The system uses these core data structures:
+
+```javascript
+// Flavor profile data structure
+const flavorProfileStructure = {
+  profileId: String, // Unique identifier
+  name: String, // User-provided name
+  createdAt: Date,
+  modifiedAt: Date,
+  primaryDimensions: {
+    sourness: Number, // 0-1 scale
+    sweetness: Number, // 0-1 scale
+    umami: Number, // 0-1 scale
+    yeasty: Number // 0-1 scale
+  },
+  flavorNotes: [
+    {
+      family: String, // nutty, malty, fruity, etc.
+      note: String, // specific note within family
+      intensity: Number // 0-1 scale
+    }
+  ],
+  aromaProfile: {
+    intensity: Number, // 0-1 scale
+    character: [String] // array of descriptors
+  },
+  texturePreferences: {
+    crumb: {
+      openness: Number, // 0-1 scale
+      irregularity: Number, // 0-1 scale 
+      chewiness: Number, // 0-1 scale
+      moisture: Number // 0-1 scale
+    },
+    crust: {
+      thickness: Number, // 0-1 scale
+      texture: String, // crisp, crackling, chewy
+      color: Number, // 0-1 scale (light to dark)
+      blistering: Number, // 0-1 scale
+      earFormation: Boolean
+    }
+  },
+  constraints: {
+    equipment: [String], // available equipment
+    timeAvailable: Number, // hours
+    activeTimeMax: Number, // hours
+    skillLevel: Number, // 0-1 scale
+    availableIngredients: [String],
+    starterType: String // koji, sanFrancisco, etc.
+  }
+};
+
+// Generated recipe data structure
+const generatedRecipeStructure = {
+  recipeId: String, // Unique identifier
+  profileId: String, // Reference to flavor profile
+  name: String,
+  createdAt: Date,
+  ingredients: [
+    {
+      name: String,
+      amount: Number,
+      unit: String,
+      percentage: Number, // Baker's percentage
+      category: String, // flour, liquid, salt, starter, etc.
+      purpose: String // flavor contribution purpose
+    }
+  ],
+  totalWeight: Number,
+  hydration: Number,
+  process: [
+    {
+      step: Number, // Sequence order
+      name: String, // e.g., "Autolyse"
+      description: String,
+      duration: Number, // minutes
+      temperature: Number, // °C/°F
+      criticalFactors: [String], // key success indicators
+      flavorImpact: String // How this step affects flavor profile
+    }
+  ],
+  expectedResults: {
+    flavorProfile: Object, // Reference to original profile with adjustments
+    peakTimes: {
+      consumption: String, // When bread is at peak flavor
+      storageRecommendation: String
+    }
+  },
+  userFeedback: {
+    submitted: Boolean,
+    flavorMatch: Number, // 0-5 scale
+    textureMatch: Number, // 0-5 scale
+    overallSatisfaction: Number, // 0-5 scale
+    notes: String,
+    resultImages: [String] // URLs
+  }
+};
+```
+
+## Recipe Generation Engine Architecture
+
+The recipe generation system operates as a multi-stage processing pipeline:
+
+### 1. Flavor-to-Formula Mapping Algorithm
+
+The core algorithm translates flavor profiles to ingredient formulas:
+
+```javascript
+function generateRecipeFromProfile(flavorProfile) {
+  // Initialize recipe structure
+  const recipe = initializeRecipe(flavorProfile);
+  
+  // Step 1: Determine primary flour composition
+  const flourComposition = determineFlourComposition(flavorProfile);
+  addFlourToRecipe(recipe, flourComposition);
+  
+  // Step 2: Calculate optimal hydration
+  const hydration = calculateIdealHydration(flavorProfile);
+  setRecipeHydration(recipe, hydration);
+  
+  // Step 3: Determine starter type and quantity
+  const starter = determineStarterParameters(flavorProfile);
+  addStarterToRecipe(recipe, starter);
+  
+  // Step 4: Calculate salt percentage
+  const saltPercentage = calculateSaltPercentage(flavorProfile);
+  addSaltToRecipe(recipe, saltPercentage);
+  
+  // Step 5: Add flavor-enhancing ingredients
+  const flavorIngredients = determineFlavorIngredients(flavorProfile);
+  addFlavorIngredientsToRecipe(recipe, flavorIngredients);
+  
+  // Step 6: Normalize all ingredient quantities
+  normalizeIngredientQuantities(recipe, flavorProfile.constraints.totalWeight);
+  
+  // Step 7: Generate baking process
+  const process = generateBakingProcess(flavorProfile, recipe.ingredients);
+  addProcessToRecipe(recipe, process);
+  
+  // Step 8: Set expected results
+  recipe.expectedResults = generateExpectedResults(flavorProfile, recipe);
+  
+  return recipe;
+}
+```
+
+### 2. Flour Composition Algorithm
+
+Flour selection is critical for flavor development:
+
+```javascript
+function determineFlourComposition(flavorProfile) {
+  // Initialize flour composition object
+  const composition = {
+    flours: [],
+    totalPercentage: 100 // Baker's percentage with all flours totaling 100%
+  };
+  
+  // Extract key flavor dimensions
+  const { sourness, sweetness, umami, yeasty } = flavorProfile.primaryDimensions;
+  const { openness, irregularity, chewiness, moisture } = flavorProfile.texturePreferences.crumb;
+  
+  // Base flour selections
+  let breadFlourPercentage = 70; // Starting point
+  let wholeWheatPercentage = 0;
+  let ryePercentage = 0;
+  let specialtyFlourPercentage = 0;
+  
+  // Adjust bread flour for texture
+  if (openness > 0.7) {
+    // Higher protein for more open crumb
+    breadFlourPercentage += 10;
+  } else if (chewiness > 0.7) {
+    // Higher protein for chewier texture
+    breadFlourPercentage += 15;
+  }
+  
+  // Adjust whole wheat for flavor
+  if (umami > 0.6 || sourness > 0.7) {
+    wholeWheatPercentage += 20;
+    breadFlourPercentage -= 15;
+  }
+  
+  // Adjust rye for flavor
+  if (sourness > 0.8) {
+    ryePercentage += 10;
+    breadFlourPercentage -= 5;
+  }
+  
+  if (umami > 0.7) {
+    ryePercentage += 5;
+    breadFlourPercentage -= 5;
+  }
+  
+  // Check for specific flavor notes
+  for (const flavorNote of flavorProfile.flavorNotes) {
+    if (flavorNote.family === 'nutty' && flavorNote.intensity > 0.6) {
+      specialtyFlourPercentage += 10; // Add specialty flour for nutty notes
+      breadFlourPercentage -= 10;
+    }
+    
+    if (flavorNote.family === 'malty' && flavorNote.intensity > 0.7) {
+      ryePercentage += 5;
+      breadFlourPercentage -= 5;
+    }
+  }
+  
+  // Ensure bread flour remains the primary component
+  breadFlourPercentage = Math.max(breadFlourPercentage, 50);
+  
+  // Normalize percentages to ensure they sum to 100%
+  const totalSpecialty = wholeWheatPercentage + ryePercentage + specialtyFlourPercentage;
+  const normalizedBreadFlour = 100 - totalSpecialty;
+  
+  // Add flours to composition
+  composition.flours.push({
+    name: 'Bread flour',
+    percentage: normalizedBreadFlour,
+    purpose: 'Primary structure development'
+  });
+  
+  if (wholeWheatPercentage > 0) {
+    composition.flours.push({
+      name: 'Whole wheat flour',
+      percentage: wholeWheatPercentage,
+      purpose: 'Flavor complexity and nutrition'
+    });
+  }
+  
+  if (ryePercentage > 0) {
+    composition.flours.push({
+      name: 'Rye flour',
+      percentage: ryePercentage,
+      purpose: 'Distinctive flavor and moisture retention'
+    });
+  }
+  
+  if (specialtyFlourPercentage > 0) {
+    // Select appropriate specialty flour based on flavor notes
+    const specialtyFlour = selectSpecialtyFlour(flavorProfile.flavorNotes);
+    
+    composition.flours.push({
+      name: specialtyFlour.name,
+      percentage: specialtyFlourPercentage,
+      purpose: specialtyFlour.purpose
+    });
+  }
+  
+  return composition;
+}
+```
+
+### 3. Hydration Calculation System
+
+Hydration directly impacts texture and flavor development:
+
+```javascript
+function calculateIdealHydration(flavorProfile) {
+  // Base hydration starting point (baker's percentage)
+  let hydration = 70;
+  
+  // Extract key texture preferences
+  const { openness, irregularity, chewiness, moisture } = flavorProfile.texturePreferences.crumb;
+  const { thickness, texture } = flavorProfile.texturePreferences.crust;
+  
+  // Adjust for crumb structure
+  if (openness > 0.7) {
+    // More open crumb requires higher hydration
+    hydration += 5 + (openness - 0.7) * 20;
+  }
+  
+  if (irregularity > 0.6) {
+    // More irregular structure benefits from higher hydration
+    hydration += 3 + (irregularity - 0.6) * 10;
+  }
+  
+  // Adjust for chewiness (inverse relationship with hydration)
+  if (chewiness > 0.7) {
+    // Chewier texture typically needs moderate hydration
+    hydration -= (chewiness - 0.6) * 5;
+  }
+  
+  // Direct adjustment for desired moisture level
+  hydration += (moisture - 0.5) * 10;
+  
+  // Crust preferences also affect hydration
+  if (texture === 'crisp') {
+    hydration -= 3;
+  } else if (texture === 'chewy') {
+    hydration += 2;
+  }
+  
+  // Adjust for thickness (thicker crusts benefit from slightly lower hydration)
+  if (thickness > 0.7) {
+    hydration -= 2;
+  }
+  
+  // Consider flour composition (will be calculated later in actual implementation)
+  // Here we use a placeholder estimation based on typical absorption rates
+  const estimatedWholeGrainPercentage = estimateWholeGrainPercentage(flavorProfile);
+  
+  // Whole grains absorb more water
+  if (estimatedWholeGrainPercentage > 20) {
+    hydration += (estimatedWholeGrainPercentage - 20) * 0.2;
+  }
+  
+  // Consider starter type influence
+  const starterType = flavorProfile.constraints.starterType;
+  if (starterType === 'koji') {
+    // Koji starters often perform well with higher hydration
+    hydration += 3;
+  } else if (starterType === 'extraSour') {
+    // Extra sour starters may benefit from slightly higher hydration
+    hydration += 2;
+  }
+  
+  // Ensure hydration stays within feasible limits based on skill level
+  const skillLevel = flavorProfile.constraints.skillLevel;
+  const maxHydration = 65 + (skillLevel * 25); // Skill level impacts max manageable hydration
+  
+  // Cap hydration based on skill level
+  hydration = Math.min(hydration, maxHydration);
+  
+  // Ensure minimum reasonable hydration
+  hydration = Math.max(hydration, 65);
+  
+  // Round to nearest whole number for usability
+  return Math.round(hydration);
+}
+```
+
+### 4. Starter Parameter Determination
+
+Starter selection and quantity dramatically influence flavor:
+
+```javascript
+function determineStarterParameters(flavorProfile) {
+  // Initialize starter parameters
+  const starter = {
+    type: flavorProfile.constraints.starterType || 'houseBlend',
+    percentage: 20, // Default baker's percentage
+    hydration: 100, // Default 100% hydration (equal parts flour and water)
+    fermentationImpact: 'moderate',
+    flavorContribution: []
+  };
+  
+  // Extract key flavor dimensions
+  const { sourness, sweetness, umami, yeasty } = flavorProfile.primaryDimensions;
+  
+  // Adjust quantity based on desired flavor intensity
+  if (sourness > 0.7 || umami > 0.7) {
+    // Higher percentage for stronger flavor
+    starter.percentage += 5;
+    
+    if (sourness > 0.9) {
+      starter.percentage += 5;
+    }
+  } else if (sourness < 0.4 && yeasty > 0.6) {
+    // Lower percentage for milder flavor but yeasty character
+    starter.percentage -= 5;
+  }
+  
+  // Customize based on starter type
+  switch (starter.type) {
+    case 'koji':
+      starter.flavorContribution.push('natural sweetness', 'umami complexity');
+      if (sweetness > 0.6) {
+        starter.percentage += 5;
+      }
+      break;
+      
+    case 'sanFrancisco':
+      starter.flavorContribution.push('classic tang', 'balanced acidity');
+      if (sourness > 0.7) {
+        starter.percentage += 5;
+      }
+      break;
+      
+    case 'kombucha':
+      starter.flavorContribution.push('bright acidity', 'subtle fruity notes');
+      break;
+      
+    case 'extraSour':
+      starter.flavorContribution.push('pronounced acidity', 'complex sourness');
+      // Reduce percentage slightly as this starter is already intense
+      starter.percentage -= 2;
+      break;
+      
+    case 'houseBlend':
+      starter.flavorContribution.push('balanced flavor', 'adaptable character');
+      // Standard percentage works well for house blend
+      break;
+  }
+  
+  // Adjust for skill level
+  const skillLevel = flavorProfile.constraints.skillLevel;
+  if (skillLevel < 0.5 && starter.percentage > 22) {
+    // Cap percentage for beginners
+    starter.percentage = 22;
+  }
+  
+  // Categorize fermentation impact
+  if (starter.percentage > 25) {
+    starter.fermentationImpact = 'strong';
+  } else if (starter.percentage < 15) {
+    starter.fermentationImpact = 'mild';
+  }
+  
+  return starter;
+}
+```
+
+### 5. Process Generation System
+
+The process steps are tailored to achieve the desired outcomes:
+
+```javascript
+function generateBakingProcess(flavorProfile, ingredients) {
+  // Initialize process array
+  const process = [];
+  let stepCounter = 1;
+  
+  // Extract key parameters
+  const hydration = calculateTotalHydration(ingredients);
+  const starterPercentage = findIngredientPercentage(ingredients, 'starter');
+  const starterType = flavorProfile.constraints.starterType;
+  const wholeGrainPercentage = calculateWholeGrainPercentage(ingredients);
+  
+  // Extract flavor and texture preferences
+  const { sourness, sweetness, umami, yeasty } = flavorProfile.primaryDimensions;
+  const { openness, chewiness } = flavorProfile.texturePreferences.crumb;
+  const { texture: crustTexture } = flavorProfile.texturePreferences.crust;
+  
+  // Add autolyse step (if appropriate)
+  if (hydration > 70 || wholeGrainPercentage > 15 || openness > 0.6) {
+    process.push({
+      step: stepCounter++,
+      name: "Autolyse",
+      description: generateAutolyseDescription(hydration, wholeGrainPercentage),
+      duration: determineAutolyseDuration(hydration, wholeGrainPercentage),
+      temperature: 72, // °F
+      criticalFactors: ["complete flour hydration", "rest at room temperature"],
+      flavorImpact: "Develops flour flavor and improves extensibility"
+    });
+  }
+  
+  // Add starter incorporation step
+  process.push({
+    step: stepCounter++,
+    name: "Starter Incorporation",
+    description: generateStarterIncorporationDescription(starterType, starterPercentage),
+    duration: 10, // minutes
+    temperature: 75, // °F
+    criticalFactors: ["ensure even distribution", "gentle handling"],
+    flavorImpact: `Introduces ${starterType} starter's distinctive flavor profile`
+  });
+  
+  // Add salt addition step
+  process.push({
+    step: stepCounter++,
+    name: "Salt Addition",
+    description: "Add salt and incorporate thoroughly with gentle folding.",
+    duration: 5, // minutes
+    temperature: 75, // °F
+    criticalFactors: ["complete incorporation", "avoid tearing dough"],
+    flavorImpact: "Enhances overall flavor and controls fermentation rate"
+  });
+  
+  // Add bulk fermentation with folds
+  process.push({
+    step: stepCounter++,
+    name: "Bulk Fermentation",
+    description: generateBulkFermentationDescription(starterType, hydration, sourness),
+    duration: determineBulkFermentationDuration(starterType, sourness, umami),
+    temperature: determineFermentationTemperature(starterType, sourness),
+    criticalFactors: generateBulkFermentationFactors(hydration, sourness),
+    flavorImpact: "Primary flavor development period, building acidity and complexity"
+  });
+  
+  // Add appropriate folds based on hydration and desired structure
+  if (hydration > 75) {
+    process.push({
+      step: stepCounter++,
+      name: "Coil Folds",
+      description: "Perform 4-6 gentle coil folds during the first 2 hours of bulk fermentation, spaced 30 minutes apart.",
+      duration: 120, // 2 hours of the bulk fermentation
+      temperature: determineFermentationTemperature(starterType, sourness),
+      criticalFactors: ["maintain dough integrity", "build tension gradually"],
+      flavorImpact: "Strengthens gluten network while preserving developed flavor"
+    });
+  } else {
+    process.push({
+      step: stepCounter++,
+      name: "Stretch and Folds",
+      description: "Perform 4 sets of stretch and folds during the first 2 hours of bulk fermentation, spaced 30 minutes apart.",
+      duration: 120, // 2 hours of the bulk fermentation
+      temperature: determineFermentationTemperature(starterType, sourness),
+      criticalFactors: ["full stretching to build strength", "gentle handling to retain gas"],
+      flavorImpact: "Develops structure while allowing flavor compounds to develop"
+    });
+  }
+  
+  // Add pre-shape step
+  process.push({
+    step: stepCounter++,
+    name: "Pre-shape",
+    description: "Divide dough and pre-shape into rough rounds. Rest for 20-30 minutes.",
+    duration: 25, // minutes
+    temperature: 75, // °F
+    criticalFactors: ["gentle handling to preserve fermentation gases", "light tension"],
+    flavorImpact: "Brief pause allowing flavor development to continue"
+  });
+  
+  // Add final shape step
+  process.push({
+    step: stepCounter++,
+    name: "Final Shape",
+    description: generateFinalShapeDescription(hydration, openness),
+    duration: 10, // minutes
+    temperature: 75, // °F
+    criticalFactors: ["develop proper surface tension", "seal seams well"],
+    flavorImpact: "Minimal impact on flavor, focuses on structure"
+  });
+  
+  // Add final proof step
+  process.push({
+    step: stepCounter++,
+    name: "Final Proof",
+    description: generateFinalProofDescription(starterType, sourness, sweetness),
+    duration: determineFinalProofDuration(starterType, sourness, temperature),
+    temperature: determineProofingTemperature(sourness, starterType),
+    criticalFactors: ["proper dough expansion", "finger dent test for readiness"],
+    flavorImpact: "Final flavor refinement and development of complexity"
+  });
+  
+  // Add baking steps
+  generateBakingSteps(process, crustTexture, hydration, stepCounter);
+  
+  return process;
+}
+```
+
+### 6. Expected Results Prediction System
+
+The system generates outcome predictions based on the recipe:
+
+```javascript
+function generateExpectedResults(flavorProfile, recipe) {
+  // Initialize results object
+  const expectedResults = {
+    flavorProfile: {
+      primaryCharacteristics: [],
+      dominantNotes: [],
+      subtleNotes: [],
+      aromaDescription: ""
+    },
+    textureProfile: {
+      crumb: "",
+      crust: "",
+      overall: ""
+    },
+    peakTimes: {
+      consumption: determinePeakConsumptionTime(recipe),
+      storageRecommendation: generateStorageRecommendations(recipe)
+    },
+    visualCharacteristics: {
+      color: "",
+      shape: "",
+      surface: ""
+    }
+  };
+  
+  // Analyze recipe to determine expected flavor outcomes
+  const { sourness, sweetness, umami, yeasty } = flavorProfile.primaryDimensions;
+  const starterType = flavorProfile.constraints.starterType;
+  
+  // Determine primary flavor characteristics
+  if (sourness > 0.7) {
+    expectedResults.flavorProfile.primaryCharacteristics.push("pronounced tanginess");
+  } else if (sourness > 0.4) {
+    expectedResults.flavorProfile.primaryCharacteristics.push("balanced acidity");
+  } else {
+    expectedResults.flavorProfile.primaryCharacteristics.push("mild, subtle sourness");
+  }
+  
+  if (umami > 0.6) {
+    expectedResults.flavorProfile.primaryCharacteristics.push("complex savory depth");
+  }
+  
+  if (sweetness > 0.6) {
+    expectedResults.flavorProfile.primaryCharacteristics.push("natural grain sweetness");
+  }
+  
+  if (yeasty > 0.6) {
+    expectedResults.flavorProfile.primaryCharacteristics.push("pronounced fermentation character");
+  }
+  
+  // Add starter-specific flavor notes
+  switch (starterType) {
+    case 'koji':
+      expectedResults.flavorProfile.dominantNotes.push("enzymatic sweetness", "subtle umami");
+      break;
+    case 'sanFrancisco':
+      expectedResults.flavorProfile.dominantNotes.push("classic lactic tang", "balanced acidity");
+      break;
+    case 'kombucha':
+      expectedResults.flavorProfile.dominantNotes.push("bright acidity", "subtle fruity complexity");
+      break;
+    case 'extraSour':
+      expectedResults.flavorProfile.dominantNotes.push("assertive sourness", "robust tang");
+      break;
+    case 'houseBlend':
+      expectedResults.flavorProfile.dominantNotes.push("balanced fermentation flavors");
+      break;
+  }
+  
+  // Add notes from specialty ingredients
+  for (const ingredient of recipe.ingredients) {
+    if (ingredient.category === 'specialty' || ingredient.category === 'inclusion') {
+      expectedResults.flavorProfile.dominantNotes.push(
+        `${ingredient.name.toLowerCase()} notes`
+      );
+    }
+  }
+  
+  // Generate texture expectations
+  const { openness, irregularity, chewiness, moisture } = flavorProfile.texturePreferences.crumb;
+  const { thickness, texture: crustTexture } = flavorProfile.texturePreferences.crust;
+  
+  expectedResults.textureProfile.crumb = generateCrumbTextureDescription(
+    openness, irregularity, chewiness, moisture
+  );
+  
+  expectedResults.textureProfile.crust = generateCrustTextureDescription(
+    thickness, crustTexture, flavorProfile.texturePreferences.crust.blistering
+  );
+  
+  // Generate aroma description
+  expectedResults.flavorProfile.aromaDescription = generateAromaDescription(
+    flavorProfile, recipe
+  );
+  
+  // Generate visual characteristics
+  expectedResults.visualCharacteristics = predictVisualCharacteristics(
+    recipe, flavorProfile
+  );
+  
+  return expectedResults;
+}
+```
+
+### 7. Feedback and Improvement System
+
+The system learns from user results to improve future recipes:
+
+```javascript
+function processRecipeFeedback(recipe, feedback) {
+  // Store feedback with recipe
+  recipe.userFeedback = feedback;
+  
+  // Update profile-specific learning data
+  const profileId = recipe.profileId;
+  const learningData = getProfileLearningData(profileId);
+  
+  // Calculate accuracy metrics
+  const flavorAccuracy = feedback.flavorMatch / 5; // Normalize to 0-1
+  const textureAccuracy = feedback.textureMatch / 5; // Normalize to 0-1
+  
+  // Update learning weights for this profile
+  learningData.accuracyHistory.push({
+    recipeId: recipe.recipeId,
+    timestamp: new Date(),
+    flavorAccuracy,
+    textureAccuracy,
+    overallSatisfaction: feedback.overallSatisfaction / 5
+  });
+  
+  // Extract keywords from feedback notes
+  const keywords = extractKeywordsFromFeedback(feedback.notes);
+  
+  // Update keyword associations
+  for (const keyword of keywords) {
+    if (!learningData.keywordAssociations[keyword]) {
+      learningData.keywordAssociations[keyword] = {
+        count: 0,
+        positiveAssociation: 0,
+        negativeAssociation: 0
+      };
+    }
+    
+    learningData.keywordAssociations[keyword].count++;
+    
+    if (feedback.overallSatisfaction >= 4) {
+      learningData.keywordAssociations[keyword].positiveAssociation++;
+    } else if (feedback.overallSatisfaction <= 2) {
+      learningData.keywordAssociations[keyword].negativeAssociation++;
+    }
+  }
+  
+  // Calculate overall profile accuracy
+  const recentFeedback = learningData.accuracyHistory.slice(-5); // Last 5 feedback entries
+  
+  if (recentFeedback.length > 0) {
+    const avgFlavorAccuracy = calculateAverage(recentFeedback.map(f => f.flavorAccuracy));
+    const avgTextureAccuracy = calculateAverage(recentFeedback.map(f => f.textureAccuracy));
+    
+    learningData.currentAccuracy = {
+      flavor: avgFlavorAccuracy,
+      texture: avgTextureAccuracy,
+      overall: calculateAverage(recentFeedback.map(f => f.overallSatisfaction))
+    };
+  }
+  
+  // Store updated learning data
+  saveProfileLearningData(profileId, learningData);
+  
+  // Update global model learning
+  updateGlobalModelLearning(recipe, feedback);
+  
+  return {
+    success: true,
+    learningUpdated: true,
+    improvements: generateImprovementSuggestions(recipe, feedback)
+  };
+}
+```
+
+## Technical Implementation of Recipe Visualization
+
+The system presents the generated recipe through these interfaces:
+
+### 1. Recipe Card Renderer
+
+```javascript
+function renderRecipeCard(recipe, containerElement) {
+  // Clear container
+  containerElement.innerHTML = '';
+  
+  // Create recipe card elements
+  const recipeCard = document.createElement('div');
+  recipeCard.className = 'recipe-card';
+  
+  // Recipe header
+  const header = document.createElement('div');
+  header.className = 'recipe-header';
+  header.innerHTML = `
+    <h2 class="recipe-title">${recipe.name}</h2>
+    <div class="recipe-meta">
+      <span class="starter-type">${capitalizeFirstLetter(recipe.ingredients.find(i => i.category === 'starter').name)} Starter</span>
+      <span class="hydration">${recipe.hydration}% Hydration</span>
+      <span class="difficulty">${calculateDifficulty(recipe)}</span>
+    </div>
+  `;
+  recipeCard.appendChild(header);
+  
+  // Recipe description
+  if (recipe.description) {
+    const description = document.createElement('p');
+    description.className = 'recipe-description';
+    description.textContent = recipe.description;
+    recipeCard.appendChild(description);
+  }
+  
+  // Expected results preview
+  const resultsPreview = document.createElement('div');
+  resultsPreview.className = 'expected-results-preview';
+  resultsPreview.innerHTML = `
+    <h3>What to Expect</h3>
+    <p class="flavor-profile">${formatFlavorProfile(recipe.expectedResults.flavorProfile)}</p>
+    <p class="texture-profile">${formatTextureProfile(recipe.expectedResults.textureProfile)}</p>
+  `;
+  recipeCard.appendChild(resultsPreview);
+  
+  // Ingredients section
+  const ingredients = document.createElement('div');
+  ingredients.className = 'ingredients-section';
+  ingredients.innerHTML = `
+    <h3>Ingredients</h3>
+    <table class="ingredients-table">
+      <thead>
+        <tr>
+          <th>Ingredient</th>
+          <th>Weight</th>
+          <th>Baker's %</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${recipe.ingredients.map(ingredient => `
+          <tr>
+            <td>${ingredient.name}</td>
+            <td>${ingredient.amount}${ingredient.unit}</td>
+            <td>${ingredient.percentage}%</td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>
+    <div class="total-weight">Total Dough Weight: ${recipe.totalWeight}g</div>
+  `;
+  recipeCard.appendChild(ingredients);
+  
+  // Process section
+  const process = document.createElement('div');
+  process.className = 'process-section';
+  process.innerHTML = `
+    <h3>Process</h3>
+    <ol class="process-steps">
+      ${recipe.process.map(step => `
+        <li class="process-step">
+          <div class="step-header">
+            <span class="step-name">${step.name}</span>
+            <span class="step-duration">${format​​​​​​​​​​​​​​​​

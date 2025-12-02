@@ -1,0 +1,536 @@
+I'll create a comprehensive UX/UI specification for the Flavor Profile Designer & Recipe Generator tool based on the information in your documents.
+
+# Flavor Profile Designer & Recipe Generator UX/UI Design Specification
+
+## 1. Entry Dashboard
+
+### Purpose
+Introduce users to a revolutionary approach to recipe creation that starts with desired flavor outcomes rather than ingredients, clearly differentiating this tool from traditional recipe databases.
+
+### Layout Components
+- **Hero Section**
+  - Bold headline: "Design Your Perfect Bread by Flavor"
+  - Supporting text: "Create custom recipes based on your taste preferences, not just ingredients"
+  - Background featuring artistic, abstract visualization of flavor profiles in grayscale
+  - Primary CTA button: "Start Designing" (amber)
+
+- **Concept Introduction**
+  - Brief animated illustration showing the reversed approach:
+    - Traditional approach: Ingredients → Process → Unknown Outcome
+    - Our approach: Desired Outcome → Intelligent Process → Precise Ingredients
+  - 2-3 key benefit statements highlighting the paradigm shift
+
+- **Entry Points**
+  - Three card-based options:
+    - "Design From Scratch" - For complete customization
+    - "Guided Design" - Step-by-step assistance
+    - "Modify Existing" - Start with a template recipe
+
+- **Recent Designs**
+  - If user has previous flavor profiles, show 2-3 recent designs
+  - Each card displays flavor profile visualization and bread name
+  - Quick access to continue or duplicate previous work
+
+### Interactive Elements
+- Subtle animation in flavor visualization that responds to mouse movement
+- Hover states for all cards with slight elevation change
+- Quick-tips tooltips for new users
+- Optional onboarding tour trigger
+
+## 2. Flavor Profile Definition Interface
+
+### Purpose
+Provide an intuitive, visual way to specify desired flavor characteristics that feels more like artistic creation than technical input.
+
+### Layout Components
+- **Workspace Header**
+  - Progress indicator: "Step 1 of 4: Flavor Profile"
+  - Profile name field (defaults to "Untitled Bread")
+  - Autosave indicator
+  - Undo/redo controls
+
+- **Primary Flavor Dimensions Panel**
+  - Four primary slider controls arranged in quadrant layout:
+    - **Sourness** (Mild to Very Tangy): Vertical slider on left
+    - **Sweetness** (Undetectable to Noticeably Sweet): Horizontal slider on top
+    - **Umami/Complexity** (Simple to Complex): Vertical slider on right
+    - **Yeasty Character** (Subtle to Pronounced): Horizontal slider on bottom
+  
+  - **Central Visualization**: Dynamic, abstract representation of current flavor profile that updates in real-time as sliders adjust
+  
+  - **Preset Profiles**: Quick-select buttons for common profiles:
+    - Classic Country Loaf
+    - Sweet Enriched Dough
+    - Rustic Tangy Sourdough
+    - Delicate Milk Bread
+
+- **Flavor Notes Selector**
+  - Expandable panel with flavor families:
+    - Nutty (walnut, almond, hazelnut options)
+    - Malty (bakery, toasted, cereal options)
+    - Fruity (bright, dark fruit, citrus options)
+    - Spicy (warm spice, peppery, herbal options)
+    - Earthy (mineral, mushroom, grain options)
+    - Buttery (creamy, rich, dairy options)
+  
+  - Each flavor note with intensity dial (0-5)
+  - "Suggested Combinations" button that highlights complementary pairings
+
+- **Aroma Profile Section**
+  - Aroma intensity master control
+  - Character selection (fresh, rustic, rich, complex)
+  - Visual relationship diagram showing connection between aroma and flavor
+
+### Interactive Elements
+- Real-time updating flavor visualization as sliders move
+- Drag-and-drop interface for flavor notes with visual feedback
+- Interactive flavor combinations with suggested pairings highlighted
+- Hover previews of how each adjustment affects bread characteristics
+- Flavor profile saving with custom naming
+
+## 3. Texture & Structure Definition
+
+### Purpose
+Allow precise specification of desired bread physical characteristics that complement the flavor profile.
+
+### Layout Components
+- **Workspace Header**
+  - Progress indicator: "Step 2 of 4: Texture & Structure"
+  - Current profile name
+  - Visual thumbnail of flavor profile from previous step
+
+- **Crumb Architecture Designer**
+  - Interactive visual selector showing crumb structure options
+  - Two primary axis sliders:
+    - Horizontal: Closed to Open Crumb Structure
+    - Vertical: Regular to Irregular Hole Pattern
+  - Secondary characteristic sliders:
+    - Tenderness vs. Chewiness balance
+    - Moisture content
+  
+  - Dynamic cross-section visualization that updates with selections
+  - Preset structure buttons (sandwich, rustic, ciabatta, enriched)
+
+- **Crust Characteristics Panel**
+  - Thickness selector (thin/medium/thick) with visual representation
+  - Texture type radio selection:
+    - Crisp (shattery, delicate)
+    - Crackling (substantial crunch)
+    - Chewy (flexible, substantial)
+  - Color intensity slider with visual bread crust samples
+  - Blistering amount control with sample images
+  - Ear formation preference toggle with visual explanation
+
+- **Visual Reference Gallery**
+  - Scrollable horizontal gallery of bread cross-sections
+  - Categorized by structure type
+  - Side-by-side comparison of before/after baking
+  - Option to select any reference as starting point
+
+### Interactive Elements
+- Dynamic bread cross-section visualization that updates with parameter changes
+- Comparative view option to see current selection alongside reference examples
+- Touch-friendly, draggable controls for mobile use
+- Texture combination presets that set multiple parameters at once
+- Interactive tooltips explaining bread structure terminology
+
+## 4. Practical Constraints Interface
+
+### Purpose
+Capture real-world limitations and preferences to ensure generated recipes are practical and achievable.
+
+### Layout Components
+- **Workspace Header**
+  - Progress indicator: "Step 3 of 4: Practical Details"
+  - Current profile name with flavor and texture thumbnails
+  - Option to revisit previous steps
+
+- **Equipment Specification Panel**
+  - Visual inventory selection of baking vessels:
+    - Dutch oven (round, oval options)
+    - Baking stone/steel
+    - Loaf pan (standard, Pullman options)
+    - Baking sheet
+    - Specialty forms (baguette, brioche, etc.)
+  
+  - Temperature control capability assessment:
+    - Precise (dedicated proofing)
+    - Standard (typical home oven)
+    - Limited (inconsistent environment)
+  
+  - Mixer/no mixer toggle with visual explanation
+  - Specialized tool availability checklist (banneton, lame, etc.)
+
+- **Time & Schedule Panel**
+  - Total available time range selector:
+    - Quick (4-8 hours)
+    - Standard (8-16 hours)
+    - Extended (16-24 hours)
+    - Multi-day (24+ hours)
+  
+  - Maximum hands-on time preference slider
+  - Time-of-day preference selector:
+    - Morning active time
+    - Evening active time
+    - Flexible timing
+  
+  - Refrigeration availability toggle with explanation
+  - Timeline Calculator integration link
+
+- **Skill Level Consideration**
+  - Self-assessment scale (Beginner to Expert)
+  - Technique comfort zone checklist:
+    - High-hydration handling
+    - Cold fermentation
+    - Lamination techniques
+    - Scoring complexity
+  
+  - Learning goals toggle:
+    - Focus on reliability
+    - Balanced approach
+    - Embrace challenges
+
+- **Ingredient Availability**
+  - Flour selection panel with visual flour types
+  - Specialty ingredient access checklist
+  - Starter variety selector (showing owned starters)
+  - Preferred inclusion selector (seeds, dried fruits, etc.)
+
+### Interactive Elements
+- Smart defaults based on user profile if available
+- Conditional logic showing/hiding options based on selections
+- "Explain Impact" button for each section showing how constraints affect recipes
+- Preset constraint packages for common scenarios (weekend baker, weeknight baker, etc.)
+- Integration with equipment shop for missing items
+
+## 5. Recipe Generation Interface
+
+### Purpose
+Transform user inputs into a complete, personalized recipe with clear explanation of the formula creation process.
+
+### Layout Components
+- **Generation Header**
+  - Progress indicator: "Step 4 of 4: Recipe Creation"
+  - Recipe name field with suggestions based on profile
+  - "Generate Recipe" primary button (amber)
+  - Processing animation during generation
+
+- **Core Recipe Display**
+  - Clean, professional layout matching print conventions
+  - Ingredient list with precise measurements
+  - Baker's percentage calculation in secondary column
+  - Step-by-step procedure with timing
+  - Critical success factors highlighted in callout boxes
+  - Print/save/share controls
+
+- **Formula Explanation Panel**
+  - Interactive breakdown of ingredient selection rationale
+  - Hydration level explanation with reasoning
+  - Fermentation time calculation explanation
+  - Starter percentage justification
+  - Temperature considerations
+  
+  - Visual bread formula diagram showing ingredient relationships
+  - Formula adjustment controls with guided ranges
+
+- **Technique Guidance Section**
+  - Key technique callouts with thumbnail videos
+  - Common error prevention tips in warning boxes
+  - Scientific explanation of flavor development mechanisms
+  - Sensory cues for proper execution at each stage
+  - Expandable detailed instruction for complex steps
+
+- **Alternative Variations Panel**
+  - "Equipment Substitution" tab with adjustments for different setups
+  - "Time-Saving" tab with shortcut options
+  - "Flavor Enhancement" tab with optional additions
+  - "Skill-Appropriate" tab with technique alternatives
+  - Visual comparison between original and variations
+
+### Interactive Elements
+- Formula adjustment sliders with real-time recipe updating
+- Technique video thumbnails that expand to full demonstrations
+- Toggles for measurement systems (grams/ounces/cups)
+- Ingredient substitution options with effect explanations
+- Portion scaling controls with automatic recalculation
+
+## 6. Results & Outcome Preview
+
+### Purpose
+Provide clear expectations of results and guidance for evaluation.
+
+### Layout Components
+- **Expected Results Visualization**
+  - Realistic bread outcome visualization based on all parameters
+  - Multiple angles (exterior, cross-section, crumb close-up)
+  - Visual timeline showing how flavors will develop over days
+  - "What to Look For" callouts highlighting success indicators
+
+- **Storage & Serving Panel**
+  - Optimal consumption window recommendation
+  - Storage method guidelines with shelf life estimates
+  - Reheating suggestions for best texture
+  - Slicing recommendations
+  
+  - Pairing suggestions section:
+    - Complementary foods
+    - Serving temperature recommendations
+    - Time-of-day suggestions
+
+- **Documentation Tools**
+  - Result photo upload section
+  - Tasting notes template
+  - Adjustment tracking for future iterations
+  - Success rating system
+  - Community sharing option
+
+- **Next Steps Navigation**
+  - "Create Timeline" button to send to Timeline Calculator
+  - "Prepare Starter" button to send to Starter Care Guide
+  - "Shop Ingredients" with pre-filled cart
+  - "Start Baking" button to begin guided experience
+
+### Interactive Elements
+- 360° rotation of bread visualization
+- Before/after baking comparison slider
+- Flavor development timeline with day-by-day preview
+- "Add to Recipe Collection" functionality
+- Email recipe option with clean formatting
+
+## 7. Mobile Experience Adaptations
+
+### Purpose
+Ensure the complex tool remains usable and effective on smaller screens.
+
+### Key Adaptations
+- **Flavor Profile Definition**
+  - Vertical stacking of slider controls
+  - Full-width flavor visualization
+  - Collapsible flavor notes section
+  - Simplified visualization with option to expand
+
+- **Texture Definition**
+  - Sequential presentation of crumb and crust sections
+  - Larger control points for touch interaction
+  - Gallery view accessible via horizontal swipe
+  - Visual bread samples optimized for smaller screens
+
+- **Practical Constraints**
+  - Accordion-style sections to manage screen space
+  - Quick-select option packages prominent at top
+  - Simplified visual selection replaced with clear icons
+  - Bottom sheet for detailed explanations
+
+- **Recipe Generation**
+  - Priority content (ingredients, steps) appears first
+  - Expandable sections for formula explanation
+  - Video demonstrations optimized for mobile viewing
+  - Simple save/share controls always accessible
+
+### Mobile-Specific Features
+- Persistent "Generate Recipe" button in bottom navigation
+- Step navigation via swipe gestures
+- Quick-access to saved profiles via pull-down
+- Offline recipe storage option
+- Camera integration for result documentation
+
+## 8. Integration with Broader Ecosystem
+
+### Purpose
+Connect with other Bakehouse Breads tools for a seamless experience.
+
+### Implementation
+- **Starter Selection Quiz Connection**
+  - Import starter preferences directly
+  - Recommendations based on starter match
+  - Complementary starter suggestions for specific profiles
+  - One-click path to explore alternative starters
+
+- **Starter Care Guide Integration**
+  - Dynamic feeding recommendations based on recipe
+  - Maintenance timeline synchronized with baking schedule
+  - Peak readiness indicators for optimal timing
+  - Custom preparation steps for specific flavor goals
+
+- **Recipe Validator Connection**
+  - One-click technical validation of generated recipe
+  - Consistency checks with expert parameters
+  - Problem prevention before execution
+  - Formula refinement suggestions
+
+- **Timeline Calculator Coordination**
+  - Direct export of recipe to timeline creation
+  - Pre-populated fermentation variables
+  - Environment-aware timing adjustments
+  - Notification setup for critical steps
+
+### Integration UI Elements
+- Tool connection buttons with clear icons
+- Data transfer previews when moving between tools
+- Consistent navigation to maintain context
+- Cross-tool notification system
+
+## 9. Visual Design System
+
+### Color Palette
+- **Primary**: Amber (#D97706) for interactive elements and CTAs
+- **Secondary**: Deep charcoal (#1C1917) for important text and accents
+- **Background**: Off-white (#FAFAF9) for main content areas
+- **Visualization Colors**:
+  - Sourness: Blue-green spectrum
+  - Sweetness: Yellow-orange spectrum
+  - Complexity: Purple-red spectrum
+  - Yeasty: Warm neutral spectrum
+- **Functional Colors**:
+  - Success: Green (#10B981)
+  - Warning: Yellow (#F59E0B)
+  - Error: Red (#EF4444)
+  - Info: Blue (#3B82F6)
+
+### Typography
+- **Headings**: Serif font for bread-related terminology
+  - Font weights: Regular (400), Medium (500), Bold (700)
+  - Sizes: 28px (page title), 22px (section headers), 18px (subsection headers)
+
+- **Body Text**: Sans-serif for instructions and information
+  - Font weights: Regular (400), Medium (500)
+  - Sizes: 16px (primary text), 14px (secondary information), 12px (captions)
+
+- **Recipe Typography**: Monospace for measurements and formulas
+  - Font weight: Regular (400)
+  - Sizes: 15px (ingredient amounts), 14px (baker's percentages)
+
+### UI Components
+- **Sliders**:
+  - Track height: 4px with 20px handle
+  - Color: Gray track with amber active portion
+  - Handle: White circle with subtle shadow
+  - Interaction: Smooth movement with value tooltip
+
+- **Cards & Panels**:
+  - Corner radius: 8px
+  - Shadow: Subtle (0 2px 4px rgba(0,0,0,0.05))
+  - Border: 1px solid #E5E7EB when needed
+  - Internal padding: 16px (small), 24px (large)
+
+- **Buttons**:
+  - Primary: Amber background, white text, subtle hover effect
+  - Secondary: White with amber outline and text
+  - Tertiary: Text only with amber color
+  - Icon buttons: 40px touch target with centered icon
+
+- **Data Visualization**:
+  - Abstract flavor representation using organic shapes
+  - Bread cross-sections with detailed texture rendering
+  - Formula relationships shown with connected nodes
+  - Timeline visualizations using horizontal bars
+
+### Animation & Motion
+- Smooth transitions between steps (300ms ease)
+- Subtle reactions to slider adjustments
+- Gentle loading states during generation
+- Informative micro-animations for feedback
+
+## 10. Personalization System
+
+### Purpose
+Adapt the experience based on user skill level, preferences, and history.
+
+### Implementation
+- **Skill-Based Adaptation**
+  - Beginner: Additional explanations, simplified controls, recommended presets
+  - Intermediate: Standard interface with tooltips available
+  - Advanced: Expanded controls, technical details, formula fine-tuning
+  - Expert: Advanced customization, scientific explanations, experimental options
+
+- **Historical Learning**
+  - Previous flavor preferences influence recommendations
+  - Successful recipes prioritized in similar searches
+  - Preferred techniques remembered and suggested
+  - Equipment setup remembered between sessions
+
+- **Regional Adaptations**
+  - Flour recommendations based on regional availability
+  - Climate-specific adjustments to process
+  - Measurement system preference memory
+  - Seasonal ingredient suggestions
+
+- **Progressive Disclosure**
+  - Core controls always visible
+  - Advanced options expandable when needed
+  - Technical details available on demand
+  - Experimental features unlocked with experience
+
+### Personalization UI Elements
+- User level indicator with upgrade path
+- Preference management panel in settings
+- "Your Flavor Profile" saved preferences section
+- Recipe history with success indicators
+
+## 11. Accessibility Considerations
+
+### Key Features
+- **Keyboard Navigation**
+  - Full functionality without mouse/touch
+  - Logical tab order through interactive elements
+  - Keyboard shortcuts for common actions
+  - Focus states visible at all times
+
+- **Screen Reader Support**
+  - All interactive elements properly labeled
+  - Meaningful descriptions for visualizations
+  - Live regions for dynamic content
+  - ARIA attributes throughout interface
+
+- **Visual Accessibility**
+  - High contrast mode available
+  - Text scaling without layout breaking
+  - Color information supplemented with patterns/labels
+  - Adjustable animation settings or static alternatives
+
+- **Cognitive Accessibility**
+  - Clear step sequence with progress tracking
+  - Consistent placement of controls
+  - Ability to save work at any point
+  - Option to simplify interface complexity
+
+## 12. Learning & Expert Features
+
+### Purpose
+Support users along the journey from novice to expert bread designer.
+
+### Implementation
+- **Embedded Learning**
+  - Hover explanations of bread terminology
+  - "Learn More" links to educational content
+  - Scientific explanations toggle
+  - Technique demonstration videos
+
+- **Advanced Formula Control**
+  - Expert mode toggle revealing advanced parameters:
+    - Fermentation variables
+    - Enzyme activity factors
+    - Acidity development controls
+    - Gluten development variables
+
+- **Experimental Section**
+  - "Experimental Features" area for advanced users
+  - Unusual ingredient incorporation
+  - Non-traditional fermentation methods
+  - Custom starter development guidance
+  - Formula stress-testing tools
+
+- **Professional Extensions**
+  - Commercial scaling tools
+  - Production planning features
+  - Consistency control parameters
+  - Customer preference management
+  - Signature flavor profile development
+
+### Learning UI Elements
+- "Baker's Classroom" modal with focused information
+- Progressive skill challenges with rewards
+- Technique masterclass links integrated into recipe
+- Expert testimonials and tips at key points
+
+This comprehensive UX/UI specification provides a detailed roadmap for implementing the Flavor Profile Designer & Recipe Generator, ensuring the tool delivers both technical excellence and an intuitive experience aligned with Bakehouse Breads' focus on specialty starters and innovative baking approaches.​​​​​​​​​​​​​​​​

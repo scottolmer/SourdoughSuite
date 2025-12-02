@@ -1,0 +1,551 @@
+I'll provide more detailed descriptions of the key screens in the Baking Timeline Calculator, focusing on their specific layouts, interactions, and user flows.
+
+# Detailed Timeline Calculator Screen Specifications
+
+## 1. Entry Dashboard (Home Screen)
+
+### Top Section
+- **Header Bar**
+  - Left: Bakehouse Breads logo in charcoal/amber
+  - Center: "Timeline Calculator" in serif typography
+  - Right: User account icon/menu and notification bell
+
+- **Welcome Module**
+  - Personalized greeting based on time of day and user name
+  - Context-aware suggestion (e.g., "Perfect time to plan your weekend bake")
+  - Current date and time display (important reference point)
+  - Quick action button: "+ New Timeline"
+
+### Timeline Gallery
+- **Layout**: Horizontal scrolling cards, 3 visible at once on desktop
+- **Card Structure**:
+  - Top: Recipe thumbnail and name
+  - Middle: Target completion time/date with countdown
+  - Bottom: Progress bar showing timeline completion
+  - Status indicator (Scheduled, In Progress, Completed)
+  - Tag for starter type used (small colored pill)
+  
+- **Card States**:
+  - Active: Currently in progress (highlighted border)
+  - Scheduled: Upcoming (standard appearance)
+  - Completed: Finished (subtle grayscale treatment)
+  - "Create New" card at end of list (dashed border with + icon)
+
+### Quick Start Section
+- **Template Selector**
+  - Section title: "Quick Start with Templates"
+  - Layout: Grid of 6 template cards showing common bread types
+  - Each card shows: Image, name, total duration, difficulty
+
+- **Recent Activity**
+  - Section title: "Continue Where You Left Off"
+  - Timeline drafts not yet completed
+  - Recently viewed timelines
+  - Option to continue from Recipe Validator
+
+### Bottom Navigation
+- Primary action button: "+ Create Timeline" (amber)
+- Secondary navigation:
+  - "My Timelines" (saved/completed)
+  - "Calendar View" (weekly schedule)
+  - "Settings" (preferences)
+
+## 2. Goal Definition Screen
+
+### Header Section
+- **Navigation**: Back button to dashboard
+- **Progress**: Step indicator "1 of 4" with visual progress bar
+- **Title**: "When Should Your Bread Be Ready?" in large serif
+- **Description**: Brief explanation of backward planning concept
+
+### Target Time Selector
+- **Primary Input Method**: Visual calendar + clock interface
+  - Month view calendar with date selection
+  - Visual clock interface with hour/minute selection
+  - AM/PM toggle for 12-hour format
+  - "Ready by" confirmation text showing selection
+
+- **Quick Option Selectors**:
+  - Row of preset meal options with icons:
+    - Breakfast (7-9am)
+    - Lunch (12-2pm)
+    - Dinner (6-8pm)
+    - Party (customizable)
+  - Day shortcuts: Today, Tomorrow, Weekend, Custom
+
+- **Visual Timeline Preview**:
+  - Simplified horizontal timeline
+  - Endpoint showing target completion
+  - Estimated start time (updating dynamically)
+  - Tentative major steps shown as blocks
+  - Day/night cycle visualization for context
+
+### Special Options Panel
+- **Multiple Loaf Planning**:
+  - Toggle for "Multiple Loaves"
+  - When active, reveals:
+    - Number input (2-12 loaves)
+    - Timing pattern selection:
+      - All together (batch)
+      - Staggered (interval input)
+    - Visual preview shows multiple endpoint markers
+
+- **Flexibility Settings**:
+  - "Exact Time" vs "Time Window" toggle
+  - When "Time Window" selected:
+    - Range selector for acceptable completion period
+    - Visual indication of how this affects scheduling
+    - Priority selector (earlier vs. later in window)
+
+### Navigation Footer
+- Primary action: "Continue to Recipe" button (amber)
+- Secondary action: "Save as Draft" link
+- Help link: "How timing affects your bread"
+
+## 3. Recipe Selection Screen
+
+### Header Section
+- **Navigation**: Back/forward buttons
+- **Progress**: Step indicator "2 of 4" with progress bar
+- **Title**: "What Are You Baking?"
+- **Target Reminder**: "Will be ready by [selected date/time]"
+
+### Recipe Source Tabs
+- **Tab Navigation**:
+  - "Bakehouse Recipes" (default)
+  - "My Saved Recipes"
+  - "Recipe Validator" (if used)
+  - "Quick Definition" (manual entry)
+
+### Bakehouse Recipes Tab Content
+- **Search & Filter**:
+  - Search bar with recipe name autocomplete
+  - Filter dropdowns:
+    - Bread Type (Country, Sandwich, Enriched, etc.)
+    - Difficulty (Beginner to Advanced)
+    - Starter Type (All starter varieties)
+    - Duration (Quick, Standard, Extended)
+
+- **Recipe Cards**:
+  - Grid layout, 6-8 visible at once
+  - Card elements:
+    - Recipe image
+    - Name and brief description
+    - Difficulty indicator (1-5 dots)
+    - Total duration estimate
+    - Starter type requirement
+  - Hover state shows "Select Recipe" button
+  - Selected state has prominent visual indicator
+
+- **Recipe Detail Sidebar**:
+  - Appears when recipe is selected
+  - Comprehensive image of finished bread
+  - Full description
+  - Key ingredients list
+  - Process overview with major steps
+  - "Customize" button to modify steps if needed
+
+### Quick Definition Tab Content
+- **Simple Process Builder**:
+  - Recipe name input
+  - Process step checkboxes:
+    - Starter feeding
+    - Autolyse
+    - Mixing/dough development
+    - Bulk fermentation
+    - Shaping
+    - Final proof
+    - Baking
+  - Each selected step reveals:
+    - Estimated duration slider
+    - Temperature input when applicable
+    - Special handling notes option
+
+- **Preset Selections**:
+  - Quick routes for common process types:
+    - "Standard Country Loaf" (12-16 hours)
+    - "No-Knead Method" (18-24 hours)
+    - "Quick Same-Day" (6-8 hours)
+    - "Extended Cold Fermentation" (24-48 hours)
+
+### Navigation Footer
+- Primary action: "Continue to Environment" button
+- Secondary action: "Save Recipe as Template"
+- Help link: "How your recipe affects timing"
+
+## 4. Environmental Factors Screen
+
+### Header Section
+- **Navigation**: Back/forward buttons
+- **Progress**: Step indicator "3 of 4"
+- **Title**: "Your Baking Environment"
+- **Subtitle**: "Help us calculate the perfect fermentation times"
+
+### Ambient Conditions Panel
+- **Temperature Input**:
+  - Large numerical input with °F/°C toggle
+  - Visual slider with temperature gradient
+  - Quick presets:
+    - Cool Kitchen (65-68°F/18-20°C)
+    - Average Kitchen (70-73°F/21-23°C)
+    - Warm Kitchen (75-78°F/24-26°C)
+  - Option to "Use local weather data" with location permission
+  - Temperature stability indicator (±2°F, ±5°F, etc.)
+
+- **Seasonal Context**:
+  - Current season detection with icon
+  - "My kitchen runs [dropdown: cooler/warmer] than outside"
+  - Humidity consideration with simple Low/Medium/High selection
+  - Optional advanced view with precise humidity input
+
+- **Visual Temperature Impact**:
+  - Graph showing relationship between temperature and fermentation
+  - Highlighted "ideal zone" for selected recipe
+  - Current selection marker on curve
+  - Estimated impact on total fermentation time
+
+### Starter Details Panel
+- **Starter Selection**:
+  - Dropdown of user's registered starters
+  - Option to "Add new starter" with quick setup
+  - Visual indicators for each starter type
+  - "Unknown/Other" option with generic settings
+
+- **Starter Condition**:
+  - Current state selection:
+    - Recently fed (peak activity)
+    - Mature (past peak)
+    - Refrigerated (dormant)
+  - Last feeding time input (if known)
+  - Starter temperature estimate
+  - Activity level visualization
+
+- **Starter Parameters**:
+  - Quantity input (percentage of flour weight)
+  - Hydration level selection
+  - Feed ratio used (1:1:1, 1:2:2, etc.)
+  - Notes field for special considerations
+
+### Equipment Capabilities Panel
+- **Fermentation Environment**:
+  - Available equipment checklist:
+    - Proofing box
+    - Oven with light
+    - Microwave (as insulated space)
+    - Cooler/insulated container
+    - Sous vide setup
+  - Temperature control precision indicator
+  - Environment stability rating
+
+- **Refrigeration Options**:
+  - Refrigerator temperature input
+  - Cold fermentation capability toggle
+  - Space constraints consideration
+
+### Navigation Footer
+- Primary action: "Continue to Schedule Constraints"
+- Secondary action: "Save Environment Profile" for future use
+- Help link: "Understanding fermentation variables"
+
+## 5. Schedule Constraints Screen
+
+### Header Section
+- **Navigation**: Back/forward buttons
+- **Progress**: Step indicator "4 of 4"
+- **Title**: "Your Availability"
+- **Subtitle**: "Let's work around your schedule"
+
+### Visual Schedule Builder
+- **Timeline Canvas**:
+  - 24-hour horizontal timeline spanning required days
+  - Day/night cycle visualization for context
+  - Current time indicator
+  - Target completion time highlighted
+  - Preliminary process blocks shown in light gray
+
+- **Exclusion Block Tools**:
+  - "Block Time" button with paintbrush interface
+  - "Quick Block" presets:
+    - Sleep (with default or custom hours)
+    - Work/School (with default or custom hours)
+    - Commute times
+    - Regular commitments
+  - Constraint blocks shown in light red with pattern
+  - Each block can be resized, moved, or deleted
+  - Recurring pattern options (daily, weekdays, etc.)
+
+- **Availability Preferences**:
+  - "Preferred Active Times" section:
+    - Morning person (early hours highlighted)
+    - Night owl (evening hours highlighted)
+    - Balanced (no strong preference)
+  - Maximum hands-on time per session slider
+  - Minimum time between active sessions
+
+### Conflict Resolution Panel
+- Only appears if constraints create timing difficulties
+- **Warning Level Indicators**:
+  - Green: No conflicts detected
+  - Yellow: Minor adjustments needed
+  - Red: Significant conflicts to resolve
+
+- **Resolution Options**:
+  - Suggested alternative schedules
+  - Critical constraint highlights
+  - "Flexible" vs "Must Keep" toggling for constraints
+  - Process step modification suggestions
+
+### Smart Notification Setup
+- **Alert Configuration**:
+  - Toggle for "Enable Smart Notifications"
+  - Default notification lead times by step type
+  - Priority level settings (critical/normal/optional)
+  - Delivery method selection:
+    - Push notifications
+    - Email
+    - SMS
+    - Calendar alerts
+
+- **Household Sharing**:
+  - Option to assign steps to different people
+  - Additional notification recipients
+  - Permission levels for timeline modification
+
+### Navigation Footer
+- Primary action: "Generate Timeline"
+- Secondary action: "Back to Environment"
+- Help link: "Understanding scheduling conflicts"
+
+## 6. Timeline View Screen
+
+### Header Section
+- **Timeline Title**: Recipe name + completion date
+- **Status Indicator**: Scheduled/In Progress/Completed
+- **Main Actions**:
+  - "Edit Timeline" button
+  - "Share" button
+  - "Print" button
+  - "Add to Calendar" button
+
+### Master Timeline Visualization
+- **Interactive Timeline Display**:
+  - Horizontal scrollable timeline
+  - Zoom controls (hours, days, full view)
+  - Color-coded blocks by activity type:
+    - Active steps (mixing, shaping) in amber
+    - Passive steps (fermentation) in light gray
+    - Critical attention points with red indicators
+  - Current time indicator (vertical line)
+  - Timeline grid with hour/day markings
+  - Collapsible day sections
+
+- **Block Details**:
+  - Each step block shows:
+    - Step name
+    - Start and end time
+    - Duration
+    - Priority indicator
+  - Expanded state shows:
+    - Temperature requirements
+    - Expected outcome
+    - Equipment needed
+    - Technique tips
+  - Connectors showing dependencies between steps
+  - "Flexible" time periods with gradient edges
+
+- **Timeline Controls**:
+  - Play/pause button for time-lapse preview
+  - Step navigation (previous/next)
+  - Focus mode (center on current step)
+  - Adjustment handles for manual timing changes
+
+### Current Step Card
+- **Prominent Display**: Current/next step highlighted
+- **Time Information**:
+  - Start time (absolute and relative)
+  - Duration countdown
+  - End time projection
+- **Step Details**:
+  - Comprehensive instructions
+  - Visual guidance (photos/illustrations)
+  - Equipment preparation checklist
+  - Expected outcomes
+- **Action Buttons**:
+  - "Start Step" / "Complete Step"
+  - "Set Timer"
+  - "View Technique Video"
+  - "Notes" for observations
+
+### Notification Center
+- **Upcoming Alerts**:
+  - Next 3 notifications in queue
+  - Timing and step information
+  - Modify/customize options
+  - Snooze capabilities
+- **Alert History**:
+  - Record of past notifications
+  - Step completion times
+  - Actual vs. planned timing
+
+### Navigation & Tools
+- **Fixed Action Bar**:
+  - "Current Step" focus button
+  - "Adjust Timeline" for modifications
+  - "Troubleshooting" quick access
+  - "Complete Bake" for final documentation
+- **Sidebar Tools** (collapsible):
+  - Notes for each step
+  - Photo documentation tool
+  - Temperature log
+  - Time adjustment tracker
+
+## 7. Active Baking Mode
+
+### Header
+- **Prominent Timer Display**:
+  - Current step countdown (large)
+  - Overall progress indicator
+  - Next step preview with start time
+- **Quick Actions**:
+  - Pause/resume timer
+  - Mark complete
+  - Add time
+  - Emergency help
+
+### Current Step Focus
+- **Simplified Timeline**: Condensed view showing nearby steps only
+- **Step Card**: Full-width card with essential information
+  - **Instruction Section**:
+    - Clear, large typography for primary instructions
+    - Numbered sub-steps if applicable
+    - Critical technique reminders highlighted
+    - Visual cues for proper execution
+  
+  - **Equipment & Ingredients**:
+    - Tools needed immediately
+    - Ingredients with precise temperatures if critical
+    - Preparation checklist
+  
+  - **Expected Outcomes**:
+    - Visual reference for target result
+    - Success indicators to look for
+    - Troubleshooting triggers ("If you see X...")
+
+### Kitchen-Optimized Controls
+- **Large Touch Targets**: Oversized buttons for flour-covered hands
+- **Voice Commands**: Optional microphone activation for hands-free
+- **High Contrast Mode**: Toggle for bright kitchen environments
+- **Quick Reference**: Swipe access to technique library
+- **Emergency Pause**: Large button for unexpected interruptions
+
+### Next Steps Preview
+- **Preparation Panel**:
+  - "Coming up next" preview
+  - Required advance preparation
+  - Estimated start time
+  - Equipment to prepare
+
+### Documentation Tools
+- **Quick Capture**: Camera button for in-progress photos
+- **Voice Notes**: Audio recording for observations
+- **Timing Adjustment**: Record actual vs. planned times
+- **Temperature Log**: Simple input for environment tracking
+
+## 8. Completion & Feedback Screen
+
+### Header Section
+- **Celebration Banner**: "Your bake is complete!"
+- **Timeline Summary**: Total duration and completion time
+- **Recipe Reference**: Link back to original recipe
+
+### Results Documentation
+- **Photo Gallery**:
+  - Final result upload interface
+  - Multi-angle suggestion guides
+  - Comparison with expected result
+  - Before/after slider with process photos
+
+- **Outcome Assessment**:
+  - Success rating scale (1-5)
+  - Specific quality aspects:
+    - Crust (color, texture)
+    - Crumb (structure, moisture)
+    - Flavor (complexity, balance)
+    - Overall satisfaction
+  - Tasting notes text field
+  - "What would you change?" reflection prompt
+
+### Timeline Feedback
+- **Timing Accuracy**:
+  - Visual comparison of planned vs. actual timeline
+  - Major deviations highlighted
+  - Step-by-step timing feedback collection
+  - Environment impact assessment
+
+- **Process Refinement**:
+  - Step difficulty ratings
+  - Clarity of instructions feedback
+  - Notification effectiveness review
+  - Constraint accuracy confirmation
+
+### Next Steps
+- **Action Recommendations**:
+  - "Save as Template" for future use
+  - "Schedule Next Bake" with calendar integration
+  - "Share Your Success" with community
+  - "Refine Recipe" based on results
+
+- **Learning Resources**:
+  - Technique improvements based on feedback
+  - Related recipe suggestions
+  - Skill development pathways
+  - Community tips for similar breads
+
+### Navigation Footer
+- Primary action: "Complete and Save"
+- Secondary actions:
+  - "Create Similar Timeline"
+  - "View All Timelines"
+  - "Share Results"
+
+## 9. Mobile-Specific Screens
+
+### Mobile Timeline View
+- **Condensed Header**:
+  - Recipe name and end time
+  - Current step indicator
+  - Menu hamburger for additional options
+
+- **Vertical Timeline**:
+  - Scrollable vertical orientation
+  - Current time indicator fixed at appropriate point
+  - Step blocks full width with clear timing
+  - Collapsible past steps
+  - Future steps with preview option
+
+- **Focus Mode**:
+  - Current step card pinned to top
+  - Next step preview at bottom
+  - Swipe up/down to navigate between steps
+  - Pull down to refresh/update current time
+
+### Mobile Active Baking Mode
+- **Fullscreen Step Card**:
+  - Maximized instruction visibility
+  - Critical information only
+  - Large success/next buttons
+  - Swipe gestures for reference content
+
+- **Floating Timer**:
+  - Persistent timer overlay option
+  - Quick pause/resume touch target
+  - Time remaining in large typography
+  - Notification sound/vibration options
+
+- **Quick Documentation**:
+  - Camera button always accessible
+  - Voice note quick record
+  - Single-tap completion logging
+  - Simple good/bad/neutral feedback
+
+These detailed screen specifications provide a comprehensive blueprint for implementing the Baking Timeline Calculator with emphasis on clear user flows, intuitive interactions, and adaptability to different devices and baking scenarios.​​​​​​​​​​​​​​​​

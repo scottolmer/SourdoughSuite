@@ -1,0 +1,170 @@
+We now offer OpenAI-compatible endpoints for text generation. This endpoint outputs the same way OpenAI's chat completion endpoint does
+Chat Completions
+POST https://nano-gpt.com/api/v1/chat/completions
+This endpoint mimics OpenAI's chat completions API. It supports the following (optional) parameters:
+model: The model to use for generation
+messages: An array of message objects
+temperature: Controls randomness (0-2)
+max_tokens: Maximum number of tokens to generate
+stream: Whether to stream the response
+stop: Up to 4 sequences where the API will stop generating
+top_p: Nucleus sampling, an alternative to temperature
+top_k: Limits the next token selection to the K most likely tokens
+frequency_penalty: Reduces repetition of token sequences (-2.0 to 2.0)
+presence_penalty: Increases likelihood of new topics (-2.0 to 2.0)
+logit_bias: Modifies likelihood of specified tokens appearing
+user: A unique identifier for the end-user
+n: Number of chat completion choices to generate
+seed: A seed for deterministic sampling
+response_format: Specifies the format for the model output
+tools: A list of tools the model may call
+tool_choice: Controls how the model calls functions
+Note: Some parameters may not be applicable to all models. Refer to specific model documentation for details.
+Example (Python)
+## OpenAI compatible streaming example
+
+import requests
+import json
+
+BASE_URL = "https://nano-gpt.com/api/v1"
+API_KEY = "YOUR_API_KEY"  # Replace with your API key
+
+headers = {
+    "Authorization": f"Bearer {API_KEY}",
+    "Content-Type": "application/json",
+    "Accept": "text/event-stream"  # Required for SSE streaming
+}
+
+
+def stream_chat_completion(messages, model="chatgpt-4o-latest"):
+    """
+    Send a streaming chat completion request using the OpenAI-compatible endpoint.
+
+    Args:
+        messages (list): List of message dictionaries with 'role' and 'content'
+        model (str): Model to use for completion
+    """
+    data = {
+        "model": model,
+        "messages": messages,
+        "stream": True  # Enable streaming
+    }
+
+    # Make streaming request
+    response = requests.post(
+        f"{BASE_URL}/chat/completions",
+        headers=headers,
+        json=data,
+        stream=True  # Enable streaming in requests
+    )
+
+    if response.status_code != 200:
+        raise Exception(f"Error: {response.status_code}")
+
+    # Process the streaming response
+    for line in response.iter_lines():
+        if line:
+            # Remove "data: " prefix
+            line = line.decode('utf-8')
+            if line.startswith('data: '):
+                line = line[6:]
+
+            # Skip "[DONE]" message
+            if line == '[DONE]':
+                break
+
+            try:
+                # Parse the JSON data
+                chunk = json.loads(line)
+                # Extract the content delta if it exists
+                if chunk['choices'][0]['delta'].get('content'):
+                    yield chunk['choices'][0]['delta']['content']
+            except json.JSONDecodeError:
+                continue
+
+
+if __name__ == "__main__":
+    # Create messages in OpenAI format
+    messages = [
+        {"role": "system", "content": "You are a helpful assistant."},
+        {"role": "user", "content": "Please explain the concept of artificial intelligence."}
+    ]
+
+    try:
+        print("Assistant&apos;s Response:")
+        # Stream the response
+        for content_chunk in stream_chat_completion(messages):
+            print(content_chunk, end='', flush=True)
+        print("")
+
+    except Exception as e:
+        print(f"Error: {str(e)}")
+Non-Streaming Example (Python)
+## OpenAI compatible non-streaming example
+
+import requests
+import json
+
+BASE_URL = "https://nano-gpt.com/api/v1"
+API_KEY = "YOUR_API_KEY"  # Replace with your API key
+
+def non_streaming_chat_completion(messages, model="chatgpt-4o-latest"):
+    """
+    Send a non-streaming chat completion request using the OpenAI-compatible endpoint.
+
+    Args:
+        messages (list): List of message dictionaries with 'role' and 'content'
+        model (str): Model to use for completion
+        
+    Returns:
+        dict: The complete response from the API
+    """
+    data = {
+        "model": model,
+        "messages": messages,
+        "stream": False  # Disable streaming
+    }
+    
+    # Define headers without streaming requirement
+    non_stream_headers = {
+        "Authorization": f"Bearer {API_KEY}",
+        "Content-Type": "application/json"
+    }
+
+    # Make non-streaming request
+    response = requests.post(
+        f"{BASE_URL}/chat/completions",
+        headers=non_stream_headers,
+        json=data
+    )
+
+    if response.status_code != 200:
+        raise Exception(f"Error: {response.status_code}, {response.text}")
+    
+    # Return the complete JSON response
+    return response.json()
+
+
+if __name__ == "__main__":
+    # Create messages in OpenAI format
+    messages = [
+        {"role": "system", "content": "You are a helpful assistant."},
+        {"role": "user", "content": "Please explain the concept of artificial intelligence."}
+    ]
+
+    try:
+        print("Non-streaming Response:")
+        # Get the complete response
+        response = non_streaming_chat_completion(messages)
+        # Print the full response structure
+        print("Complete API Response:")
+        print(json.dumps(response, indent=2))
+        
+        # Also print just the content for convenience
+        if 'choices' in response and len(response['choices']) > 0:
+            print("\nAssistant's Message Content:")
+            print(response['choices'][0]['message']['content'])
+
+    except Exception as e:
+        print(f"Error: {str(e)}")
+

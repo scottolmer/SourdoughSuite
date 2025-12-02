@@ -1,0 +1,100 @@
+Comprehensive Project Summary: Scientific Bread Baking Research Platform
+Core Objective
+A scientific bread baking website with comprehensive admin review workflow, mobile-optimized tools, Gemini-powered MoE AI, and quality-controlled content publication.
+
+Site Structure & User Experience
+Desktop Layout (Three-Panel NotebookLM Style)
+Left Panel (250px): Topic sidebar with organically developed categories
+Middle Panel (Flexible): Main content area with search results, chat interface, article content
+Right Panel (300px): AI chat, summaries, and related content
+Navigation: Clean academic design with responsive routing
+Mobile Layout (Tools-First)
+Topic Cards: Condensed topic browsing with search integration
+Tools Priority: Hydration calculator, fermentation timeline, ingredient ratios, troubleshooting wizard
+Responsive Design: Mobile-optimized interface with touch-friendly interactions
+Core Features & Functionality
+1. Admin Content Management System
+Individual PDF Processing: Upload one PDF at a time for quality control
+Review Workflow:
+Upload PDF → Extract text → Admin preview/edit → Topic assignment → Approve → Publish
+Content Editing: Full text editor with version control (save as new version)
+Topic Management: Multi-select topic assignment, flat category structure that emerges organically
+Review Queue: "Pending Review" dashboard with search/filter functionality
+Quick Approve: Streamlined approval for high-confidence articles
+Failed Upload Handling: Separate queue for corrupted/scanned PDFs (skip OCR)
+Publication Control: Only approved articles become searchable or available to AI
+2. Intelligent Search & Discovery Engine
+Natural Language Search: Cross-topic search with relevance scoring (approved articles only)
+Search Interface: Autocomplete and suggestions with baking terminology
+Visual Results: Topic preview cards with relevance scoring
+Problem-Solution Mapping: Troubleshooting wizard linking common issues to research
+Intelligent Discovery: Personalized recommendations and related suggestions
+3. Gemini-Powered Mixture of Experts (MoE) AI System
+4 Specialized Experts:
+Fermentation Science Expert
+Ingredients & Chemistry Expert
+Process & Technique Expert
+Troubleshooting & Problem-Solving Expert
+Topic-Based Chat: Chat with entire topic clusters using approved content only
+Article Citations: Show "Title - Journal Name, Year" format (no external links)
+Chat Summaries: Users see AI summaries, not full article text
+Responsible AI: Trained for safe, practical advice without intrusive warnings
+4. Mobile-Optimized Calculation Tools
+Hydration Calculator: Flour weight to water weight conversions
+Fermentation Timeline: Backward timeline planning from desired bake time
+Ingredient Ratio Calculator: Baker's percentages to actual weights
+Basic Troubleshooting Wizard: Common issue diagnosis and solutions
+5. Topic Organization System
+Emergent Categories: Flat topic structure that develops organically through admin review
+Starter Content Priority: Admin manually prioritizes starter-related articles during 3-month review period
+Multi-Topic Assignment: Articles can belong to multiple topics via checkboxes
+Topic Browsing: Desktop sidebar and mobile card interfaces
+Technical Architecture
+Frontend
+Framework: React with TypeScript
+Styling: Tailwind CSS with Shadcn UI components
+Layout: Responsive design optimizing desktop (research hub) vs mobile (tools-first)
+Admin Interface: Desktop-optimized comprehensive review dashboard
+PWA Features: Progressive Web App capabilities for mobile tool access
+Backend
+Server: Express.js with comprehensive admin API
+AI Integration: Google Gemini API for cost-effective processing and MoE system
+PDF Processing: PDF-parse for text extraction (text-only PDFs, skip scanned documents)
+Database: Article workflow status tracking and content versioning
+Processing Pipeline: Individual PDF workflow with admin approval gates
+Data Management
+Content Storage: Extracted text only (no PDF file storage)
+Version Control: Save edited content as new versions
+Status Tracking: Processing → Pending Review → Approved → Published
+Approved Content Only: Search and chat systems only access published articles
+Design & Styling
+Visual Theme
+Scientific Academic Design: Clean, professional interface
+Color Palette: Whites, grays, and subtle blues (avoiding warm bakery colors)
+Typography: Black text for maximum readability and scientific credibility
+Academic Hierarchy: Clear visual organization with progressive disclosure
+Responsive Approach
+Desktop: Full three-panel research experience
+Mobile: Tools-first interface with topic cards
+Footer: Clean footer with safety information link (non-intrusive approach)
+Content Strategy
+Article Processing Approach
+Batch Processing: Process 400+ articles individually over 3 months
+Quality Control: Admin review and editing for every article
+Automatic Topic Suggestions: Gemini suggests topics, admin approves/modifies
+Basic Metadata: Extract only essential information (title, authors, publication year)
+Text-Only PDFs: Skip scanned documents to avoid OCR complexity
+Launch Strategy
+Beta Launch: Start with starter-focused articles and working tools
+Progressive Content: Build content library while tools provide immediate value
+Quality Focus: Launch with fewer high-quality, reviewed articles rather than rushing quantity
+Safety & Legal Approach
+Streamlined Safety: Comprehensive safety page accessible via footer link
+Professional Disclaimers: Food safety guidelines and legal disclaimers on dedicated page
+Responsible AI: MoE system trained for safe advice without intrusive warnings throughout interface
+Future Development Roadmap
+Voice search and mobile search optimization
+Visual search with image recognition for bread issues
+Collaborative search with community problem solving
+AI-powered search result summarization
+This platform balances scientific authority with practical usability, providing both comprehensive research access and immediate practical value through mobile tools, all while maintaining rigorous quality control through the admin review system.

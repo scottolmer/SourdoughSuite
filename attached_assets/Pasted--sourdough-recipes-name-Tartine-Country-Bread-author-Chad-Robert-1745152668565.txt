@@ -1,0 +1,314 @@
+{
+  "sourdough_recipes": [
+    {
+      "name": "Tartine Country Bread",
+      "author": "Chad Robertson",
+      "description": "The classic San Francisco-style sourdough country loaf from Tartine Bakery, with a tangy flavor and open crumb structure.",
+      "ingredients": [
+        {"name": "Mature sourdough starter", "amount": 20, "unit": "g"},
+        {"name": "Water for levain", "amount": 100, "unit": "g"},
+        {"name": "Bread flour for levain", "amount": 50, "unit": "g"},
+        {"name": "Whole wheat flour for levain", "amount": 50, "unit": "g"},
+        {"name": "Bread flour", "amount": 900, "unit": "g"},
+        {"name": "Whole wheat flour", "amount": 100, "unit": "g"},
+        {"name": "Water", "amount": 750, "unit": "g"},
+        {"name": "Salt", "amount": 20, "unit": "g"}
+      ],
+      "hydration": 75,
+      "instructions": [
+        "The night before baking, prepare the levain by mixing starter, water, and flours. Leave at room temperature overnight (8-12 hours).",
+        "When ready to mix the dough, combine 700g of water with the levain and stir to disperse.",
+        "Add flours and mix until no dry bits remain. Let rest (autolyse) for 25-40 minutes.",
+        "Add salt and remaining 50g water, mixing thoroughly.",
+        "Begin bulk fermentation, performing a series of stretches and folds every 30 minutes for the first 2-3 hours.",
+        "Let dough rise until approximately 30% increase in volume (typically 3-4 hours total).",
+        "Divide dough in half and pre-shape into rounds. Rest for 20-30 minutes.",
+        "Final shape into boules or batards, place in floured bannetons seam-side up.",
+        "Refrigerate for 8-24 hours (cold retard).",
+        "Preheat oven with Dutch oven to 500°F (260°C).",
+        "Score bread and bake covered at 450°F (230°C) for 20 minutes, then uncovered for 20-25 minutes more until deep golden brown."
+      ],
+      "notes": "Extended cold retard of 18-20 hours can enhance flavor complexity. Some bakers use cast iron Dutch ovens without preheating, contrary to the book instructions."
+    },
+    {
+      "name": "Tartine Rye Bread",
+      "author": "Chad Robertson",
+      "description": "A variation on the classic Tartine loaf that incorporates rye flour for a deeper, more complex flavor profile.",
+      "ingredients": [
+        {"name": "Mature sourdough starter", "amount": 20, "unit": "g"},
+        {"name": "Water for levain", "amount": 100, "unit": "g"},
+        {"name": "Bread flour for levain", "amount": 50, "unit": "g"},
+        {"name": "Whole wheat flour for levain", "amount": 50, "unit": "g"},
+        {"name": "Bread flour", "amount": 750, "unit": "g"},
+        {"name": "Whole wheat flour", "amount": 100, "unit": "g"},
+        {"name": "Rye flour", "amount": 150, "unit": "g"},
+        {"name": "Water", "amount": 800, "unit": "g"},
+        {"name": "Salt", "amount": 20, "unit": "g"},
+        {"name": "Caraway seeds (optional)", "amount": 10, "unit": "g"}
+      ],
+      "hydration": 80,
+      "instructions": [
+        "The night before baking, prepare the levain by mixing starter, water, and flours. Leave at room temperature overnight (8-12 hours).",
+        "When ready to mix the dough, combine 750g of water with the levain and stir to disperse.",
+        "Add flours and mix until no dry bits remain. Let rest (autolyse) for 30-45 minutes.",
+        "Add salt, remaining 50g water, and caraway seeds if using, mixing thoroughly.",
+        "Begin bulk fermentation, performing a series of stretches and folds every 30 minutes for the first 2-3 hours.",
+        "Let dough rise until approximately 30% increase in volume (typically 3-4 hours total).",
+        "Divide dough in half and pre-shape into rounds. Rest for 20-30 minutes.",
+        "Final shape into boules or batards, place in floured bannetons seam-side up.",
+        "Refrigerate for 12-24 hours (cold retard).",
+        "Preheat oven with Dutch oven to 500°F (260°C).",
+        "Score bread and bake covered at 450°F (230°C) for 25 minutes, then uncovered for 20-25 minutes more until deep golden brown."
+      ],
+      "notes": "Rye flour contains less gluten than wheat flour, resulting in a slightly denser crumb. The higher hydration compensates for the rye's water absorption. For a stronger rye flavor, increase the rye portion up to 200g."
+    },
+    {
+      "name": "Tartine Porridge Bread",
+      "author": "Chad Robertson",
+      "description": "A variation from Tartine Book No. 3 that incorporates cooked grain porridge for a moist, tender crumb and extended shelf life.",
+      "ingredients": [
+        {"name": "Mature sourdough starter", "amount": 20, "unit": "g"},
+        {"name": "Water for levain", "amount": 100, "unit": "g"},
+        {"name": "Bread flour for levain", "amount": 50, "unit": "g"},
+        {"name": "Whole wheat flour for levain", "amount": 50, "unit": "g"},
+        {"name": "Bread flour", "amount": 800, "unit": "g"},
+        {"name": "Whole wheat flour", "amount": 200, "unit": "g"},
+        {"name": "Water", "amount": 750, "unit": "g"},
+        {"name": "Salt", "amount": 20, "unit": "g"},
+        {"name": "Cooked grain porridge (oats, rice, quinoa, etc.)", "amount": 300, "unit": "g"}
+      ],
+      "hydration": 75,
+      "instructions": [
+        "Prepare porridge by cooking your chosen grain in water according to package directions until very soft. Cool completely before using.",
+        "The night before baking, prepare the levain by mixing starter, water, and flours. Leave at room temperature overnight (8-12 hours).",
+        "When ready to mix the dough, combine 700g of water with the levain and stir to disperse.",
+        "Add flours and mix until no dry bits remain. Let rest (autolyse) for 30-40 minutes.",
+        "Add salt and remaining 50g water, mixing thoroughly.",
+        "Begin bulk fermentation with one set of stretch and folds.",
+        "After 30 minutes, add the porridge and perform another set of stretch and folds to incorporate.",
+        "Continue with stretch and folds every 30 minutes for the next 2 hours.",
+        "Let dough rise until approximately 30% increase in volume (typically 4-5 hours total).",
+        "Divide dough in half and pre-shape into rounds. Rest for 20-30 minutes.",
+        "Final shape into boules or batards, place in floured bannetons seam-side up.",
+        "Refrigerate for 12-24 hours (cold retard).",
+        "Preheat oven with Dutch oven to 500°F (260°C).",
+        "Score bread and bake covered at 450°F (230°C) for 25 minutes, then uncovered for 20-25 minutes more until deep golden brown."
+      ],
+      "notes": "The porridge adds moisture and texture to the bread while extending its shelf life. Experiment with different grains for varied flavors and textures. The cooked porridge should be completely cool before adding to the dough."
+    },
+    {
+      "name": "Tartine Sesame Bread",
+      "author": "Chad Robertson",
+      "description": "A richly flavored variation of the Tartine country bread featuring toasted sesame seeds throughout the dough and on the crust.",
+      "ingredients": [
+        {"name": "Mature sourdough starter", "amount": 20, "unit": "g"},
+        {"name": "Water for levain", "amount": 100, "unit": "g"},
+        {"name": "Bread flour for levain", "amount": 50, "unit": "g"},
+        {"name": "Whole wheat flour for levain", "amount": 50, "unit": "g"},
+        {"name": "Bread flour", "amount": 850, "unit": "g"},
+        {"name": "Whole wheat flour", "amount": 150, "unit": "g"},
+        {"name": "Water", "amount": 750, "unit": "g"},
+        {"name": "Salt", "amount": 20, "unit": "g"},
+        {"name": "Toasted sesame seeds (for dough)", "amount": 100, "unit": "g"},
+        {"name": "Toasted sesame seeds (for coating)", "amount": 50, "unit": "g"}
+      ],
+      "hydration": 75,
+      "instructions": [
+        "Toast all sesame seeds in a dry skillet until golden and fragrant, then cool completely.",
+        "The night before baking, prepare the levain by mixing starter, water, and flours. Leave at room temperature overnight (8-12 hours).",
+        "When ready to mix the dough, combine 700g of water with the levain and stir to disperse.",
+        "Add flours and mix until no dry bits remain. Let rest (autolyse) for 25-40 minutes.",
+        "Add salt and remaining 50g water, mixing thoroughly.",
+        "Begin bulk fermentation with one set of stretch and folds.",
+        "After 30 minutes, add the 100g of toasted sesame seeds for the dough and perform another set of stretch and folds to incorporate.",
+        "Continue with stretch and folds every 30 minutes for the next 2 hours.",
+        "Let dough rise until approximately 30% increase in volume (typically 3-4 hours total).",
+        "Divide dough in half and pre-shape into rounds. Rest for 20-30 minutes.",
+        "Final shape into boules or batards.",
+        "Lightly mist the surface of the shaped dough with water, then roll or press the top into the remaining 50g of toasted sesame seeds.",
+        "Place seeded-side down in floured bannetons, seam-side up.",
+        "Refrigerate for 8-24 hours (cold retard).",
+        "Preheat oven with Dutch oven to 500°F (260°C).",
+        "Turn out the dough seed-side up, score, and bake covered at 450°F (230°C) for 20 minutes, then uncovered for 20-25 minutes more until deep golden brown."
+      ],
+      "notes": "Toasting the sesame seeds is crucial for developing their rich, nutty flavor. You can use a mix of black and white sesame seeds for visual appeal. The crust will be extra flavorful with the toasted seeds on the exterior."
+    },
+    {
+      "name": "Multigrain Seeded Sourdough",
+      "author": "The Pantry Mama",
+      "description": "A hearty multigrain bread filled with a variety of seeds and grains for texture and nutrition.",
+      "ingredients": [
+        {"name": "Mature sourdough starter", "amount": 100, "unit": "g"},
+        {"name": "Water", "amount": 350, "unit": "g"},
+        {"name": "Bread flour", "amount": 400, "unit": "g"},
+        {"name": "Whole wheat flour", "amount": 100, "unit": "g"},
+        {"name": "Salt", "amount": 10, "unit": "g"},
+        {"name": "Water for soaker", "amount": 100, "unit": "g"},
+        {"name": "Rolled oats", "amount": 30, "unit": "g"},
+        {"name": "Flax seeds", "amount": 20, "unit": "g"},
+        {"name": "Sunflower seeds", "amount": 20, "unit": "g"},
+        {"name": "Pumpkin seeds", "amount": 20, "unit": "g"},
+        {"name": "Sesame seeds", "amount": 10, "unit": "g"}
+      ],
+      "hydration": 75,
+      "instructions": [
+        "Prepare seed soaker by combining all seeds and grains with water in a bowl. Let sit for at least 2 hours or overnight.",
+        "Mix starter and water until dissolved.",
+        "Add flours and mix until incorporated. Rest for 30 minutes.",
+        "Add salt and seed soaker, incorporating thoroughly.",
+        "Perform 4-6 sets of stretch and folds over 2-3 hours.",
+        "Allow bulk fermentation to continue until dough has increased by 40-50% in volume.",
+        "Shape and place in a floured banneton, seam-side up.",
+        "Cold retard in refrigerator for 12-24 hours.",
+        "Preheat oven with Dutch oven to 500°F (260°C).",
+        "Score and bake covered at 450°F (230°C) for 25 minutes, then uncovered for 15-20 minutes."
+      ],
+      "notes": "Soaking the seeds and grains is crucial as it softens them and prevents them from absorbing moisture from the dough. Customize with your favorite seed blend."
+    },
+    {
+      "name": "Sourdough Honey Oat Bread",
+      "author": "Heartbeet Kitchen",
+      "description": "A soft, tender loaf with the sweetness of honey and hearty texture of oats for a perfect everyday bread.",
+      "ingredients": [
+        {"name": "Mature sourdough starter", "amount": 100, "unit": "g"},
+        {"name": "Water", "amount": 320, "unit": "g"},
+        {"name": "Bread flour", "amount": 375, "unit": "g"},
+        {"name": "Whole wheat flour", "amount": 125, "unit": "g"},
+        {"name": "Rolled oats", "amount": 100, "unit": "g"},
+        {"name": "Honey", "amount": 40, "unit": "g"},
+        {"name": "Salt", "amount": 10, "unit": "g"},
+        {"name": "Additional oats for topping", "amount": 20, "unit": "g"}
+      ],
+      "hydration": 70,
+      "instructions": [
+        "Mix starter, water, and honey until dissolved.",
+        "Add flours and mix until no dry bits remain. Rest for 30 minutes.",
+        "Add salt and oats, incorporating thoroughly.",
+        "Perform 3-4 sets of stretch and folds over 2 hours.",
+        "Allow bulk fermentation to continue for 4-6 hours until dough has increased by about 50% in volume.",
+        "Shape into a loaf and place in a parchment-lined bread pan.",
+        "Cover and allow to rise until the dough crowns over the edge of the pan, about 2-3 hours.",
+        "Brush top with water and sprinkle with additional oats.",
+        "Bake at 425°F (220°C) for 20 minutes, then reduce to 375°F (190°C) for 25-30 minutes more."
+      ],
+      "notes": "For extra flavor, toast the oats in a dry skillet before adding to the dough. This bread makes excellent toast."
+    },
+    {
+      "name": "Rustic Sourdough with Dried Cherries and Walnuts",
+      "author": "Vanilla And Bean",
+      "description": "A delicious combination of tangy sourdough with sweet dried cherries and crunchy walnuts for a special treat.",
+      "ingredients": [
+        {"name": "Mature sourdough starter", "amount": 100, "unit": "g"},
+        {"name": "Water", "amount": 350, "unit": "g"},
+        {"name": "Bread flour", "amount": 425, "unit": "g"},
+        {"name": "Whole wheat flour", "amount": 75, "unit": "g"},
+        {"name": "Salt", "amount": 10, "unit": "g"},
+        {"name": "Dried tart cherries", "amount": 100, "unit": "g"},
+        {"name": "Walnuts, toasted and chopped", "amount": 100, "unit": "g"}
+      ],
+      "hydration": 70,
+      "instructions": [
+        "Mix starter and water until dissolved.",
+        "Add flours and mix until no dry bits remain. Rest for 30 minutes.",
+        "Add salt and work into dough.",
+        "Perform 3 sets of stretch and folds over 1.5 hours.",
+        "During the final set of folds, gently incorporate dried cherries and walnuts.",
+        "Allow bulk fermentation to continue for a total of 4-6 hours.",
+        "Shape into a boule and place in a floured banneton, seam-side up.",
+        "Cold retard in refrigerator for 8-14 hours.",
+        "Preheat oven with Dutch oven to 500°F (260°C).",
+        "Score and bake covered at 450°F (230°C) for 25 minutes, then uncovered for 15-20 minutes."
+      ],
+      "notes": "Soaking dried cherries in hot water for 10 minutes and draining before adding to the dough can prevent them from pulling moisture from the dough."
+    },
+    {
+      "name": "High-Fiber Seeded Sourdough",
+      "author": "The Perfect Loaf",
+      "description": "A nutritious bread packed with various seeds and whole grains for maximum fiber content and flavor.",
+      "ingredients": [
+        {"name": "Mature sourdough starter", "amount": 100, "unit": "g"},
+        {"name": "Water", "amount": 350, "unit": "g"},
+        {"name": "Whole wheat flour", "amount": 300, "unit": "g"},
+        {"name": "Bread flour", "amount": 200, "unit": "g"},
+        {"name": "Salt", "amount": 10, "unit": "g"},
+        {"name": "Wheat bran", "amount": 25, "unit": "g"},
+        {"name": "Water for soaker", "amount": 100, "unit": "g"},
+        {"name": "Flaxseeds", "amount": 25, "unit": "g"},
+        {"name": "Chia seeds", "amount": 25, "unit": "g"},
+        {"name": "Sunflower seeds", "amount": 30, "unit": "g"},
+        {"name": "Pumpkin seeds", "amount": 30, "unit": "g"},
+        {"name": "Sesame seeds", "amount": 20, "unit": "g"}
+      ],
+      "hydration": 75,
+      "instructions": [
+        "Prepare seed soaker by combining all seeds with water in a bowl. Let sit overnight in the refrigerator.",
+        "Mix starter and water until dissolved.",
+        "Add flours and wheat bran, mix until incorporated. Rest for 30 minutes.",
+        "Add salt and seed soaker, incorporating thoroughly.",
+        "Perform 4 sets of stretch and folds over 2 hours.",
+        "Allow bulk fermentation to continue for a total of 4-5 hours.",
+        "Shape into a boule or batard and place in a floured banneton, seam-side up.",
+        "Cold retard in refrigerator for 12-24 hours.",
+        "Preheat oven with Dutch oven to 500°F (260°C).",
+        "Score and bake covered at 450°F (230°C) for 25 minutes, then uncovered for 20-25 minutes."
+      ],
+      "notes": "This bread is excellent for gut health due to high fiber content. The seeds provide essential fatty acids and nutrients."
+    },
+    {
+      "name": "Sourdough Focaccia",
+      "author": "The Clever Carrot",
+      "description": "A light, airy focaccia with a crispy exterior, rich olive oil flavor, and endless topping possibilities.",
+      "ingredients": [
+        {"name": "Mature sourdough starter", "amount": 150, "unit": "g"},
+        {"name": "Water", "amount": 400, "unit": "g"},
+        {"name": "Bread flour", "amount": 500, "unit": "g"},
+        {"name": "Salt", "amount": 10, "unit": "g"},
+        {"name": "Extra virgin olive oil", "amount": 50, "unit": "g", "plus": "more for pan and topping"},
+        {"name": "Flaky sea salt", "amount": "to taste", "unit": ""},
+        {"name": "Toppings of choice (rosemary, cherry tomatoes, olives, etc.)", "amount": "as desired", "unit": ""}
+      ],
+      "hydration": 80,
+      "instructions": [
+        "Mix starter and water until dissolved.",
+        "Add flour and mix until incorporated. Rest for 30 minutes.",
+        "Add salt and olive oil, incorporating thoroughly.",
+        "Perform 3-4 sets of stretch and folds over 2 hours.",
+        "Allow bulk fermentation to continue for a total of 6-8 hours or until doubled in size.",
+        "Oil a 9x13 inch baking pan generously.",
+        "Gently transfer dough to the pan and stretch to fill, being careful not to deflate air bubbles.",
+        "Cover and let rise for 1-2 hours until puffy.",
+        "Dimple the dough with oiled fingertips, drizzle generously with olive oil, and add toppings and flaky salt.",
+        "Bake at 425°F (220°C) for 25-30 minutes until golden brown."
+      ],
+      "notes": "For a stronger sourdough flavor, cold retard the dough after bulk fermentation for 24-48 hours, then proceed with shaping and final proof."
+    },
+    {
+      "name": "Sourdough Olive Rosemary Bread",
+      "author": "The Pantry Mama",
+      "description": "A Mediterranean-inspired loaf featuring briny olives and aromatic rosemary for an unforgettable flavor combination.",
+      "ingredients": [
+        {"name": "Mature sourdough starter", "amount": 100, "unit": "g"},
+        {"name": "Water", "amount": 350, "unit": "g"},
+        {"name": "Bread flour", "amount": 450, "unit": "g"},
+        {"name": "Whole wheat flour", "amount": 50, "unit": "g"},
+        {"name": "Salt", "amount": 9, "unit": "g"},
+        {"name": "Kalamata olives, pitted and halved", "amount": 150, "unit": "g"},
+        {"name": "Fresh rosemary, chopped", "amount": 10, "unit": "g"}
+      ],
+      "hydration": 70,
+      "instructions": [
+        "Mix starter and water until dissolved.",
+        "Add flours and mix until no dry bits remain. Rest for 30 minutes.",
+        "Add salt, incorporating thoroughly.",
+        "Perform 3 sets of stretch and folds over 1.5 hours.",
+        "During the final set of folds, gently incorporate olives and rosemary.",
+        "Allow bulk fermentation to continue for a total of 4-5 hours.",
+        "Shape into a boule and place in a floured banneton, seam-side up.",
+        "Cold retard in refrigerator for 12-24 hours.",
+        "Preheat oven with Dutch oven to 500°F (260°C).",
+        "Score and bake covered at 450°F (230°C) for 25 minutes, then uncovered for 15-20 minutes."
+      ],
+      "notes": "Thoroughly drain and pat dry the olives before adding to prevent excess moisture in the dough. This bread pairs wonderfully with Mediterranean dishes or simply dipped in olive oil."
+    }
+  ]
+}

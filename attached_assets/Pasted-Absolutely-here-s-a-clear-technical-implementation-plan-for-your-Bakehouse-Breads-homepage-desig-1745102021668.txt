@@ -1,0 +1,190 @@
+Absolutely — here’s a clear, technical implementation plan for your Bakehouse Breads homepage, designed for use in Replit with a modern frontend stack like React + TailwindCSS. This guide explains exactly how the homepage should be structured, styled, and behave.
+
+⸻
+
+Bakehouse Breads – Homepage Technical Implementation
+
+1. File Structure (React project)
+
+/src
+  /components
+    Header.jsx
+    HeroSection.jsx
+    ProductTeaser.jsx
+    FeaturedTools.jsx
+    Footer.jsx
+  /assets
+    logo.svg
+    bread-hero.jpg
+    dutch-oven.jpg
+  App.jsx
+  index.css
+
+
+
+⸻
+
+2. Homepage Layout Breakdown
+
+// App.jsx (or HomePage.jsx if using routing)
+
+import Header from './components/Header';
+import HeroSection from './components/HeroSection';
+import ProductTeaser from './components/ProductTeaser';
+import FeaturedTools from './components/FeaturedTools';
+import Footer from './components/Footer';
+
+function App() {
+  return (
+    <div className="bg-stone-50 text-stone-900 font-sans">
+      <Header />
+      <main>
+        <HeroSection />
+        <ProductTeaser />
+        <FeaturedTools />
+      </main>
+      <Footer />
+    </div>
+  );
+}
+
+export default App;
+
+
+
+⸻
+
+3. Header Component
+
+// Header.jsx
+
+export default function Header() {
+  return (
+    <header className="flex justify-between items-center px-4 py-3 border-b bg-white shadow-sm sticky top-0 z-50">
+      <div className="flex items-center gap-2">
+        <img src="/assets/logo.svg" alt="Bakehouse logo" className="w-6 h-6" />
+        <h1 className="font-serif font-bold text-xl text-amber-800">Bakehouse Breads</h1>
+      </div>
+      <button className="text-stone-700">
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+          <path d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </header>
+  );
+}
+
+
+
+⸻
+
+4. Hero Section
+
+// HeroSection.jsx
+
+export default function HeroSection() {
+  return (
+    <section className="text-center px-6 py-10 bg-white">
+      <img src="/assets/bread-hero.jpg" alt="Rustic sourdough loaf" className="mx-auto rounded-md w-full max-w-md mb-6" />
+      <h2 className="text-3xl font-serif font-semibold mb-4">Crafting Naturally Leavened Bread</h2>
+      <p className="text-stone-700 mb-6">
+        Artisan sourdough baked with care using time-honored methods and house-milled flour.
+      </p>
+      <a href="#shop" className="inline-block bg-amber-600 text-white px-6 py-3 rounded hover:bg-amber-700 transition">
+        View Our Products
+      </a>
+    </section>
+  );
+}
+
+
+
+⸻
+
+5. Product Teaser Section
+
+// ProductTeaser.jsx
+
+export default function ProductTeaser() {
+  return (
+    <section className="px-6 py-10 text-center bg-stone-100">
+      <h3 className="text-2xl font-serif font-semibold mb-4">Artisan Breads for the Home Baker</h3>
+      <p className="text-stone-700 mb-6">
+        Premium ingredients, custom starter cultures, and smart tools to elevate your sourdough game.
+      </p>
+      <img src="/assets/bread-slice.jpg" alt="Open crumb bread" className="mx-auto rounded-md w-full max-w-xs shadow" />
+    </section>
+  );
+}
+
+
+
+⸻
+
+6. Featured Tools Section
+
+// FeaturedTools.jsx
+
+export default function FeaturedTools() {
+  return (
+    <section className="px-6 py-10 bg-white">
+      <h3 className="text-xl font-serif font-semibold mb-4">Featured Tools</h3>
+      <div className="flex flex-col items-center sm:flex-row sm:justify-center gap-8">
+        <div className="max-w-xs text-center">
+          <img src="/assets/dutch-oven.jpg" alt="Dutch oven" className="rounded-md mb-3" />
+          <h4 className="font-medium">Dutch Oven</h4>
+          <p className="text-sm text-stone-600">Perfect for crusty loaves with great oven spring.</p>
+        </div>
+        {/* Add more tools here */}
+      </div>
+    </section>
+  );
+}
+
+
+
+⸻
+
+7. Footer
+
+// Footer.jsx
+
+export default function Footer() {
+  return (
+    <footer className="text-center text-sm text-stone-500 py-6 border-t bg-stone-50">
+      &copy; {new Date().getFullYear()} Bakehouse Breads. All rights reserved.
+    </footer>
+  );
+}
+
+
+
+⸻
+
+8. Styling Notes
+	•	Use Tailwind CSS for utility-first layout and styling.
+	•	Use font-serif for Lora/Merriweather (headings) and font-sans (like Inter) for body text.
+	•	Responsive-first design: stack sections vertically, use sm: or md: breakpoints for enhancement.
+	•	Use .max-w-screen-md mx-auto for content width control on larger screens.
+
+⸻
+
+9. Fonts & Colors Reference
+
+Typography:
+	•	Headings: font-serif (Lora or Merriweather)
+	•	Body: font-sans (Inter, Open Sans, or Roboto)
+
+Colors:
+	•	Background: bg-stone-50 or bg-white
+	•	Primary (Amber): bg-amber-600 / text-amber-800
+	•	Neutral Text: text-stone-700, text-stone-900
+
+⸻
+
+Would you like me to:
+	•	Export this into a working Replit project starter ZIP?
+	•	Scaffold the product/shop grid next?
+	•	Add basic routing with React Router?
+
+Let’s keep building.

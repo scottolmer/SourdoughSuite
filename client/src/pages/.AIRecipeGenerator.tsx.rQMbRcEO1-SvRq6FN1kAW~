@@ -1,0 +1,453 @@
+import { useState, useRef, useEffect, useMemo } from "react";
+import { MobileLayout } from "@/components/mobile-layout";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Card } from "@/components/ui/card";
+import { Textarea } from "@/components/ui/textarea";
+import { SEO } from "@/components/SEO";
+import { Brain, Send, Copy, RefreshCw, Sparkles, User, Bot, Clock, ChefHat } from "lucide-react";
+import { apiRequest } from "@/lib/queryClient";
+import { useMutation } from "@tanstack/react-query";
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+
+const formatRecipeDisplay = (recipe: any): string => {
+  if (!recipe) return "";
+  
+  let formatted = `# ${recipe.name}\n\n`;
+  
+  if (recipe.description) {
+    formatted += `${recipe.description}\n\n`;
+  }
+  
+  // Add timing and yields info
+  if (recipe.timing) {
+    formatted += `**Prep Time:** ${recipe.timing.prepTime || 'N/A'} | **Bake Time:** ${recipe.timing.bakeTime || 'N/A'} | **Total Time:** ${recipe.timing.totalTime || 'N/A'}\n`;
+    formatted += `**Yields:** ${recipe.yields || 'N/A'} | **Difficulty:** ${recipe.difficulty || 'Intermediate'}\n\n`;
+  }
+  
+  if (recipe.ingredients && recipe.ingredients.length > 0) {
+    formatted += `## Ingredients\n\n`;
+    recipe.ingredients.forEach((ingredient: any) => {
+      if (typeof ingredient === 'string') {
+        formatted += `• ${ingredient}\n`;
+      } else if (ingredient.item) {
+        const metric = ingredient.amountMetric || '';
+        const imperial = ingredient.amountImperial || '';
+        const amounts = metric && imperial ? `${metric} (${imperial})` : metric || imperial || '';
+        formatted += `• ${amounts} ${ingredient.item}\n`;
+      }
+    });
+    formatted += '\n';
+  }
+  
+  if (recipe.instructions && recipe.instructions.length > 0) {
+    formatted += `## Instructions\n\n`;
+    recipe.instructions.forEach((instruction: any, index: number) => {
+      if (typeof instruction === 'string') {
+        formatted += `${index + 1}. ${instruction}\n\n`;
+      } else if (instruction.description) {
+        const time = instruction.time ? ` (${instruction.time})` : '';
+        formatted += `${index + 1}. ${instruction.description}${time}\n\n`;
+      }
+    });
+  }
+  
+  // Add temperature info
+  if (recipe.temperature) {
+    formatted += `## Temperature Guidelines\n\n`;
+    if (recipe.temperature.oven) {
+      formatted += `• **Oven:** ${recipe.temperature.oven}\n`;
+    }
+    if (recipe.temperature.water) {
+      formatted += `• **Water:** ${recipe.temperature.water}\n`;
+    }
+    formatted += '\n';
+  }
+  
+  if (recipe.tips && recipe.tips.length > 0) {
+    formatted += `## Tips for Success\n\n`;
+    recipe.tips.forEach((tip: string) => {
+      formatted += `• ${tip}\n`;
+    });
+    formatted += '\n';
+  }
+  
+  if (recipe.safetyConsiderations && recipe.safetyConsiderations.length > 0) {
+    formatted += `## Safety Considerations\n\n`;
+    recipe.safetyConsiderations.forEach((safety: string) => {
+      formatted += `• ${safety}\n`;
+    });
+    formatted += '\n';
+  }
+  
+  return formatted;
+};
+
+interface Message {
+  id: string;
+  role: 'user' | 'assistant';
+  content: string;
+  timestamp: Date;
+  isLoading?: boolean;
+  recipeData?: any;
+}
+
+interface RecipeGenerationRequest {
+  prompt: string;
+  context?: {
+    skillLevel: string;
+    dietaryRestrictions: string[];
+    availableIngredients: string[];
+    timeConstraints: string;
+    servingSize: number;
+  };
+  conversationHistory: Message[];
+}
+
+let isComponentMounted = false;
+
+export function AIRecipeGenerator() {
+  useEffect(() => {
+    if (isComponentMounted) {
+      return;
+    }
+    isComponentMounted = true;
+    return () => {
+      isComponentMounted = false;
+    };
+  }, []);
+
+  const [messages, setMessages] = useState<Message[]>(() => [{
+    id: '1',
+    role: 'assistant',
+    content: "Hi! I'm your AI baking assistant. I can help you create personalized recipes, troubleshoot baking issues, and provide step-by-step guidance. What would you like to bake today?",
+    timestamp: new Date()
+  }]);
+  const [input, setInput] = useState("");
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  const recipeGenerationMutation = useMutation({
+    mutationFn: async (request: RecipeGenerationRequest) => {
+      return apiRequest('/api/ai/generate-recipe', {
+        method: 'POST',
+        body: JSON.stringify(request)
+      });
+    },
+    onSuccess: (data, variables) => {
+      // Remove loading message and add AI response
+      let content = "";
+      let recipeData = null;
+      
+      // Extract content from multi-agent response
+      if (data && data.content) {
+        // Check if content has structured recipe data
+        if (data.content.rawText) {
+          const rawText = data.content.rawText;
+          console.log('Raw text content:', rawText);
+          
+          // Try to parse JSON from the content
+          try {
+            const jsonStart = rawText.indexOf('```json');
+            const jsonEnd = rawText.indexOf('```', jsonStart + 7);
+            if (jsonStart !== -1 && jsonEnd !== -1) {
+              const jsonStr = rawText.substring(jsonStart + 7, jsonEnd).trim();
+              console.log('Extracted JSON:', jsonStr);
+              recipeData = JSON.parse(jsonStr);
+              content = formatRecipeDisplay(recipeData);
+              console.log('Formatted content:', content);
+            } else {
+              // If no JSON blocks found, use the raw text directly
+              content = rawText;
+            }
+          } catch (e) {
+            console.log('Failed to parse recipe JSON, using raw text:', e);
+            content = rawText;
+          }
+        } else if (typeof data.content === 'string') {
+          content = data.content;
+        } else if (data.content.choices && data.content.choices[0] && data.content.choices[0].message) {
+          content = data.content.choices[0].message.content;
+        } else {
+          content = JSON.stringify(data.content, null, 2);
+        }
+      } else {
+        // Fallback if no content found
+        content = data.response || "I've generated a recipe for you! Let me know if you'd like any adjustments.";
+      }
+      
+      setMessages(prev => prev.filter(msg => !msg.isLoading).concat({
+        id: Date.now().toString(),
+        role: 'assistant',
+        content: content,
+        timestamp: new Date(),
+        recipeData: recipeData
+      }));
+    },
+    onError: (error) => {
+      console.error('Recipe generation failed:', error);
+      setMessages(prev => prev.filter(msg => !msg.isLoading).concat({
+        id: Date.now().toString(),
+        role: 'assistant',
+        content: "I'm having trouble generating that recipe right now. Let me help you with a classic approach instead. What type of baking are you most interested in - bread, pastries, cakes, or something else?",
+        timestamp: new Date()
+      }));
+    }
+  });
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!input.trim()) return;
+
+    const userMessage: Message = {
+      id: Date.now().toString(),
+      role: 'user',
+      content: input.trim(),
+      timestamp: new Date()
+    };
+
+    const loadingMessage: Message = {
+      id: (Date.now() + 1).toString(),
+      role: 'assistant',
+      content: '',
+      timestamp: new Date(),
+      isLoading: true
+    };
+
+    setMessages(prev => [...prev, userMessage, loadingMessage]);
+    setInput("");
+
+    // Auto-resize textarea
+    if (textareaRef.current) {
+      textareaRef.current.style.height = 'auto';
+    }
+
+    // Generate AI response
+    const request: RecipeGenerationRequest = {
+      prompt: input.trim(),
+      context: {
+        skillLevel: localStorage.getItem('skillLevel') || 'intermediate',
+        dietaryRestrictions: JSON.parse(localStorage.getItem('dietaryRestrictions') || '[]'),
+        availableIngredients: JSON.parse(localStorage.getItem('availableIngredients') || '[]'),
+        timeConstraints: localStorage.getItem('timeConstraints') || '',
+        servingSize: parseInt(localStorage.getItem('servingSize') || '4')
+      },
+      conversationHistory: messages
+    };
+
+    recipeGenerationMutation.mutate(request);
+  };
+
+  const handleCopy = (content: string) => {
+    navigator.clipboard.writeText(content);
+  };
+
+  const handleRegenerate = () => {
+    if (messages.length > 1) {
+      const lastUserMessage = [...messages].reverse().find(msg => msg.role === 'user');
+      if (lastUserMessage) {
+        const loadingMessage: Message = {
+          id: Date.now().toString(),
+          role: 'assistant',
+          content: '',
+          timestamp: new Date(),
+          isLoading: true
+        };
+
+        setMessages(prev => [...prev, loadingMessage]);
+
+        const request: RecipeGenerationRequest = {
+          prompt: lastUserMessage.content + " (Please provide a different variation)",
+          context: {
+            skillLevel: localStorage.getItem('skillLevel') || 'intermediate',
+            dietaryRestrictions: JSON.parse(localStorage.getItem('dietaryRestrictions') || '[]'),
+            availableIngredients: JSON.parse(localStorage.getItem('availableIngredients') || '[]'),
+            timeConstraints: localStorage.getItem('timeConstraints') || '',
+            servingSize: parseInt(localStorage.getItem('servingSize') || '4')
+          },
+          conversationHistory: messages
+        };
+
+        recipeGenerationMutation.mutate(request);
+      }
+    }
+  };
+
+  const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setInput(e.target.value);
+    // Auto-resize
+    e.target.style.height = 'auto';
+    e.target.style.height = e.target.scrollHeight + 'px';
+  };
+
+  const suggestions = [
+    "Create a sourdough bread recipe for beginners",
+    "Help me make chocolate chip cookies that are crispy",
+    "I need a gluten-free pizza dough recipe",
+    "What can I bake with just flour, eggs, and sugar?",
+    "Design a birthday cake for a 6-year-old",
+    "I want to make croissants but I'm intermediate level"
+  ];
+
+  return (
+    <MobileLayout title="AI Recipe Generator" showBackButton showQuickTools={false}>
+      <SEO
+        title="AI Recipe Generator | Personalized Baking Recipes"
+        description="Generate custom baking recipes using advanced AI technology. Get personalized recipes, step-by-step instructions, and real-time baking guidance tailored to your skill level and preferences."
+        keywords={['AI recipe generator', 'custom baking recipes', 'personalized recipes', 'AI cooking assistant', 'smart recipe creation']}
+      />
+      
+      <div className="flex flex-col h-[calc(100vh-120px)] relative z-auto bg-white dark:bg-gray-900" key="ai-recipe-main">
+        {/* Header */}
+        <div className="flex-shrink-0 p-4 border-b bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950 dark:to-indigo-950">
+          <div className="flex items-center justify-between mb-2">
+            <div className="flex items-center gap-3">
+              <Brain className="h-6 w-6 text-blue-600" />
+              <h1 className="text-xl font-bold">AI Recipe Generator</h1>
+              <Badge variant="secondary" className="bg-blue-100 text-blue-700">
+                <Sparkles className="h-3 w-3 mr-1" />
+                AI Powered
+              </Badge>
+            </div>
+          </div>
+          <p className="text-sm text-muted-foreground">
+            Describe what you want to bake and I'll create a personalized recipe for you
+          </p>
+        </div>
+
+        {/* Messages - with padding for fixed input */}
+        <div className="flex-1 overflow-y-auto p-4 space-y-4 relative z-10 pb-32">
+          {messages.map((message) => (
+            <div key={message.id} className={`flex gap-3 relative z-20 ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+              {message.role === 'assistant' && (
+                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center">
+                  <Bot className="h-4 w-4 text-blue-600" />
+                </div>
+              )}
+              
+              <div className={`max-w-[80%] relative z-30 ${message.role === 'user' ? 'order-first' : ''}`}>
+                <Card className={`p-4 relative z-40 ${message.role === 'user' 
+                  ? 'bg-blue-600 text-white' 
+                  : 'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-lg'
+                }`}>
+                  {message.isLoading ? (
+                    <div className="flex items-center gap-2">
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600"></div>
+                      <span className="text-sm text-muted-foreground">Generating your recipe...</span>
+                    </div>
+                  ) : (
+                    <div className="space-y-3">
+                      <div className="prose prose-sm max-w-none dark:prose-invert">
+                        {message.content ? (
+                          <ReactMarkdown 
+                            remarkPlugins={[remarkGfm]}
+                            components={{
+                              h1: ({ children }) => <h1 className="text-xl font-bold mb-3 text-blue-600">{children}</h1>,
+                              h2: ({ children }) => <h2 className="text-lg font-semibold mb-2 mt-4 text-gray-800 dark:text-gray-200">{children}</h2>,
+                              p: ({ children }) => <p className="mb-2 leading-relaxed">{children}</p>,
+                              ul: ({ children }) => <ul className="mb-3 space-y-1">{children}</ul>,
+                              li: ({ children }) => <li className="ml-4">{children}</li>,
+                              strong: ({ children }) => <strong className="font-semibold text-blue-600">{children}</strong>
+                            }}
+                          >
+                            {message.content}
+                          </ReactMarkdown>
+                        ) : (
+                          "Recipe generated successfully! Check the details above."
+                        )}
+                      </div>
+                      
+                      {message.role === 'assistant' && !message.isLoading && (
+                        <div className="flex gap-2 pt-2 border-t border-border/50">
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            onClick={() => handleCopy(message.content)}
+                            className="h-7 px-2 text-xs"
+                          >
+                            <Copy className="h-3 w-3 mr-1" />
+                            Copy
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            onClick={handleRegenerate}
+                            className="h-7 px-2 text-xs"
+                          >
+                            <RefreshCw className="h-3 w-3 mr-1" />
+                            Regenerate
+                          </Button>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </Card>
+                
+                <div className="flex items-center gap-2 mt-1 text-xs text-muted-foreground">
+                  {message.role === 'user' ? (
+                    <User className="h-3 w-3" />
+                  ) : (
+                    <Bot className="h-3 w-3" />
+                  )}
+                  <span>{message.timestamp.toLocaleTimeString()}</span>
+                </div>
+              </div>
+
+              {message.role === 'user' && (
+                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
+                  <User className="h-4 w-4 text-gray-600 dark:text-gray-400" />
+                </div>
+              )}
+            </div>
+          ))}
+          <div ref={messagesEndRef} />
+        </div>
+
+
+
+        {/* Fixed Input at Bottom */}
+        <div className="fixed bottom-0 left-0 right-0 p-4 border-t bg-background z-50 shadow-lg">
+          <div className="max-w-4xl mx-auto">
+            <form onSubmit={handleSubmit} className="flex gap-2">
+              <div className="flex-1 relative">
+                <Textarea
+                  ref={textareaRef}
+                  value={input}
+                  onChange={handleTextareaChange}
+                  placeholder="Describe what you want to bake..."
+                  className="min-h-[44px] max-h-32 resize-none pr-12"
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                      e.preventDefault();
+                      handleSubmit(e);
+                    }
+                  }}
+                />
+                <Button
+                  type="submit"
+                  size="sm"
+                  disabled={!input.trim() || recipeGenerationMutation.isPending}
+                  className="absolute right-2 bottom-2 h-8 w-8 p-0"
+                >
+                  <Send className="h-4 w-4" />
+                </Button>
+              </div>
+            </form>
+            <p className="text-xs text-muted-foreground mt-2 text-center">
+              Press Enter to send, Shift+Enter for new line
+            </p>
+          </div>
+        </div>
+      </div>
+    </MobileLayout>
+  );
+}

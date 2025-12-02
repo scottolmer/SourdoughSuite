@@ -1,0 +1,347 @@
+I'll create a comprehensive UX/UI description for the Recipe Validator screens based on the detailed information provided in your documents. This will cover the main interfaces, user flows, and key components needed to create an effective recipe validation tool.
+
+# Recipe Validator UX/UI Design Specification
+
+## 1. Entry Screen
+
+### Purpose
+The entry point for users to submit recipes for validation, designed to be approachable while offering multiple input methods.
+
+### Layout Components
+- **Header Section**
+  - Tool title ("Recipe Validator") with subtle bread icon
+  - Brief description: "Analyze your sourdough recipes for technical accuracy, balance, and potential issues"
+  - Tabbed navigation showing "Recipe Validator" as active tab
+
+- **Input Method Selection**
+  - Four clearly labeled input options presented as cards:
+    1. **Structured Form** - Icon of form fields
+    2. **Free-Text Entry** - Icon of text paragraph
+    3. **URL Import** - Icon of link/chain
+    4. **Image Upload** - Icon of camera/image
+
+- **Recent Validations**
+  - Small horizontal scrollable section showing 2-3 recently validated recipes (if available)
+  - Each card shows recipe name, date validated, and a thumbnail visualization of hydration
+
+- **Getting Started Tips**
+  - Collapsible info panel with quick tips for best results
+  - "What can be validated" explanation
+
+### Interactive Elements
+- Method selection cards that expand when clicked
+- Info tooltips explaining each input method
+- Example recipe button that pre-fills form with sample data
+
+## 2. Recipe Input Form
+
+### Purpose
+Structured collection of recipe details with intelligent parsing and ingredient management.
+
+### Layout Components
+- **Base Information Section**
+  - Recipe name field
+  - Starter type dropdown (showing all Bakehouse starters)
+  - Target final dough weight input (optional)
+  - Bread style/shape selection (with visual icons)
+
+- **Ingredients Table**
+  - Column headers: Ingredient, Amount, Unit, Notes
+  - Intelligent row management with "+" button to add ingredients
+  - Autocomplete for common ingredients 
+  - Unit conversion toggle (g/oz/cups)
+  - Visual indicators for required fields
+
+- **Process Timeline Creator**
+  - Visual timeline builder with time blocks
+  - Step name field for each block
+  - Duration slider/input for each step
+  - Temperature input where applicable
+  - Technique dropdown for each stage
+  - Drag handles to adjust order and duration
+
+- **Environmental Factors**
+  - Ambient temperature input
+  - Humidity consideration (optional)
+  - Equipment specification checkboxes
+
+- **Action Bar**
+  - "Validate Recipe" primary button (amber)
+  - "Save Draft" secondary button
+  - "Import" option for pulling from other tools
+
+### Interactive Elements
+- Real-time calculation of baker's percentages as ingredients are added
+- Smart suggestions for missing ingredients
+- Drag-and-drop reordering of process steps
+- Preset timing templates for common bread styles
+
+## 3. Analysis Dashboard
+
+### Purpose
+Present validation results with clear issue identification and educational context.
+
+### Layout Components
+- **Recipe Overview Panel**
+  - Recipe snapshot with name and basic details
+  - Visual gauge showing hydration percentage
+  - Salt percentage indicator with reference range
+  - Starter percentage with reference range
+  - Total fermentation time calculation
+  - Difficulty level assessment
+
+- **Issue Detection Panel**
+  - Traffic light indicators for major categories:
+    - Hydration Balance (red/yellow/green)
+    - Fermentation Timing (red/yellow/green)
+    - Salt Content (red/yellow/green)
+    - Technique Sequence (red/yellow/green)
+  - Expandable sections for each category
+  - Severity indicators (critical/warning/suggestion)
+  - Clear explanations of each issue
+
+- **Optimization Controls**
+  - Interactive sliders for key variables:
+    - Hydration adjustment
+    - Fermentation time
+    - Salt percentage
+    - Starter percentage
+  - Real-time recalculation as sliders adjust
+  - "Apply All Recommendations" button
+  - Before/after comparison visualization
+
+- **Educational Sidebar**
+  - Context-sensitive explanations for current issues
+  - Visual examples of proper techniques
+  - Links to related educational content
+  - Quick tips specific to this recipe type
+
+### Interactive Elements
+- Expandable/collapsible sections for detailed analysis
+- Hover states on issues with expanded explanations
+- Toggle between original and optimized recipe views
+- Animated transitions when adjustments are made
+
+## 4. Results & Actions Panel
+
+### Purpose
+Provide actionable next steps and integration with other tools.
+
+### Layout Components
+- **Optimized Recipe Display**
+  - Clean, printable format with baker's percentages
+  - Toggle between original and optimized versions
+  - Highlighted changes between versions
+  - PDF export button
+
+- **Sharing Options**
+  - Email recipe button
+  - Generate shareable link
+  - Save to account (with account creation prompt for guests)
+  - Add to personal recipe collection
+
+- **Next Steps Cards**
+  - Timeline Calculator card: "Create a baking schedule"
+  - Starter Care Guide card: "Prepare your starter"
+  - Community button: "Share for feedback"
+  - Related Recipes: "See similar recipes"
+
+- **Feedback Mechanism**
+  - Simple thumbs up/down on validation accuracy
+  - Optional comment field for improvement suggestions
+
+### Interactive Elements
+- One-click transfer to Timeline Calculator with pre-populated data
+- Download buttons for different format options
+- Social sharing integration
+- Print-friendly layout toggle
+
+## 5. Mobile-Optimized Views
+
+### Purpose
+Ensure full functionality on smaller screens with adapted layouts.
+
+### Key Adaptations
+- **Entry Screen**
+  - Method selection cards stack vertically
+  - Simplified recent validations section
+
+- **Recipe Input Form**
+  - Collapsible sections for ingredients, process, etc.
+  - Touch-optimized controls for timeline adjustment
+  - Simplified ingredient table with swipe actions
+
+- **Analysis Dashboard**
+  - Sequential display of analysis categories
+  - Bottom sheet for educational content
+  - Fullscreen option for detailed views
+
+- **Results Panel**
+  - Action buttons organized in priority order
+  - Floating action button for primary actions
+  - Sticky header with key metrics always visible
+
+### Mobile-Specific Features
+- Camera access for direct recipe photo capture
+- Voice input option for recipe dictation
+- Simplified controls optimized for touch
+- Bottom navigation for cross-tool movement
+
+## 6. Starter-Specific Customization
+
+### Purpose
+Personalize the validation experience based on starter type selection.
+
+### Implementation
+- **Koji Starter View**
+  - Specialized reference ranges for enzyme activity
+  - Warmer temperature recommendations
+  - Enriched dough optimization tips
+  - Asian-inspired flavor pairing suggestions
+
+- **San Francisco Starter View**
+  - Traditional technique recommendations
+  - Standard temperature range guidance
+  - Classic bread style optimization
+  - Longer fermentation time suggestions
+
+- **Kombucha Starter View**
+  - Acidity balance considerations
+  - Tea-enhanced flavor development tips
+  - Fruit and whole grain pairing recommendations
+  - Special handling instructions
+
+- **Visual Styling**
+  - Subtle color accents based on starter type
+  - Specialized icons representing each starter
+  - Custom reference images for expected results
+  - Starter-specific terminology in explanations
+
+### Interactive Elements
+- Starter type toggle with immediate recalculation
+- Comparison view between different starter options
+- Specialized advice panels for each starter type
+
+## 7. Professional Mode Extensions
+
+### Purpose
+Provide advanced functionality for commercial bakers and professionals.
+
+### Additional Features
+- **Batch Scaling System**
+  - Scale toggle between home and commercial quantities
+  - Production run calculator
+  - Equipment capacity validation
+  - Labor estimation by production step
+
+- **Consistency Management**
+  - Recipe versioning system
+  - Standard operating procedure generator
+  - Quality control checkpoint definitions
+  - Troubleshooting decision trees
+
+- **Cost Analysis**
+  - Ingredient cost breakdown
+  - Margin calculator
+  - Waste reduction analysis
+  - Secondary product opportunity identification
+
+### Visual Treatment
+- Compact, data-dense layout option
+- Additional technical metrics displayed
+- Expanded reference ranges
+- Multi-recipe comparison tools
+
+## 8. User Experience Flow
+
+### First-Time User Journey
+1. User enters from product page or tool hub
+2. Brief welcome/orientation overlay explains the tool
+3. User selects input method (typically structured form for first use)
+4. Form guides user through required fields with inline help
+5. "Validate Recipe" button triggers analysis with loading animation
+6. Results appear with most critical issues highlighted
+7. Interactive tour points out key features of analysis
+8. Clear next step suggestions guide further actions
+
+### Return User Journey
+1. User enters with recent validations visible
+2. Quick access to previous recipes for modification
+3. Streamlined input flow with stored preferences
+4. Advanced features progressively revealed
+5. Personalized suggestions based on past usage
+6. Integration with other previously used tools
+
+### Expert User Journey
+1. Direct access to professional mode features
+2. Keyboard shortcuts and efficiency tools
+3. Batch processing capabilities
+4. Integration with commercial systems
+5. Advanced customization of validation parameters
+
+## 9. Visual Design System
+
+### Color Palette
+- **Primary**: Amber (#D97706) for buttons and accents
+- **Secondary**: Deep charcoal (#1C1917) for key text
+- **Tertiary**: Light gray (#F3F4F6) for backgrounds
+- **Status Colors**:
+  - Success: Green (#10B981)
+  - Warning: Amber (#F59E0B)
+  - Error: Red (#EF4444)
+  - Info: Blue (#3B82F6)
+
+### Typography
+- **Headings**: Serif font for bread-related terminology
+- **Body**: Clean sans-serif for readability
+- **Code/Data**: Monospace for measurements and percentages
+- **Hierarchy**:
+  - H1: 24px/1.2 (page titles)
+  - H2: 20px/1.3 (section headers)
+  - H3: 16px/1.4 (subsection headers)
+  - Body: 14px/1.5 (general text)
+  - Small: 12px/1.4 (annotations, captions)
+
+### UI Components
+- **Cards**: Subtle shadow, 8px radius, white background
+- **Buttons**: 
+  - Primary: Amber background, white text, subtle hover effect
+  - Secondary: White with amber outline
+  - Tertiary: Text only with hover underline
+- **Inputs**: 
+  - Clean fields with subtle outline when inactive
+  - Clear focus states with amber highlight
+  - Inline validation with color-coded indicators
+- **Data Visualization**:
+  - Circular gauges for percentages
+  - Horizontal bars for comparisons
+  - Line charts for fermentation curves
+  - Color-coded indicators using status colors
+
+## 10. Accessibility Considerations
+
+### Key Features
+- **Keyboard Navigation**:
+  - Logical tab order throughout interface
+  - Keyboard shortcuts for common actions
+  - Focus indicators visible at all times
+
+- **Screen Reader Support**:
+  - ARIA labels for all interactive elements
+  - Meaningful alt-text for visualizations
+  - Semantic HTML structure
+  - Announcements for dynamic content changes
+
+- **Visual Accessibility**:
+  - High contrast mode option
+  - Text scaling without layout breaking
+  - No reliance on color alone for meaning
+  - Adjustable animation settings
+
+- **Cognitive Accessibility**:
+  - Progressive disclosure of complex information
+  - Clear, consistent terminology
+  - Step-by-step guidance available
+  - Undo/redo functionality for all actions
+
+This comprehensive design specification provides a detailed roadmap for implementing the Recipe Validator tool, ensuring it delivers both technical accuracy and an intuitive user experience aligned with Bakehouse Breads' brand identity and educational mission.​​​​​​​​​​​​​​​​

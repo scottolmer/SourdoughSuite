@@ -1,0 +1,463 @@
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import { Input } from "@/components/ui/input";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { cn } from "@/lib/utils";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
+import { 
+  AlertCircle, 
+  FileText, 
+  Link as LinkIcon, 
+  Upload, 
+  Clipboard, 
+  AlignLeft, 
+  Info, 
+  ArrowRight, 
+  Droplets,
+  AlertTriangle,
+  AlertOctagon,
+  ChevronDown,
+  Check,
+  CheckCircle,
+  ArrowUpRight,
+  ArrowDownRight,
+  ChevronRight,
+  Lightbulb
+}
+from "lucide-react";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+
+type InputMethod = "structured-form" | "free-text" | "import-url" | "upload-image";
+type StatusType = 'pass' | 'warning' | 'error';
+type SeverityType = 'high' | 'medium' | 'low';
+type MetricType = 'critical' | 'warning' | 'suggestion';
+
+interface ValidationIssue {
+  severity: SeverityType;
+  issue: string;
+  impact: string;
+  suggestion: string;
+  fixable: boolean;
+}
+
+interface ParameterGaugeProps {
+  label: string;
+  value: number | null;
+  status: StatusType;
+  ideal: number;
+  min: number;
+  max: number;
+  step?: number;
+  unit?: string;
+}
+
+interface MetricCardProps {
+  label: string;
+  value: number;
+  type: MetricType;
+  icon: React.ReactNode;
+}
+
+interface IssueCardProps {
+  issue: ValidationIssue;
+  onFix: (issue: ValidationIssue) => void;
+}
+
+// Sample recently validated recipes for UI display
+const recentRecipes = [
+  {
+    id: 1,
+    name: "San Francisco Sourdough",
+    date: "April 18, 2025",
+    hydration: 75
+  },
+  {
+    id: 2, 
+    name: "Rye Country Loaf",
+    date: "April 15, 2025",
+    hydration: 82
+  },
+  {
+    id: 3,
+    name: "Whole Wheat Sandwich Bread",
+    date: "April 10, 2025",
+    hydration: 68
+  }
+];
+
+// Sample validation results for the results screen demo
+const sampleValidationResults = {
+  summary: {
+    overallStatus: 'needs-attention',
+    critical: 1,
+    warnings: 2,
+    suggestions: 3
+  },
+  technicalAccuracy: {
+    hydrationLevel: {
+      value: 70,
+      status: 'pass' as StatusType,
+      idealValue: 72,
+      explanation: 'Hydration level is within the optimal range for this type of bread.'
+    },
+    saltPercentage: {
+      value: 1.8,
+      status: 'warning' as StatusType,
+      idealValue: 2.0,
+      explanation: 'Salt percentage is slightly low, which could affect flavor and fermentation control.'
+    },
+    starterPercentage: {
+      value: 15,
+      status: 'pass' as StatusType,
+      idealValue: 20,
+      explanation: 'Starter percentage is acceptable but slightly more would enhance flavor development.'
+    }
+  },
+  processValidity: {
+    fermentationTime: {
+      value: 240, // 4 hours in minutes
+      status: 'warning' as StatusType,
+      idealValue: 300, // 5 hours in minutes
+      explanation: 'Bulk fermentation time might be too short for optimal flavor development.'
+    },
+    fermentationTemperature: {
+      value: null,
+      status: 'error' as StatusType,
+      idealValue: 76, // °F
+      explanation: 'Fermentation temperature is not specified, which is critical for consistent results.'
+    }
+  },
+  issues: [
+    {
+      severity: 'high' as SeverityType,
+      issue: 'Missing fermentation temperature',
+      impact: 'Without a specified fermentation temperature, results will be inconsistent and unpredictable.',
+      suggestion: 'Specify ambient temperature of 75-78°F (24-26°C) for bulk fermentation, or adjust time accordingly for different temperatures.',
+      fixable: true
+    },
+    {
+      severity: 'medium' as SeverityType,
+      issue: 'Salt percentage is low',
+      impact: 'Low salt can lead to overactive fermentation and less flavor development.',
+      suggestion: 'Increase salt to 2% of total flour weight (approximately 10g for this recipe).',
+      fixable: true
+    },
+    {
+      severity: 'medium' as SeverityType,
+      issue: 'Short bulk fermentation time',
+      impact: 'Insufficient bulk fermentation may result in less flavor complexity and underdeveloped structure.',
+      suggestion: 'Consider extending bulk fermentation to 5-6 hours at room temperature, or use temperature control.',
+      fixable: true
+    },
+    {
+      severity: 'low' as SeverityType,
+      issue: 'No mention of dough strength development',
+      impact: 'Lack of specified strength building can lead to poor structure and shape retention.',
+      suggestion: 'Add a series of stretch and folds: 3-4 sets spaced 30 minutes apart during the first 2 hours of bulk fermentation.',
+      fixable: true
+    },
+    {
+      severity: 'low' as SeverityType,
+      issue: 'Starter maturity not specified',
+      impact: 'The maturity of your starter affects fermentation timing and flavor development.',
+      suggestion: 'Use starter at peak activity, typically 4-6 hours after feeding at 1:1:1 ratio.',
+      fixable: false
+    },
+    {
+      severity: 'low' as SeverityType,
+      issue: 'Missing dough handling temperatures',
+      impact: 'Water and flour temperature affect fermentation rate and final results.',
+      suggestion: 'Aim for final dough temperature of 78°F (26°C) by adjusting water temperature.',
+      fixable: false
+    }
+  ],
+  optimizedRecipe: {
+    name: 'Optimized Country Sourdough',
+    hydration: 72,
+    ingredients: [
+      { name: 'Bread flour', amount: 400, unit: 'g', percentage: 80 },
+      { name: 'Whole wheat flour', amount: 100, unit: 'g', percentage: 20 },
+      { name: 'Water', amount: 360, unit: 'g', percentage: 72 },
+      { name: 'Sourdough starter (100% hydration)', amount: 100, unit: 'g', percentage: 20 },
+      { name: 'Salt', amount: 10, unit: 'g', percentage: 2 }
+    ],
+    process: [
+      { 
+        step: 1, 
+        name: 'Autolyse', 
+        details: 'Mix flours and 340g water (hold back 20g). Rest for 30-60 minutes.' 
+      },
+      { 
+        step: 2, 
+        name: 'Add starter', 
+        details: 'Add starter and mix thoroughly. Rest 30 minutes.' 
+      },
+      { 
+        step: 3, 
+        name: 'Add salt', 
+        details: 'Mix salt with remaining 20g water and incorporate into dough. Rest 30 minutes.' 
+      },
+      { 
+        step: 4, 
+        name: 'Bulk fermentation', 
+        details: 'Maintain dough at 76°F (24°C) for 5-6 hours. Perform 4 sets of stretch and folds in first 2 hours.' 
+      },
+      { 
+        step: 5, 
+        name: 'Preshape', 
+        details: 'Gently preshape into a round. Bench rest 20-30 minutes.' 
+      },
+      { 
+        step: 6, 
+        name: 'Final shape', 
+        details: 'Shape into boule or batard and place in banneton.' 
+      },
+      { 
+        step: 7, 
+        name: 'Final proof', 
+        details: 'Refrigerate 12-16 hours at 38-40°F (3-4°C).' 
+      },
+      { 
+        step: 8, 
+        name: 'Bake', 
+        details: 'Preheat oven to 500°F (260°C) with Dutch oven. Score dough, bake covered 20 minutes at 475°F, then uncovered 20-25 minutes until dark golden brown.' 
+      }
+    ]
+  }
+};
+
+// Component for displaying parameter measurements
+function ParameterGauge({ label, value, status, ideal, min, max, step = 1, unit = '%' }: ParameterGaugeProps) {
+  // Status colors
+  const statusColors: Record<StatusType, string> = {
+    'pass': '#10B981', // green
+    'warning': '#F59E0B', // amber
+    'error': '#EF4444' // red
+  };
+  
+  const color = statusColors[status] || statusColors.warning;
+  
+  // Calculate percentage position on the gauge
+  const percentage = typeof value === 'number' ? 
+    Math.min(Math.max(((value - min) / (max - min)) * 100, 0), 100) : 0;
+  const idealPercentage = Math.min(Math.max(((ideal - min) / (max - min)) * 100, 0), 100);
+  
+  return (
+    <div className="parameter-gauge p-4 bg-white rounded-lg border">
+      <div className="flex items-center justify-between mb-2">
+        <span className="text-sm font-medium text-gray-700">{label}</span>
+        <span className="text-xl font-semibold" style={{ color }}>
+          {typeof value === 'number' ? value.toFixed(step < 1 ? 1 : 0) : value}{unit}
+        </span>
+      </div>
+      
+      <div className="gauge-track h-2 bg-gray-200 rounded-full relative mb-1">
+        {/* Ideal marker */}
+        <div 
+          className="ideal-marker absolute w-1 h-4 bg-gray-500 rounded-full -mt-1" 
+          style={{ left: `${idealPercentage}%` }}
+          title={`Ideal: ${ideal}${unit}`}
+        />
+        
+        {/* Value indicator */}
+        <div 
+          className="gauge-fill h-full rounded-full" 
+          style={{ 
+            width: `${percentage}%`, 
+            backgroundColor: color 
+          }} 
+        />
+      </div>
+      
+      <div className="gauge-labels flex justify-between text-xs text-gray-500">
+        <span>{min}{unit}</span>
+        <span>{max}{unit}</span>
+      </div>
+    </div>
+  );
+}
+
+// Issue card component for displaying validation issues
+function IssueCard({ issue, onFix }: IssueCardProps) {
+  const [expanded, setExpanded] = useState(false);
+  
+  return (
+    <div className="issue-card border rounded-lg overflow-hidden">
+      <div 
+        className="issue-header p-4 bg-gray-50 flex items-center justify-between cursor-pointer"
+        onClick={() => setExpanded(!expanded)}
+      >
+        <div className="flex items-center">
+          {issue.severity === 'high' ? 
+            <AlertOctagon size={18} className="text-red-500 mr-3" /> :
+            issue.severity === 'medium' ?
+            <AlertTriangle size={18} className="text-yellow-500 mr-3" /> :
+            <Info size={18} className="text-blue-500 mr-3" />
+          }
+          <h4 className="font-medium">{issue.issue}</h4>
+        </div>
+        <ChevronDown 
+          size={18} 
+          className={`transition-transform ${expanded ? 'rotate-180' : ''}`}
+        />
+      </div>
+      
+      {expanded && (
+        <div className="issue-content p-4">
+          <p className="text-gray-700 mb-4">{issue.impact}</p>
+          
+          <div className="recommendation bg-amber-50 p-3 rounded-lg mb-4">
+            <div className="flex items-start">
+              <Lightbulb size={16} className="text-amber-600 mt-1 mr-2 flex-shrink-0" />
+              <div>
+                <span className="font-medium text-amber-800">Recommendation:</span>
+                <p className="text-amber-700">{issue.suggestion}</p>
+              </div>
+            </div>
+          </div>
+          
+          {issue.fixable && (
+            <Button 
+              className="fix-button px-4 py-2 bg-amber-600 text-white rounded hover:bg-amber-700"
+              onClick={() => onFix && onFix(issue)}
+            >
+              Apply Fix
+            </Button>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// Metric card for displaying summary data
+function MetricCard({ label, value, type, icon }: MetricCardProps) {
+  const bgColors: Record<MetricType, string> = {
+    'critical': 'bg-red-50 border-red-100',
+    'warning': 'bg-yellow-50 border-yellow-100',
+    'suggestion': 'bg-blue-50 border-blue-100'
+  };
+  
+  const textColors: Record<MetricType, string> = {
+    'critical': 'text-red-700',
+    'warning': 'text-yellow-700',
+    'suggestion': 'text-blue-700'
+  };
+  
+  return (
+    <div className={`p-4 rounded-lg border ${bgColors[type] || 'bg-gray-50 border-gray-100'}`}>
+      <div className="flex items-center justify-between mb-1">
+        <span className="text-sm text-gray-600">{label}</span>
+        {icon && <span className={textColors[type]}>{icon}</span>}
+      </div>
+      <div className={`text-2xl font-semibold ${textColors[type]}`}>
+        {value}
+      </div>
+    </div>
+  );
+}
+
+export default function RecipeValidator() {
+  // Input method and screen state
+  const [selectedMethod, setSelectedMethod] = useState<InputMethod | null>(null);
+  const [activeScreen, setActiveScreen] = useState<'entry' | 'input' | 'analysis' | 'results'>('entry');
+  
+  // Recipe input states
+  const [recipeText, setRecipeText] = useState("");
+  const [ingredients, setIngredients] = useState({
+    breadFlour: "",
+    wholeWheat: "",
+    rye: "",
+    water: "",
+    salt: "",
+    starter: "",
+    starterType: "100% Hydration",
+    methodNotes: ""
+  });
+  const [recipeUrl, setRecipeUrl] = useState("");
+  
+  // Recipe context/metadata
+  const [context, setContext] = useState({
+    recipeName: "",
+    targetStyle: "Artisan loaf",
+    targetDoughWeight: "",
+    outcomes: {
+      lightAndAiry: false,
+      darkCrust: true,
+      openCrumb: false
+    },
+    starterType: "Wheat",
+    equipment: {
+      dutchOven: false,
+      banneton: false,
+      breadLame: false,
+      saveAsTemplate: false
+    }
+  });
+  
+  // Tips visibility state
+  const [tipsExpanded, setTipsExpanded] = useState(true);
+
+  const handleIngredientChange = (key: string, value: string) => {
+    setIngredients(prev => ({
+      ...prev,
+      [key]: value
+    }));
+  };
+
+  const handleContextChange = (section: string, key: string, value: any) => {
+    setContext(prev => {
+      const sectionObj = prev[section as keyof typeof prev] as Record<string, any>;
+      return {
+        ...prev,
+        [section]: {
+          ...sectionObj,
+          [key]: value
+        }
+      };
+    });
+  };
+
+  const handleStringContextChange = (key: string, value: string) => {
+    setContext(prev => ({
+      ...prev,
+      [key]: value
+    }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Process the recipe for validation
+    console.log("Validating recipe with method:", selectedMethod);
+    setActiveScreen('analysis');
+    
+    // Simulate analysis process with a timer then show results
+    setTimeout(() => {
+      setActiveScreen('results');
+    }, 2000);
+  };
+  
+  // Handle a fix being applied to a validation issue
+  const handleApplyFix = (issue: ValidationIssue) => {
+    console.log("Applying fix for:", issue.issue);
+    // In a real app, this would apply the fix to the recipe
+  };
+  
+  // Handle applying all optimizations
+  const handleApplyAllOptimizations = () => {
+    console.log("Applying all optimizations");
+    // In a real app, this would apply all the optimized values
+  };
+  
+  const handleMethodSelect = (method: InputMethod) => {
+    setSelectedMethod(method);
+    setActiveScreen('input');
+  };
+  
+  const handleLoadExample = () => {
+    setRecipeText(`500g bread flour
+350g water (70% hydration)

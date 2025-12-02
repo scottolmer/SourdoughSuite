@@ -1,0 +1,727 @@
+I'd be happy to provide technical assistance with implementing the Recipe Validator results page. Let me focus on the specific implementation details for effectively displaying validation results and user interactions.
+
+## Recipe Validator Results Page Implementation
+
+### Core Display Components
+
+The results page needs to present complex validation data in an intuitive way. Here's how I'd implement the key components:
+
+#### 1. Results Overview Component
+
+This component needs to summarize the validation findings at a glance:
+
+```javascript
+function RecipeValidationSummary({ validationResults }) {
+  const { summary } = validationResults;
+  const statusClasses = {
+    'good': 'bg-green-100 text-green-800 border-green-200',
+    'needs-attention': 'bg-yellow-100 text-yellow-800 border-yellow-200',
+    'needs-correction': 'bg-red-100 text-red-800 border-red-200'
+  };
+  
+  const statusClass = statusClasses[summary.overallStatus] || statusClasses['needs-attention'];
+  
+  return (
+    <div className="validation-summary p-6 rounded-lg shadow-sm border mb-6">
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="text-xl font-semibold text-gray-900">Recipe Analysis</h2>
+        <div className={`status-badge px-3 py-1 rounded-full text-sm font-medium ${statusClass}`}>
+          {summary.overallStatus === 'good' ? 'Recipe Looks Good!' : 
+           summary.overallStatus === 'needs-attention' ? 'Recipe Needs Attention' :
+           'Recipe Needs Correction'}
+        </div>
+      </div>
+      
+      <div className="grid grid-cols-3 gap-4 mb-6">
+        <MetricCard 
+          label="Technical Issues" 
+          value={summary.critical} 
+          type="critical"
+          icon={<AlertTriangle size={18} />} 
+        />
+        <MetricCard 
+          label="Warnings" 
+          value={summary.warnings} 
+          type="warning"
+          icon={<AlertCircle size={18} />} 
+        />
+        <MetricCard 
+          label="Suggestions" 
+          value={summary.suggestions} 
+          type="suggestion"
+          icon={<LightBulb size={18} />} 
+        />
+      </div>
+      
+      <div className="key-parameters grid grid-cols-2 gap-4">
+        <ParameterGauge 
+          label="Hydration" 
+          value={validationResults.technicalAccuracy.hydrationLevel.value} 
+          status={validationResults.technicalAccuracy.hydrationLevel.status} 
+          ideal={validationResults.technicalAccuracy.hydrationLevel.idealValue} 
+          min={65} 
+          max={90} 
+        />
+        <ParameterGauge 
+          label="Salt %" 
+          value={validationResults.technicalAccuracy.saltPercentage.value} 
+          status={validationResults.technicalAccuracy.saltPercentage.status} 
+          ideal={validationResults.technicalAccuracy.saltPercentage.idealValue} 
+          min={1.5} 
+          max={2.5} 
+          step={0.1} 
+        />
+        <ParameterGauge 
+          label="Starter %" 
+          value={validationResults.technicalAccuracy.starterPercentage.value} 
+          status={validationResults.technicalAccuracy.starterPercentage.status} 
+          ideal={validationResults.technicalAccuracy.starterPercentage.idealValue} 
+          min={5} 
+          max={35} 
+        />
+        <ParameterGauge 
+          label="Bulk Fermentation" 
+          value={validationResults.processValidity.fermentationTime.value / 60} // Convert to hours
+          status={validationResults.processValidity.fermentationTime.status} 
+          ideal={validationResults.processValidity.fermentationTime.idealValue / 60} 
+          min={2} 
+          max={8}
+          unit="h" 
+        />
+      </div>
+    </div>
+  );
+}
+```
+
+#### 2. Parameter Gauge Component
+
+Each key parameter needs an intuitive gauge visualization:
+
+```javascript
+function ParameterGauge({ label, value, status, ideal, min, max, step = 1, unit = '%' }) {
+  // Status colors
+  const statusColors = {
+    'pass': '#10B981', // green
+    'warning': '#F59E0B', // amber
+    'error': '#EF4444' // red
+  };
+  
+  const color = statusColors[status] || statusColors.warning;
+  
+  // Calculate percentage position on the gauge
+  const percentage = Math.min(Math.max(((value - min) / (max - min)) * 100, 0), 100);
+  const idealPercentage = Math.min(Math.max(((ideal - min) / (max - min)) * 100, 0), 100);
+  
+  return (
+    <div className="parameter-gauge p-4 bg-white rounded-lg border">
+      <div className="flex items-center justify-between mb-2">
+        <span className="text-sm font-medium text-gray-700">{label}</span>
+        <span className="text-xl font-semibold" style={{ color }}>
+          {typeof value === 'number' ? value.toFixed(step < 1 ? 1 : 0) : value}{unit}
+        </span>
+      </div>
+      
+      <div className="gauge-track h-2 bg-gray-200 rounded-full relative mb-1">
+        {/* Ideal marker */}
+        <div 
+          className="ideal-marker absolute w-1 h-4 bg-gray-500 rounded-full -mt-1" 
+          style={{ left: `${idealPercentage}%` }}
+          title={`Ideal: ${ideal}${unit}`}
+        />
+        
+        {/* Value indicator */}
+        <div 
+          className="gauge-fill h-full rounded-full" 
+          style={{ 
+            width: `${percentage}%`, 
+            backgroundColor: color 
+          }} 
+        />
+      </div>
+      
+      <div className="gauge-labels flex justify-between text-xs text-gray-500">
+        <span>{min}{unit}</span>
+        <span>{max}{unit}</span>
+      </div>
+    </div>
+  );
+}
+```
+
+#### 3. Issue List Component
+
+This component displays detailed issues and recommendations:
+
+```javascript
+function IssueList({ issues, onFixIssue }) {
+  const issueTypeIcons = {
+    'high': <AlertOctagon size={16} className="text-red-500" />,
+    'medium': <AlertTriangle size={16} className="text-yellow-500" />,
+    'low': <Info size={16} className="text-blue-500" />
+  };
+  
+  const groupedIssues = {
+    high: issues.filter(issue => issue.severity === 'high'),
+    medium: issues.filter(issue => issue.severity === 'medium'),
+    low: issues.filter(issue => issue.severity === 'low')
+  };
+  
+  // Only show categories that have issues
+  const categories = Object.keys(groupedIssues).filter(key => groupedIssues[key].length > 0);
+  
+  return (
+    <div className="issues-container p-6 bg-white rounded-lg shadow-sm border">
+      <h2 className="text-xl font-semibold text-gray-900 mb-4">Issues & Recommendations</h2>
+      
+      {categories.length === 0 ? (
+        <div className="empty-state p-6 bg-green-50 rounded-lg text-center">
+          <CheckCircle size={32} className="text-green-500 mx-auto mb-3" />
+          <p className="text-green-800 font-medium">No issues found!</p>
+          <p className="text-green-600">Your recipe looks technically sound.</p>
+        </div>
+      ) : (
+        <div className="issue-categories space-y-6">
+          {categories.map(category => (
+            <div key={category} className="issue-category">
+              <h3 className="text-lg font-medium mb-3 flex items-center">
+                {issueTypeIcons[category]}
+                <span className="ml-2">
+                  {category === 'high' ? 'Critical Issues' : 
+                   category === 'medium' ? 'Warnings' : 'Suggestions'}
+                </span>
+                <span className="ml-2 text-sm text-gray-500">
+                  ({groupedIssues[category].length})
+                </span>
+              </h3>
+              
+              <div className="issue-list space-y-4">
+                {groupedIssues[category].map((issue, index) => (
+                  <IssueCard 
+                    key={`${category}-${index}`} 
+                    issue={issue} 
+                    onFix={() => onFixIssue(issue)} 
+                  />
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function IssueCard({ issue, onFix }) {
+  const [expanded, setExpanded] = useState(false);
+  
+  return (
+    <div className="issue-card border rounded-lg overflow-hidden">
+      <div 
+        className="issue-header p-4 bg-gray-50 flex items-center justify-between cursor-pointer"
+        onClick={() => setExpanded(!expanded)}
+      >
+        <div className="flex items-center">
+          {issue.severity === 'high' ? 
+            <AlertOctagon size={18} className="text-red-500 mr-3" /> :
+            issue.severity === 'medium' ?
+            <AlertTriangle size={18} className="text-yellow-500 mr-3" /> :
+            <Info size={18} className="text-blue-500 mr-3" />
+          }
+          <h4 className="font-medium">{issue.issue}</h4>
+        </div>
+        <ChevronDown 
+          size={18} 
+          className={`transition-transform ${expanded ? 'rotate-180' : ''}`}
+        />
+      </div>
+      
+      {expanded && (
+        <div className="issue-content p-4">
+          <p className="text-gray-700 mb-4">{issue.impact}</p>
+          
+          <div className="recommendation bg-amber-50 p-3 rounded-lg mb-4">
+            <div className="flex items-start">
+              <LightBulb size={16} className="text-amber-600 mt-1 mr-2 flex-shrink-0" />
+              <div>
+                <span className="font-medium text-amber-800">Recommendation:</span>
+                <p className="text-amber-700">{issue.suggestion}</p>
+              </div>
+            </div>
+          </div>
+          
+          <button 
+            className="fix-button px-4 py-2 bg-amber-600 text-white rounded hover:bg-amber-700"
+            onClick={onFix}
+          >
+            Apply Fix
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
+```
+
+#### 4. Recipe Comparison Component
+
+This component shows side-by-side comparison of original and optimized recipes:
+
+```javascript
+function RecipeComparison({ originalRecipe, optimizedRecipe, onApplyAll }) {
+  const [viewMode, setViewMode] = useState('split'); // 'split', 'original', 'optimized'
+  
+  // Calculate key differences
+  const hydrationDiff = optimizedRecipe.hydration - originalRecipe.hydration;
+  const saltDiff = findIngredientPercentage(optimizedRecipe, 'salt') - findIngredientPercentage(originalRecipe, 'salt');
+  const starterDiff = findIngredientPercentage(optimizedRecipe, 'starter') - findIngredientPercentage(originalRecipe, 'starter');
+  
+  // Process modifications
+  const processChanges = identifyProcessChanges(originalRecipe, optimizedRecipe);
+  
+  return (
+    <div className="recipe-comparison p-6 bg-white rounded-lg shadow-sm border">
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-xl font-semibold text-gray-900">Recipe Optimization</h2>
+        
+        <div className="view-toggles flex rounded-lg overflow-hidden border">
+          <button 
+            className={`px-3 py-1.5 text-sm ${viewMode === 'original' ? 'bg-gray-100 font-medium' : 'bg-white'}`}
+            onClick={() => setViewMode('original')}
+          >
+            Original
+          </button>
+          <button 
+            className={`px-3 py-1.5 text-sm ${viewMode === 'split' ? 'bg-gray-100 font-medium' : 'bg-white'}`}
+            onClick={() => setViewMode('split')}
+          >
+            Compare
+          </button>
+          <button 
+            className={`px-3 py-1.5 text-sm ${viewMode === 'optimized' ? 'bg-gray-100 font-medium' : 'bg-white'}`}
+            onClick={() => setViewMode('optimized')}
+          >
+            Optimized
+          </button>
+        </div>
+      </div>
+      
+      {/* Modification Summary */}
+      {viewMode !== 'original' && (
+        <div className="modifications-summary p-4 bg-gray-50 rounded-lg mb-6">
+          <h3 className="text-sm font-medium text-gray-700 mb-2">Optimization Summary</h3>
+          
+          <ul className="space-y-2">
+            {hydrationDiff !== 0 && (
+              <li className="flex items-center text-sm">
+                <span className={hydrationDiff > 0 ? 'text-green-600' : 'text-blue-600'}>
+                  {hydrationDiff > 0 ? <ArrowUpRight size={16} className="inline mr-1" /> : 
+                                      <ArrowDownRight size={16} className="inline mr-1" />}
+                  Hydration adjusted by {Math.abs(hydrationDiff).toFixed(1)}%
+                </span>
+              </li>
+            )}
+            
+            {saltDiff !== 0 && (
+              <li className="flex items-center text-sm">
+                <span className={saltDiff > 0 ? 'text-green-600' : 'text-blue-600'}>
+                  {saltDiff > 0 ? <ArrowUpRight size={16} className="inline mr-1" /> : 
+                                 <ArrowDownRight size={16} className="inline mr-1" />}
+                  Salt adjusted by {Math.abs(saltDiff).toFixed(1)}%
+                </span>
+              </li>
+            )}
+            
+            {processChanges.length > 0 && processChanges.map((change, i) => (
+              <li key={i} className="flex items-center text-sm">
+                <RefreshCcw size={16} className="text-purple-600 inline mr-1" />
+                <span className="text-purple-600">{change}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+      
+      {/* Recipe content based on view mode */}
+      <div className="recipe-content">
+        {viewMode === 'split' ? (
+          <div className="grid grid-cols-2 gap-6">
+            <div className="original-recipe">
+              <h3 className="text-lg font-medium mb-3">Original Recipe</h3>
+              <RecipeView recipe={originalRecipe} highlightChanges={false} />
+            </div>
+            <div className="optimized-recipe">
+              <h3 className="text-lg font-medium mb-3">Optimized Recipe</h3>
+              <RecipeView 
+                recipe={optimizedRecipe} 
+                highlightChanges={true} 
+                comparisonRecipe={originalRecipe} 
+              />
+            </div>
+          </div>
+        ) : viewMode === 'original' ? (
+          <div className="single-recipe">
+            <h3 className="text-lg font-medium mb-3">Original Recipe</h3>
+            <RecipeView recipe={originalRecipe} highlightChanges={false} />
+          </div>
+        ) : (
+          <div className="single-recipe">
+            <h3 className="text-lg font-medium mb-3">Optimized Recipe</h3>
+            <RecipeView recipe={optimizedRecipe} highlightChanges={false} />
+          </div>
+        )}
+      </div>
+      
+      {/* Action buttons */}
+      <div className="actions-container mt-6 flex justify-between">
+        {viewMode === 'original' && (
+          <button 
+            className="apply-all-button px-4 py-2 bg-amber-600 text-white rounded hover:bg-amber-700 flex items-center"
+            onClick={onApplyAll}
+          >
+            <RefreshCcw size={16} className="mr-2" />
+            Apply All Recommended Changes
+          </button>
+        )}
+        
+        {viewMode === 'optimized' && (
+          <div className="button-group flex space-x-3">
+            <button className="px-4 py-2 border border-gray-300 rounded hover:bg-gray-50 flex items-center">
+              <Save size={16} className="mr-2" />
+              Save Recipe
+            </button>
+            <button className="px-4 py-2 border border-gray-300 rounded hover:bg-gray-50 flex items-center">
+              <Printer size={16} className="mr-2" />
+              Print Recipe
+            </button>
+            <button className="px-4 py-2 bg-amber-600 text-white rounded hover:bg-amber-700 flex items-center">
+              <Clock size={16} className="mr-2" />
+              Create Timeline
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+```
+
+#### 5. Recipe View Component
+
+A detailed view component for rendering recipe content:
+
+```javascript
+function RecipeView({ recipe, highlightChanges, comparisonRecipe }) {
+  return (
+    <div className="recipe-view">
+      {/* Recipe metadata */}
+      <div className="recipe-meta mb-4">
+        <div className="flex flex-wrap gap-2 mb-2">
+          <span className="px-2 py-1 bg-gray-100 rounded text-xs font-medium">
+            {recipe.hydration}% Hydration
+          </span>
+          <span className="px-2 py-1 bg-gray-100 rounded text-xs font-medium">
+            {recipe.ingredients.find(i => i.category === 'starter')?.name || 'Starter'}
+          </span>
+          <span className="px-2 py-1 bg-gray-100 rounded text-xs font-medium">
+            {calculateTotalTime(recipe)} Total Time
+          </span>
+        </div>
+      </div>
+      
+      {/* Ingredients table */}
+      <div className="ingredients-section mb-6">
+        <h4 className="text-sm font-medium uppercase text-gray-500 mb-2">Ingredients</h4>
+        <table className="w-full text-sm">
+          <thead>
+            <tr className="border-b border-gray-200">
+              <th className="text-left py-2 font-medium">Ingredient</th>
+              <th className="text-right py-2 font-medium">Weight</th>
+              <th className="text-right py-2 font-medium">Baker's %</th>
+            </tr>
+          </thead>
+          <tbody>
+            {recipe.ingredients.map((ingredient, index) => {
+              // Check if ingredient has changed from comparison recipe
+              const isChanged = highlightChanges && comparisonRecipe && 
+                hasIngredientChanged(ingredient, comparisonRecipe.ingredients);
+              
+              return (
+                <tr 
+                  key={index} 
+                  className={`border-b border-gray-100 ${isChanged ? 'bg-amber-50' : ''}`}
+                >
+                  <td className="py-2">
+                    {ingredient.name}
+                    {isChanged && <span className="text-amber-600 ml-1">*</span>}
+                  </td>
+                  <td className="text-right py-2">{ingredient.amount}{ingredient.unit}</td>
+                  <td className="text-right py-2">{ingredient.percentage}%</td>
+                </tr>
+              );
+            })}
+          </tbody>
+          <tfoot>
+            <tr className="border-t border-gray-200">
+              <td className="py-2 font-medium">Total Dough Weight</td>
+              <td className="text-right py-2 font-medium" colSpan={2}>
+                {recipe.totalWeight}g
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+      
+      {/* Process steps */}
+      <div className="process-section">
+        <h4 className="text-sm font-medium uppercase text-gray-500 mb-2">Process</h4>
+        <ol className="space-y-3">
+          {recipe.process.map((step, index) => {
+            // Check if step has changed from comparison recipe
+            const isChanged = highlightChanges && comparisonRecipe && 
+              hasProcessStepChanged(step, comparisonRecipe.process, index);
+              
+            return (
+              <li 
+                key={index} 
+                className={`p-3 rounded-lg ${isChanged ? 'bg-amber-50 border border-amber-100' : 'bg-gray-50'}`}
+              >
+                <div className="flex justify-between items-start mb-1">
+                  <span className="font-medium">
+                    {index + 1}. {step.name}
+                    {isChanged && <span className="text-amber-600 ml-1">*</span>}
+                  </span>
+                  <span className="text-sm text-gray-500">
+                    {formatDuration(step.duration)}
+                  </span>
+                </div>
+                <p className="text-gray-700 text-sm mb-2">{step.description}</p>
+                {step.criticalFactors && step.criticalFactors.length > 0 && (
+                  <div className="critical-factors text-xs text-gray-600">
+                    <span className="font-medium">Critical factors:</span> {step.criticalFactors.join(', ')}
+                  </div>
+                )}
+              </li>
+            );
+          })}
+        </ol>
+      </div>
+    </div>
+  );
+}
+```
+
+### Utility Functions for Component Logic
+
+These are crucial for the components to work properly:
+
+```javascript
+// Identify differences between original and optimized recipes
+function hasIngredientChanged(ingredient, comparisonIngredients) {
+  const comparisonIngredient = comparisonIngredients.find(i => i.name === ingredient.name);
+  
+  if (!comparisonIngredient) return true; // New ingredient
+  
+  // Check if any property has changed
+  return ingredient.amount !== comparisonIngredient.amount || 
+         ingredient.percentage !== comparisonIngredient.percentage;
+}
+
+function hasProcessStepChanged(step, comparisonProcess, index) {
+  // If index is out of bounds, it's a new step
+  if (index >= comparisonProcess.length) return true;
+  
+  const comparisonStep = comparisonProcess[index];
+  
+  // Check if step name is different (likely a different step)
+  if (step.name !== comparisonStep.name) return true;
+  
+  // Check if key properties have changed
+  return step.duration !== comparisonStep.duration || 
+         step.description !== comparisonStep.description ||
+         step.temperature !== comparisonStep.temperature;
+}
+
+function identifyProcessChanges(originalRecipe, optimizedRecipe) {
+  const changes = [];
+  
+  // Check for added or removed steps
+  if (originalRecipe.process.length !== optimizedRecipe.process.length) {
+    if (originalRecipe.process.length < optimizedRecipe.process.length) {
+      changes.push('Added missing process steps');
+    } else {
+      changes.push('Removed unnecessary steps');
+    }
+  }
+  
+  // Check for bulk fermentation changes
+  const originalBulk = originalRecipe.process.find(s => s.name.includes('Bulk Fermentation'));
+  const optimizedBulk = optimizedRecipe.process.find(s => s.name.includes('Bulk Fermentation'));
+  
+  if (originalBulk && optimizedBulk && originalBulk.duration !== optimizedBulk.duration) {
+    const diff = optimizedBulk.duration - originalBulk.duration;
+    changes.push(`${diff > 0 ? 'Extended' : 'Reduced'} bulk fermentation by ${Math.abs(diff)} minutes`);
+  }
+  
+  // Check for autolyse changes
+  const hasOriginalAutolyse = originalRecipe.process.some(s => s.name.includes('Autolyse'));
+  const hasOptimizedAutolyse = optimizedRecipe.process.some(s => s.name.includes('Autolyse'));
+  
+  if (!hasOriginalAutolyse && hasOptimizedAutolyse) {
+    changes.push('Added autolyse step for better development');
+  }
+  
+  // Check for technique changes
+  const originalTechniques = extractTechniques(originalRecipe);
+  const optimizedTechniques = extractTechniques(optimizedRecipe);
+  
+  const uniqueOptimizedTechniques = optimizedTechniques.filter(t => !originalTechniques.includes(t));
+  
+  if (uniqueOptimizedTechniques.length > 0) {
+    changes.push(`Improved techniques: ${uniqueOptimizedTechniques.join(', ')}`);
+  }
+  
+  return changes;
+}
+
+function extractTechniques(recipe) {
+  const techniques = [];
+  
+  recipe.process.forEach(step => {
+    // Extract technique mentions from descriptions
+    const techniquePhrases = [
+      'stretch and fold', 'coil fold', 'lamination', 
+      'slap and fold', 'cold fermentation', 'autolyse'
+    ];
+    
+    techniquePhrases.forEach(phrase => {
+      if (step.description.toLowerCase().includes(phrase)) {
+        techniques.push(phrase);
+      }
+    });
+  });
+  
+  return [...new Set(techniques)]; // Remove duplicates
+}
+
+function findIngredientPercentage(recipe, category) {
+  const ingredient = recipe.ingredients.find(i => i.category === category);
+  return ingredient ? ingredient.percentage : 0;
+}
+
+function calculateTotalTime(recipe) {
+  const totalMinutes = recipe.process.reduce((sum, step) => sum + step.duration, 0);
+  const hours = Math.floor(totalMinutes / 60);
+  const minutes = totalMinutes % 60;
+  
+  return `${hours}h ${minutes}m`;
+}
+
+function formatDuration(minutes) {
+  if (minutes < 60) {
+    return `${minutes} min`;
+  }
+  
+  const hours = Math.floor(minutes / 60);
+  const remainingMinutes = minutes % 60;
+  
+  if (remainingMinutes === 0) {
+    return `${hours} hr`;
+  }
+  
+  return `${hours} hr ${remainingMinutes} min`;
+}
+```
+
+### Main Results Page Component
+
+This combines all the components above into a cohesive page:
+
+```javascript
+function RecipeValidatorResultsPage({ validationResults, originalRecipe, optimizedRecipe }) {
+  const [currentRecipe, setCurrentRecipe] = useState(originalRecipe);
+  const [appliedFixes, setAppliedFixes] = useState([]);
+  
+  // Handle applying a specific fix
+  const handleFixIssue = (issue) => {
+    // Find corresponding fix in optimized recipe
+    const fixedRecipe = applySpecificFix(currentRecipe, issue, optimizedRecipe);
+    
+    setCurrentRecipe(fixedRecipe);
+    setAppliedFixes([...appliedFixes, issue.id]);
+  };
+  
+  // Handle applying all fixes at once
+  const handleApplyAllFixes = () => {
+    setCurrentRecipe(optimizedRecipe);
+    setAppliedFixes(validationResults.issues.map(issue => issue.id));
+  };
+  
+  // Create filtered issue list (removing already fixed issues)
+  const activeIssues = validationResults.issues.filter(issue => 
+    !appliedFixes.includes(issue.id)
+  );
+  
+  return (
+    <div className="recipe-validator-results py-8">
+      <div className="container mx-auto max-w-6xl px-4">
+        <header className="mb-8">
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Recipe Validation Results</h1>
+          <p className="text-gray-600">
+            We've analyzed your recipe and found {validationResults.summary.issueCount} items that could be improved.
+          </p>
+        </header>
+        
+        <div className="results-container space-y-8">
+          {/* Results Summary */}
+          <RecipeValidationSummary validationResults={validationResults} />
+          
+          {/* Issues List */}
+          <IssueList 
+            issues={activeIssues} 
+            onFixIssue={handleFixIssue} 
+          />
+          
+          {/* Recipe Comparison */}
+          <RecipeComparison 
+            originalRecipe={originalRecipe} 
+            optimizedRecipe={currentRecipe !== originalRecipe ? currentRecipe : optimizedRecipe}
+            onApplyAll={handleApplyAllFixes}
+          />
+        </div>
+        
+        {/* Footer Actions */}
+        <div className="actions-footer mt-8 flex justify-between items-center pt-6 border-t border-gray-200">
+          <button className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 flex items-center">
+            <ArrowLeft size={16} className="mr-2" />
+            Back to Recipe Editor
+          </button>
+          
+          <div className="button-group space-x-3">
+            <button className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
+              Save Recipe
+            </button>
+            <button className="px-4 py-2 bg-amber-600 text-white rounded-lg hover:bg-amber-700">
+              Create Timeline
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+```
+
+### Key Implementation Considerations
+
+1. **State Management**: The implementation keeps track of which recipe version is being viewed and which fixes have been applied.
+
+2. **Fix Application Logic**: The `applySpecificFix` function would need a detailed implementation that surgically applies a single fix from the optimized recipe to the current recipe.
+
+3. **Performance Optimization**: For complex recipes, comparison calculations should be memoized to avoid repeated deep comparison operations.
+
+4. **Accessibility**: The implementation includes appropriate ARIA attributes and keyboard navigation, though I've omitted some for brevity.
+
+5. **Mobile Responsiveness**: The split view should collapse to a tabbed interface on smaller screens.
+
+This implementation presents the validation results in a clear, action-oriented interface that helps users understand issues and apply fixes individually or all at once. The side-by-side comparison makes changes visually obvious, while the gauge visualizations provide an intuitive understanding of key parameters.​​​​​​​​​​​​​​​​

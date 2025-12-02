@@ -1,0 +1,578 @@
+I'll create a comprehensive UX/UI specification for the Baking Timeline Calculator based on the information provided in the documents.
+
+# Baking Timeline Calculator UX/UI Design Specification
+
+## 1. Entry Dashboard
+
+### Purpose
+Provide an intuitive starting point that clearly communicates the value proposition: creating personalized baking schedules that work backward from when bread should be ready.
+
+### Layout Components
+- **Hero Section**
+  - Bold headline: "Plan Your Perfect Bake"
+  - Supportive text: "Create a personalized schedule that fits your life, not the other way around"
+  - Background featuring subtle clock/timeline imagery in monochrome
+  - Primary CTA button: "Create Timeline" (amber)
+
+- **Value Proposition Cards**
+  - Three key benefit cards:
+    1. "Never miss a baking step" - Icon of notification/alert
+    2. "Perfect timing without the math" - Icon of calculator/formula
+    3. "Schedules that fit your life" - Icon of calendar/clock
+  - Each card with brief supporting text explanation
+
+- **Quick Start Options**
+  - "Start From Scratch" - New timeline creation
+  - "Use Recent Recipe" - Shows 2-3 recent recipes if available
+  - "Common Timeline Templates" - Preset schedules for popular breads
+
+- **Timeline Gallery**
+  - If user has previous timelines, show 2-3 recent schedules
+  - Each card displays bread type, completion date/time, and progress
+  - Quick access to continue or duplicate previous timelines
+
+### Interactive Elements
+- Hover states on all cards with subtle elevation
+- Quick-view of complete timeline on gallery item hover
+- Time-aware greeting ("Good morning! Perfect time to plan your weekend bake")
+- Optional guided tour trigger for first-time users
+
+## 2. End Goal Definition Interface
+
+### Purpose
+Allow users to clearly specify when their bread should be ready, creating the anchor point for all backward calculations.
+
+### Layout Components
+- **Workspace Header**
+  - Progress indicator: "Step 1 of 4: Set Your Goal"
+  - Timeline name field (defaults to "Untitled Timeline")
+  - Autosave indicator
+  - Cancel/Back button
+
+- **Target Completion Section**
+  - **Primary Option: Specific Serving Time**
+    - Date picker with calendar visualization
+    - Time selector with dial/slider interface
+    - "Ready for [meal]" quick options (Breakfast, Lunch, Dinner)
+    - Special occasion tagging option
+
+  - **Alternative Option: Baking Time Preference**
+    - Time-of-day selection with visual day segmentation
+    - Day selection (Today, Tomorrow, Weekend)
+    - Preferred baking window duration slider
+
+  - **Flexible Completion Option**
+    - Date range selector
+    - Time window selector ("Saturday afternoon")
+    - Flexibility indicator showing adaptation possibilities
+
+- **Multiple Loaf Scheduling**
+  - Toggle for single vs. multiple loaf planning
+  - Staggered option with interval setting
+  - Batch option with quantity setting
+  - Visual timeline preview showing multiple loaf staging
+
+### Interactive Elements
+- Dynamic timeline preview updating as selections change
+- Natural language confirmation ("Your bread will be ready by Saturday at 6:00 PM")
+- Drag-and-drop adjustment of target time on visual timeline
+- Smart suggestions based on user history and preferences
+- Calendar integration preview option
+
+## 3. Recipe Selection Interface
+
+### Purpose
+Allow users to specify what they'll be baking, determining the required process steps and timing.
+
+### Layout Components
+- **Workspace Header**
+  - Progress indicator: "Step 2 of 4: Choose Your Recipe"
+  - Current goal reminder ("Ready by Saturday at 6:00 PM")
+  - Timeline name with edit option
+
+- **Recipe Selection Methods**
+  - **Bakehouse Recipe Library**
+    - Categorized recipe cards (Country Loaves, Enriched, Special, etc.)
+    - Visual bread type thumbnails
+    - Search/filter controls (difficulty, bread type, starter required)
+    - Preview of selected recipe with process overview
+
+  - **Recipe Validator Import**
+    - Direct connection to previously validated recipes
+    - Import status indicator
+    - Recipe selection dropdown if multiple available
+    - "Validate New Recipe" shortcut button
+
+  - **Quick Process Definition**
+    - Simplified form for experienced bakers
+    - Key process step checkboxes (autolyse, bulk ferment, proof, etc.)
+    - Approximate duration inputs
+    - "Standard" vs "Extended" fermentation toggle
+
+- **Custom Process Builder**
+  - For advanced users who want full control
+  - Step-by-step process definition interface
+  - Drag-and-drop step ordering
+  - Duration input for each step
+  - Process template library for quick starting points
+
+### Interactive Elements
+- Recipe cards with flip animation revealing key details
+- Process flow visualization updating with recipe selection
+- One-click import from Recipe Validator
+- Hover state preview of each recipe's timeline
+- Star/favorite option for frequently used recipes
+
+## 4. Environmental Factors Interface
+
+### Purpose
+Capture crucial variables that affect fermentation rates and timing, allowing for precise schedule calculation.
+
+### Layout Components
+- **Workspace Header**
+  - Progress indicator: "Step 3 of 4: Environment & Starter"
+  - Recipe name reminder
+  - Target completion reminder
+
+- **Kitchen Conditions Section**
+  - **Ambient Temperature Input**
+    - Numerical input with slider
+    - Option to use weather API for local estimation
+    - "My kitchen runs [cooler/warmer] than outside" adjustment
+    - Indoor temperature prediction visualization
+
+  - **Seasonal Adjustment Panel**
+    - Current season detection with override option
+    - Typical seasonal patterns visualization
+    - Humidity consideration toggle with explanation
+    - Historical pattern data from user's previous bakes
+
+  - **Equipment Capabilities**
+    - Refrigeration toggle with temperature setting
+    - Proofing environment options (countertop, oven with light, proofer)
+    - Specific equipment temperature stability rating
+    - "Equipment tips" expandable section
+
+- **Starter Parameters Section**
+  - **Starter Selection**
+    - Dropdown of user's registered starters
+    - Visual health indicator if connected to Starter Care
+    - Current starter condition options (recently fed, mature, refrigerated)
+    - Starter activity level assessment
+
+  - **Starter Details**
+    - Starter quantity input (percentage or weight)
+    - Hydration level selection
+    - Current starter temperature estimation
+    - Expected behavior prediction based on starter type
+
+### Interactive Elements
+- Temperature slider with visual temperature gradient
+- Dynamic fermentation rate prediction updating with changes
+- Conditional display of relevant equipment options
+- Starter activity visualization with feeding history integration
+- Environment presets for common scenarios (summer kitchen, winter kitchen)
+
+## 5. Schedule Constraints Interface
+
+### Purpose
+Allow users to specify real-life limitations that the schedule must work around, ensuring practical and achievable timelines.
+
+### Layout Components
+- **Workspace Header**
+  - Progress indicator: "Step 4 of 4: Your Availability"
+  - Recipe and target time reminder
+  - Final step encouragement
+
+- **Constraint Management Section**
+  - **Time Block Exclusions**
+    - Visual day timeline with blocked periods
+    - Quick-select common blocks (sleep hours, work, commute)
+    - Custom block creation with drag-and-drop
+    - Recurring pattern options (every day, weekdays, etc.)
+
+  - **Hands-On Time Preferences**
+    - Maximum hands-on time per session slider
+    - Preferred active periods selection (morning person, night owl)
+    - "Consecutive steps" preference for batching active time
+    - Break duration preferences between active steps
+
+  - **Monitoring Capability**
+    - Minimum checking frequency during fermentation
+    - Remote monitoring toggle (if available)
+    - Notification importance settings
+    - Contingency buffer preferences
+
+- **Equipment Availability**
+  - Timeframes for specialized equipment
+  - Oven availability scheduling
+  - Shared kitchen accommodation settings
+  - Equipment prep time requirements
+
+### Interactive Elements
+- Visual timeline with draggable blocks for exclusion periods
+- "Test fit" button to quickly validate if constraints are feasible
+- Alternative schedule suggestions if constraints cause conflicts
+- Calendar import option for existing commitments
+- Quick templates for common schedules (weekend baker, work-from-home, etc.)
+
+## 6. Timeline Generation & Visualization
+
+### Purpose
+Present a clear, actionable schedule that optimizes for the user's constraints while ensuring bread quality.
+
+### Layout Components
+- **Timeline Header**
+  - Recipe name and target completion
+  - Feasibility rating with explanation
+  - "Adjustments Made" indicator if optimizations were needed
+  - "Regenerate" and "Fine-tune" buttons
+
+- **Interactive Timeline Display**
+  - **Visual Timeline Representation**
+    - Horizontal timeline with clear time markers
+    - Color-coded activity blocks by type:
+      - Active steps (mixing, shaping) in amber
+      - Passive steps (fermentation) in light gray
+      - Critical attention points highlighted
+    - Current time indicator showing progress
+    - Step relationships and dependencies shown
+
+  - **Timeline Manipulation Controls**
+    - Zoom controls for timeline view
+    - Collapse/expand options for detailed view
+    - Drag handles for manual adjustment of flexible times
+    - "Lock" toggles for fixed time points
+
+- **Process Cards Section**
+  - Detailed cards for each timeline step
+  - Step name with clear timing information
+  - Expanded instructions when card is selected
+  - Visual cues for target dough conditions
+  - Temperature and time parameters
+  - Technique video thumbnails where applicable
+
+- **Smart Notifications Panel**
+  - Alert configuration options for each step
+  - Customizable lead times for preparation
+  - Delivery method selection (app, email, SMS)
+  - Priority level setting by step
+  - Household member assignment options
+
+### Interactive Elements
+- Timeline zoom and pan controls for navigation
+- Step cards that expand to show detailed instructions
+- Drag-and-drop fine-tuning of flexible time blocks
+- Real-time recalculation when adjustments are made
+- Timeline playback animation showing the complete process
+- Current progress indicator that updates in real time
+
+## 7. Notification & Execution Support
+
+### Purpose
+Provide timely guidance throughout the actual baking process, with contextual help exactly when needed.
+
+### Layout Components
+- **Active Timeline View**
+  - Current status indicator
+  - Next step preview with countdown
+  - Progress bar showing overall completion
+  - Timeline navigator showing full schedule
+
+- **Current Step Card**
+  - Expanded view of current process step
+  - Clear instructions with visual guidance
+  - Timer with start/pause controls
+  - Expected outcomes and check points
+  - Troubleshooting access for this specific step
+
+- **Preparation Panel**
+  - "Coming up" preview of next 1-2 steps
+  - Required tools and ingredients list
+  - Advance preparation recommendations
+  - Temperature or environment adjustments needed
+
+- **Completion Tracking**
+  - Step completion checkboxes
+  - Notes field for observations
+  - Photo upload option for key stages
+  - Variation tracking for future reference
+
+### Interactive Elements
+- Push notifications with direct access to current step
+- Critical step alerts with confirmation requests
+- Timer controls with sound and visual alerts
+- Video tutorial access contextual to current step
+- Voice control option for hands-free operation
+- One-tap completion recording
+
+## 8. Results & Feedback Loop
+
+### Purpose
+Capture outcomes and learnings to improve future bakes and refine the timing algorithm.
+
+### Layout Components
+- **Completion Summary**
+  - Overall success rating interface
+  - Key milestone photo gallery
+  - Notes compilation from all steps
+  - Actual vs. planned timing comparison
+
+- **Outcome Documentation**
+  - Final result photo upload
+  - Flavor profile rating system
+  - Texture assessment guide
+  - Storage recommendations based on result
+
+- **Timeline Refinement**
+  - Step duration feedback collection
+  - Environment impact assessment
+  - Success factor identification
+  - Improvement suggestions for next bake
+
+- **Share & Save Options**
+  - Save to personal collection
+  - Timeline sharing with other users
+  - Recipe notes update based on results
+  - Calendar entry for next bake suggestion
+
+### Interactive Elements
+- Before/after comparison of planned vs. actual timeline
+- Success celebration animation for completed bakes
+- One-click timeline duplication with refinements
+- Learning highlights showing key insights gained
+- Community sharing option for successful timelines
+
+## 9. Mobile Experience Adaptations
+
+### Purpose
+Ensure the tool is fully functional and intuitive on smaller screens, prioritizing on-the-go access for active baking support.
+
+### Key Adaptations
+- **Timeline Creation**
+  - Sequential presentation of steps in fullscreen panels
+  - Simplified input controls optimized for touch
+  - Quick-start templates prominently featured
+  - Reduced data entry through smart defaults
+
+- **Timeline Visualization**
+  - Vertical timeline orientation option for mobile
+  - Auto-focusing on current and upcoming steps
+  - Collapsible past steps to save screen space
+  - Tap-to-expand for detailed step information
+
+- **Active Baking Support**
+  - Current step card fixed at top of screen
+  - Swipe navigation between steps
+  - Large touch targets for timer controls
+  - Quick-access troubleshooting
+
+- **Notification System**
+  - Lock screen notifications with key info
+  - Quick actions from notification center
+  - Persistent notification during active baking
+  - Voice announcement option for hands-free
+
+### Mobile-Specific Features
+- **Kitchen Mode**
+  - High contrast display for visibility
+  - Extra large typography option
+  - Voice control for hands-covered moments
+  - Screen timeout prevention
+  - Simplified controls for flour-covered fingers
+
+- **Offline Functionality**
+  - Complete timeline access without connection
+  - Local notification capability
+  - Cached instructions and references
+  - Sync when connection restored
+
+- **Quick Documentation**
+  - In-app photo capture of results
+  - Voice note recording option
+  - Quick adjustment logging
+  - Success/failure quick rating
+
+## 10. Integration with Ecosystem
+
+### Purpose
+Connect with other Bakehouse Breads tools for a seamless experience across the platform.
+
+### Recipe Validator Integration
+- **Data Flow**
+  - One-click import of validated recipes
+  - Technical parameters automatically transferred
+  - Validation warnings incorporated into timeline planning
+  - Recipe modification history preserved
+
+- **UI Elements**
+  - "Send to Timeline Calculator" button on Recipe Validator
+  - Recipe selection interface showing validation status
+  - Synchronized editing capabilities
+  - Cross-tool notification system
+
+### Starter Care Guide Connection
+- **Data Flow**
+  - Feeding schedule coordination with baking timeline
+  - Starter health data affecting timeline calculations
+  - Maintenance recommendations based on baking schedule
+  - Feedback loop for starter performance
+
+- **UI Elements**
+  - Integrated starter readiness indicator
+  - Synchronized feeding reminders
+  - Starter health warnings affecting timeline
+  - Joint optimization of starter maintenance and baking schedule
+
+### Flavor Profile Designer Interaction
+- **Data Flow**
+  - Flavor development goals affecting timing decisions
+  - Fermentation parameters aligned with flavor targets
+  - Outcome documentation feeding back to flavor profiles
+  - Cross-reference of successful timing for flavor goals
+
+- **UI Elements**
+  - Flavor goal reminder in timeline steps
+  - Flavor-critical timing points highlighted
+  - Success metrics linked to flavor expectations
+  - Flavor development visualization over time
+
+### Chatbot AI Coordination
+- **Natural Language Timeline Creation**
+  - Timeline generation from conversation
+  - Constraint identification through dialogue
+  - Clarification questions for ambiguity
+  - Explanation of recommendations
+
+- **Timeline Management**
+  - Verbal timeline adjustments
+  - Status check conversations
+  - Notification preferences management
+  - Schedule conflict resolution
+
+## 11. Visual Design System
+
+### Color Palette
+- **Primary**: Amber (#D97706) for interactive elements and CTAs
+- **Secondary**: Deep charcoal (#1C1917) for text and accents
+- **Background**: Off-white (#FAFAF9) for main content areas
+- **Timeline Colors**:
+  - Active steps: Amber (#D97706)
+  - Passive fermentation: Light gray (#F3F4F6)
+  - Critical points: Deep amber (#B45309)
+  - Current time: Blue (#3B82F6)
+  - Constraint blocks: Light red (#FEE2E2)
+
+### Typography
+- **Headings**: Serif font for section titles
+  - Font weights: Regular (400), Medium (500), Bold (700)
+  - Sizes: 28px (page title), 22px (section headers), 18px (step titles)
+
+- **Body Text**: Sans-serif for instructions and information
+  - Font weights: Regular (400), Medium (500)
+  - Sizes: 16px (primary text), 14px (secondary information), 12px (timestamps)
+
+- **Timeline Typography**: Monospace for precise timing
+  - Font weights: Regular (400)
+  - Sizes: 15px (time markers), 14px (duration indicators)
+
+### UI Components
+- **Timeline Elements**
+  - Step blocks: Rounded rectangles with 6px radius
+  - Time markers: Vertical lines with dot indicators
+  - Current time: Animated vertical line with pulsing dot
+  - Connectors: Dashed lines showing dependencies
+
+- **Cards & Panels**
+  - Corner radius: 8px
+  - Shadow: Subtle (0 2px 4px rgba(0,0,0,0.05))
+  - Border: 1px solid #E5E7EB when needed
+  - Internal padding: 16px (small), 24px (large)
+
+- **Input Controls**
+  - Date picker: Calendar visualization with current date highlighted
+  - Time selector: Visual clock face with drag selection
+  - Duration inputs: Slider with numerical display
+  - Temperature inputs: Thermometer visualization
+
+- **Buttons & Interactive Elements**
+  - Primary actions: Amber background, white text
+  - Secondary actions: White with amber outline
+  - Toggle switches: Pill shape with sliding indicator
+  - Drag handles: Small lines or dots indicating draggable areas
+
+### Animation & Motion
+- Smooth transitions between steps (300ms ease)
+- Timeline scroll with momentum and snap points
+- Subtle pulse animation for current time indicator
+- Gentle loading states during calculation
+- Progress animations for active timers
+
+## 12. Accessibility Considerations
+
+### Key Features
+- **Keyboard Navigation**
+  - Full timeline creation and editing via keyboard
+  - Logical tab order through all interactive elements
+  - Shortcut keys for common actions (save, adjust, complete)
+  - Clear focus states for all interactive components
+
+- **Screen Reader Support**
+  - Semantic structure for timeline components
+  - Meaningful announcements for time-sensitive notifications
+  - Clear labeling of all interactive elements
+  - Descriptive time reporting (relative and absolute)
+
+- **Visual Accessibility**
+  - Color combinations meeting WCAG AA contrast requirements
+  - Patterns used in addition to color for timeline differentiation
+  - Text scaling without breaking layouts
+  - High contrast mode option
+
+- **Cognitive Accessibility**
+  - Clear, step-by-step process with progress indicators
+  - Memory aids for multi-step procedures
+  - Consistent placement of navigation elements
+  - Option to simplify complex views
+
+## 13. Intelligent Features
+
+### Adaptive Timing Engine
+- **Dough Behavior Prediction**
+  - Temperature-based fermentation adjustments
+  - Flour absorption rate modeling
+  - Starter activity compensation
+  - Historical performance data incorporation
+
+- **Environmental Adaptation**
+  - Seasonal adjustment factors
+  - Regional climate considerations
+  - Day/night cycle temperature estimation
+  - Weather forecast integration for planning
+
+- **Learning System**
+  - User-specific pattern recognition
+  - Success rate correlation with variables
+  - Timing refinement based on outcomes
+  - Regional collective knowledge incorporation
+
+### Smart Scheduling
+- **Constraint Resolution**
+  - Sleep time avoidance for critical steps
+  - Minimal intervention clustering
+  - Active time minimization options
+  - Equipment usage optimization
+
+- **Conflict Management**
+  - Alternative schedule generation when constraints conflict
+  - Priority-based resolution suggestions
+  - Hard vs. soft constraint distinction
+  - Feasibility scoring system
+
+- **Flexibility Balance**
+  - Critical point identification
+  - Buffer allocation for variability
+  - Decision point flagging
+  - Confidence rating for timeline reliability
+
+This comprehensive UX/UI specification provides a detailed roadmap for implementing the Baking Timeline Calculator, ensuring it delivers a solution that truly fits baking into users' lives rather than forcing lifestyles to accommodate rigid bread timelines.​​​​​​​​​​​​​​​​

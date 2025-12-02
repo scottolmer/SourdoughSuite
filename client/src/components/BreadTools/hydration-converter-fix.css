@@ -1,0 +1,120 @@
+/* Styles to fix table overflow on mobile */
+.hydration-table-container {
+  max-width: 100%;
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 5px;
+}
+
+.hydration-table {
+  min-width: 650px;
+  width: 100%;
+}
+
+/* Global mobile overflow prevention */
+.hydration-converter-wrapper {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+}
+
+@media (max-width: 768px) {
+  .mobile-scroll-hint {
+    display: block;
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--muted-foreground);
+    margin-bottom: 0.5rem;
+  }
+
+  /* Target the card directly */
+  [data-testid="hydration-card"],
+  .hydration-converter-wrapper,
+  .hydration-converter-wrapper > div {
+    max-width: calc(100vw - 32px) !important;
+    width: calc(100vw - 32px) !important;
+    overflow-x: hidden !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+  }
+  
+  .hydration-converter-wrapper * {
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  
+  /* Specifically target flex containers and buttons that might overflow */
+  .hydration-converter-wrapper .flex {
+    flex-wrap: wrap !important;
+    gap: 0.25rem !important;
+  }
+  
+  .hydration-converter-wrapper .space-x-2 > * + * {
+    margin-left: 0 !important;
+  }
+  
+  .hydration-converter-wrapper .space-x-4 > * + * {
+    margin-left: 0 !important;
+  }
+  
+  /* Ensure tables don't overflow */
+  .hydration-converter-wrapper table {
+    table-layout: auto !important;
+    width: 100% !important;
+    min-width: 600px !important;
+  }
+  
+  .hydration-converter-wrapper table th,
+  .hydration-converter-wrapper table td {
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+    min-width: 0 !important;
+    white-space: nowrap !important;
+    text-overflow: ellipsis !important;
+  }
+  
+  /* Mobile table scrolling */
+  .hydration-converter-wrapper .overflow-x-auto {
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 6px !important;
+    margin: 0.5rem 0 !important;
+  }
+  
+  /* Ensure input fields in tables are properly sized */
+  .hydration-converter-wrapper table input,
+  .hydration-converter-wrapper table select,
+  .hydration-converter-wrapper table button {
+    font-size: 0.875rem !important;
+    padding: 0.375rem !important;
+    min-width: 60px !important;
+    max-width: 120px !important;
+  }
+  
+  /* Improve checkbox visibility and sizing */
+  .hydration-converter-wrapper input[type="checkbox"] {
+    width: 18px !important;
+    height: 18px !important;
+    min-width: 18px !important;
+    max-width: 18px !important;
+    cursor: pointer !important;
+    transform: scale(1.2) !important;
+    accent-color: #3b82f6 !important;
+    border: 2px solid #cbd5e1 !important;
+    border-radius: 3px !important;
+  }
+  
+  .hydration-converter-wrapper input[type="checkbox"]:checked {
+    background-color: #3b82f6 !important;
+    border-color: #3b82f6 !important;
+  }
+}
+
+@media (min-width: 769px) {
+  .mobile-scroll-hint {
+    display: none;
+  }
+}
