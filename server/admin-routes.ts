@@ -5,6 +5,8 @@ import { researchArticles, researchTopics } from '@shared/schema';
 import { eq, desc } from 'drizzle-orm';
 import { analyzePdfWithMoE, generateTopicSuggestions, generateSEOContent } from './gemini-moe-service';
 import { createRequire } from 'module';
+import { requireAdmin } from './middleware/auth';
+import { fileUploadLimiter } from './middleware/rate-limit';
 
 const require = createRequire(import.meta.url);
 const pdfParse = require('pdf-parse');
@@ -34,7 +36,7 @@ function generateSlug(title: string): string {
 
 export function registerAdminRoutes(app: Express) {
   // Get articles pending review (sorted by date)
-  app.get('/api/admin/articles/pending-review', async (req: Request, res: Response) => {
+  app.get('/api/admin/articles/pending-review', requireAdmin, async (req: Request, res: Response) => {
     try {
       const pendingArticles = await db
         .select()
@@ -50,7 +52,7 @@ export function registerAdminRoutes(app: Express) {
   });
 
   // Upload PDF for processing
-  app.post('/api/admin/upload-pdf', upload.single('file'), async (req: Request, res: Response) => {
+  app.post('/api/admin/upload-pdf', requireAdmin, fileUploadLimiter, upload.single('file'), async (req: Request, res: Response) => {
     try {
       if (!req.file) {
         return res.status(400).json({ error: 'No PDF file provided' });
@@ -119,7 +121,7 @@ export function registerAdminRoutes(app: Express) {
   });
 
   // Review article (approve/reject)
-  app.post('/api/admin/articles/:id/review', async (req: Request, res: Response) => {
+  app.post('/api/admin/articles/:id/review', requireAdmin, async (req: Request, res: Response) => {
     try {
       const articleId = parseInt(req.params.id);
       const { action, notes, topicIds, content } = req.body;
@@ -230,7 +232,7 @@ export function registerAdminRoutes(app: Express) {
   });
 
   // Create new topic manually
-  app.post('/api/research/topics', async (req: Request, res: Response) => {
+  app.post('/api/research/topics', requireAdmin, async (req: Request, res: Response) => {
     try {
       const { name, description } = req.body;
       

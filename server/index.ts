@@ -1,12 +1,27 @@
 import express, { type Request, Response, NextFunction } from "express";
+import session from "express-session";
+import cookieParser from "cookie-parser";
 import multer from "multer";
 import { registerRoutes } from "./routes";
 import { registerAdminRoutes } from "./admin-routes";
 import { registerResearchAPI } from "./research-api";
 import { registerMobileAPI } from "./mobile-api";
+import { registerAuthRoutes } from "./auth-routes";
+import { registerModularRoutes } from "./routes/index";
 import { seedResearchTopics } from "./seed-research-topics";
 import { setupVite, serveStatic, log } from "./vite";
 import "./types"; // Import subdomain type definitions
+import { configurePassport } from "./config/passport";
+import { validateEnv } from "./config/env-validation";
+import { apiLimiter } from "./middleware/rate-limit";
+import { csrfProtection, generateCSRFToken } from "./middleware/csrf";
+import { pool } from "./db";
+import connectPgSimple from "connect-pg-simple";
+
+// Validate environment variables at startup
+validateEnv();
+
+const PgSession = connectPgSimple(session);
 
 const app = express();
 
@@ -18,9 +33,40 @@ const upload = multer({
   },
 });
 
+// Cookie parser for CSRF tokens
+app.use(cookieParser());
+
 // Increase body parser limits for large requests
 app.use(express.json({ limit: '100mb' }));
 app.use(express.urlencoded({ extended: false, limit: '100mb' }));
+
+// Session configuration with PostgreSQL store
+app.use(
+  session({
+    store: new PgSession({
+      pool: pool as any,
+      tableName: "user_sessions",
+      createTableIfMissing: true,
+    }),
+    secret: process.env.SESSION_SECRET || "sourdough-suite-secret-change-in-production",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      secure: process.env.NODE_ENV === "production", // HTTPS only in production
+      httpOnly: true,
+      maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
+      sameSite: "lax",
+    },
+  })
+);
+
+// Initialize Passport for authentication
+const passport = configurePassport();
+app.use(passport.initialize());
+app.use(passport.session());
+
+// CSRF token generation for all requests
+app.use(generateCSRFToken);
 
 // Add multer middleware for file uploads
 app.use('/api/admin', upload.single('file'));
@@ -85,11 +131,20 @@ app.use((req, res, next) => {
 });
 
 (async () => {
+  // Apply rate limiting to all API routes
+  app.use('/api', apiLimiter);
+
+  // Register authentication routes first (before other routes)
+  registerAuthRoutes(app);
+
+  // Register modular routes (Phase 1: starters, videos, FAQs, blog)
+  registerModularRoutes(app);
+
   const server = await registerRoutes(app);
   registerAdminRoutes(app);
   registerResearchAPI(app);
   registerMobileAPI(app);
-  
+
   // Seed research topics on startup
   seedResearchTopics();
 

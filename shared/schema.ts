@@ -1,4 +1,4 @@
-import { pgTable, text, serial, integer, boolean, json, jsonb, timestamp, varchar } from "drizzle-orm/pg-core";
+import { pgTable, text, serial, integer, boolean, json, jsonb, timestamp, varchar, index } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 import { relations } from "drizzle-orm";
@@ -51,7 +51,12 @@ export const videos = pgTable("videos", {
   publishedAt: timestamp("published_at"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
-});
+}, (table) => ({
+  categoryIdx: index("videos_category_idx").on(table.category),
+  difficultyIdx: index("videos_difficulty_idx").on(table.difficulty),
+  isFeaturedIdx: index("videos_is_featured_idx").on(table.isFeatured),
+  isPublishedIdx: index("videos_is_published_idx").on(table.isPublished),
+}));
 
 // Video playlists for organizing learning paths
 export const videoPlaylists = pgTable("video_playlists", {
@@ -151,7 +156,13 @@ export const breadRecipes = pgTable("bread_recipes", {
   // Using varchar for now to avoid type casting issues with existing data
   createdAt: varchar("created_at", { length: 50 }).notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
-});
+}, (table) => ({
+  userIdIdx: index("bread_recipes_user_id_idx").on(table.userId),
+  isPublicIdx: index("bread_recipes_is_public_idx").on(table.isPublic),
+  isFavoriteIdx: index("bread_recipes_is_favorite_idx").on(table.isFavorite),
+  difficultyIdx: index("bread_recipes_difficulty_idx").on(table.difficulty),
+  hydrationIdx: index("bread_recipes_hydration_idx").on(table.hydration),
+}));
 
 export const insertBreadRecipeSchema = createInsertSchema(breadRecipes).pick({
   userId: true,
@@ -226,7 +237,11 @@ export const sourdoughStarters = pgTable("sourdough_starters", {
   slug: text("slug").notNull().unique(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
-});
+}, (table) => ({
+  slugIdx: index("sourdough_starters_slug_idx").on(table.slug),
+  inStockIdx: index("sourdough_starters_in_stock_idx").on(table.inStock),
+  featuredIdx: index("sourdough_starters_featured_idx").on(table.featured),
+}));
 
 // Products table for e-commerce
 export const products = pgTable("products", {
@@ -248,7 +263,12 @@ export const products = pgTable("products", {
   slug: text("slug").notNull().unique(), // URL-friendly identifier
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
-});
+}, (table) => ({
+  categoryIdx: index("products_category_idx").on(table.category),
+  slugIdx: index("products_slug_idx").on(table.slug),
+  inStockIdx: index("products_in_stock_idx").on(table.inStock),
+  featuredIdx: index("products_featured_idx").on(table.featured),
+}));
 
 // Orders table
 export const orders = pgTable("orders", {
@@ -265,7 +285,11 @@ export const orders = pgTable("orders", {
   notes: text("notes"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
-});
+}, (table) => ({
+  userIdIdx: index("orders_user_id_idx").on(table.userId),
+  statusIdx: index("orders_status_idx").on(table.status),
+  createdAtIdx: index("orders_created_at_idx").on(table.createdAt),
+}));
 
 // Starter-Recipe relationship table
 export const starterRecipes = pgTable("starter_recipes", {
@@ -515,7 +539,7 @@ export const blogPosts = pgTable("blog_posts", {
   featuredImageUrl: text("featured_image_url"),
   tags: json("tags").default([]),
   category: text("category").default("general"),
-  
+
   // SEO Enhancement Fields
   metaTitle: text("meta_title"), // Custom SEO title (falls back to title)
   metaDescription: text("meta_description"), // Custom meta description (falls back to excerpt)
@@ -524,12 +548,18 @@ export const blogPosts = pgTable("blog_posts", {
   socialImage: text("social_image"), // Custom social sharing image (falls back to featuredImageUrl)
   readingTime: integer("reading_time"), // Estimated reading time in minutes
   wordCount: integer("word_count"), // Article word count
-  
+
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
   publishedAt: timestamp("published_at"),
   isPublished: boolean("is_published").default(false),
-});
+}, (table) => ({
+  slugIdx: index("blog_posts_slug_idx").on(table.slug),
+  authorIdIdx: index("blog_posts_author_id_idx").on(table.authorId),
+  categoryIdx: index("blog_posts_category_idx").on(table.category),
+  isPublishedIdx: index("blog_posts_is_published_idx").on(table.isPublished),
+  publishedAtIdx: index("blog_posts_published_at_idx").on(table.publishedAt),
+}));
 
 export const insertBlogPostSchema = createInsertSchema(blogPosts).pick({
   title: true,
@@ -588,7 +618,11 @@ export const starterFeedingLogs = pgTable("starter_feeding_logs", {
   ratio: text("ratio").notNull(), // e.g., "1:1:1", "1:2:2"
   notes: text("notes"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
-});
+}, (table) => ({
+  userIdIdx: index("starter_feeding_logs_user_id_idx").on(table.userId),
+  starterIdIdx: index("starter_feeding_logs_starter_id_idx").on(table.starterId),
+  feedingDateIdx: index("starter_feeding_logs_feeding_date_idx").on(table.feedingDate),
+}));
 
 export const insertFeedingLogSchema = createInsertSchema(starterFeedingLogs).pick({
   userId: true,
@@ -636,7 +670,12 @@ export const paymentTransactions = pgTable("payment_transactions", {
   productId: text("product_id"), // reference to the purchased item
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
-});
+}, (table) => ({
+  userIdIdx: index("payment_transactions_user_id_idx").on(table.userId),
+  statusIdx: index("payment_transactions_status_idx").on(table.status),
+  productTypeIdx: index("payment_transactions_product_type_idx").on(table.productType),
+  createdAtIdx: index("payment_transactions_created_at_idx").on(table.createdAt),
+}));
 
 // Premium Recipe Collections
 export const premiumCollections = pgTable("premium_collections", {
